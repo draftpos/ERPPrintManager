@@ -28,10 +28,10 @@ namespace ERPPrintManager
             // Default values
             int defaultHeaderSize = 12;
             string defaultHeaderStyle = "Bold";
-            int defaultContentSize = 11;
+            int defaultContentSize = 10;
             int defaultSubheaderSize = 11;
-            int orderDefaultContentSize = 11;
-            string orderDefaultContentStyle = "Regular";
+            int orderDefaultContentSize = 10;
+            string orderDefaultContentStyle = "Bold";
 
             // Initialize settings with default values
             settings.ContentFontSize = defaultContentSize;
@@ -39,7 +39,7 @@ namespace ERPPrintManager
             settings.ContentHeaderSize = defaultHeaderSize;
             settings.ContentHeaderStyle = defaultHeaderStyle;
             settings.SubheaderSize = defaultSubheaderSize;
-            settings.SubheaderStyle = "Regular";
+            settings.SubheaderStyle = "Bold";
             settings.orderContentFontSize = orderDefaultContentSize;
             settings.orderContentFontStyle = orderDefaultContentStyle;
             return settings;
@@ -68,9 +68,9 @@ namespace ERPPrintManager
         public string ProductName { get; set; }
         public int productid { get; set; }
         public double Qty { get; set; }
-        public double Price { get; set; }
-        public double Amount { get; set; }
-        public double vat { get; set; }
+        public decimal Price { get; set; }
+        public decimal Amount { get; set; }
+        public decimal vat { get; set; }
     }
 
     public class MultiCurrencyDetail
@@ -85,6 +85,7 @@ namespace ERPPrintManager
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }
         public string City { get; set; }
+        public string State { get; set; }
         public string postcode { get; set; }
         public string Cashier { get; set; }
         public string contact { get; set; }
@@ -93,9 +94,14 @@ namespace ERPPrintManager
         public string VATNo { get; set; }
         public string Tel { get; set; }
         public string InvoiceNo { get; set; }
-        public DateTime InvoiceDate { get; set; }
+        public string InvoiceDate { get; set; }
         public string CashierName { get; set; }
         public string CustomerName { get; set; }
+        public string CustomerContact { get; set; }
+        public string CustomerTradeName { get; set; }
+        public string CustomerEmail { get; set; }
+        public string CustomerTIN { get; set; }
+        public string CustomerVAT { get; set; }
         public string Customeraddress { get; set; }
         public List<Item> itemlist { get; set; }
         public string AmountTendered { get; set; }
@@ -107,6 +113,7 @@ namespace ERPPrintManager
         public List<MultiCurrencyDetail> MultiCurrencyDetails { get; set; }
         public string DeviceID { get; set; }
         public string FiscalDay { get; set; }
+        public string DeviceSerial { get; set; }
         public string ReceiptNo { get; set; }
         public string CustomerRef { get; set; }
         public string VCode { get; set; }

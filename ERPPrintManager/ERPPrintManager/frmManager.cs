@@ -121,9 +121,9 @@ namespace ERPPrintManager
 
             Debug.WriteLine("Monitor started");
             string folderPath = @"C:\InvoiceFolder";
-           
+
             file_watcher.Path = folderPath;
-            file_watcher.Filter = "*.json";
+            file_watcher.Filter = "*.txt";
             file_watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.CreationTime;
             file_watcher.EnableRaisingEvents = true;
             timer_start.Enabled = false;
@@ -155,6 +155,11 @@ namespace ERPPrintManager
             {
                 Debug.WriteLine($"Error parsing file {e.Name}: {ex.Message}");
             }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

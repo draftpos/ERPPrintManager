@@ -117,6 +117,7 @@
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             exitToolStripMenuItem.Size = new Size(188, 24);
             exitToolStripMenuItem.Text = "Exit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // MyNotifyIcon
             // 
@@ -132,7 +133,6 @@
             // 
             file_watcher.EnableRaisingEvents = true;
             file_watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.CreationTime;
-            file_watcher.Path = "C:\\InvoiceFolder";
             file_watcher.SynchronizingObject = lblnotify;
             file_watcher.Created += file_watcher_Created;
             // 
