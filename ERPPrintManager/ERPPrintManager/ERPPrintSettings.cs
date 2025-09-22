@@ -29,7 +29,7 @@ namespace ERPPrintManager
             int defaultHeaderSize = 12;
             string defaultHeaderStyle = "Bold";
             int defaultContentSize = 10;
-            int defaultSubheaderSize = 11;
+            int defaultSubheaderSize = 10;
             int orderDefaultContentSize = 10;
             string orderDefaultContentStyle = "Bold";
 

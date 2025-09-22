@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
 using System.Globalization;
@@ -268,7 +269,7 @@ namespace ERPPrintManager
                     graphics.DrawLine(Pens.Black, startX, startY + offset, startX + 250, startY + offset);
                     offset += 10;
                 }
-                string itemHeader = "Item Description" + Environment.NewLine + "ProductName" + Environment.NewLine + "Qty" + "\t" + "Price(Inc)  " +  "VAT" + "\t"  + "Total(Inc)";
+                string itemHeader = "Item Description" + Environment.NewLine + "ProductName" + Environment.NewLine + "Qty" + "\t" + "Price(Inc)  " +  "VAT" + "\t"  + "  Total(Inc)";
                 graphics.DrawString(itemHeader, fontBold, blueBrush, startX, startY + offset);
                 offset += (int)(fontBold.GetHeight(graphics) * 3);
                 headerPrinted = true;
@@ -313,9 +314,9 @@ namespace ERPPrintManager
                 int vatXPosition = priceXPosition + priceWidth + AdjustSpacing(priceText);
                 int totalXPosition = vatXPosition + vatWidth + AdjustSpacing(vatText);
                 graphics.DrawString(qtyText, fontRegular, blackBrush, startX, startY + offset);
-                graphics.DrawString(priceText, fontRegular, blackBrush, priceXPosition, startY + offset);
+                graphics.DrawString(priceText, fontRegular, blackBrush, priceXPosition+20, startY + offset);
 
-                graphics.DrawString(vatText, fontRegular, blackBrush, vatXPosition, startY + offset);
+                graphics.DrawString(vatText, fontRegular, blackBrush, vatXPosition+15, startY + offset);
                
                 graphics.DrawString(amountText, fontRegular, blackBrush, totalXPosition, startY + offset);
                 offset += (int)fontRegular.GetHeight(graphics);
@@ -509,10 +510,13 @@ namespace ERPPrintManager
 
         private int AdjustSpacing(string text)
         {
-            int maxLength = 6; 
+            int maxLength = 6;
+            Debug.WriteLine(text.Length);
             if (text.Length > maxLength)
             {
-                return -5 * (text.Length - maxLength);
+                Debug.WriteLine($" Space Returned for {text} :{-5 * (text.Length - maxLength)}");
+                //return -5 * (text.Length - maxLength);
+                return 0;
             }
             return 0; 
         }
