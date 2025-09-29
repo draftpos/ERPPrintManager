@@ -135,6 +135,7 @@
             file_watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.CreationTime;
             file_watcher.SynchronizingObject = lblnotify;
             file_watcher.Created += file_watcher_Created;
+            file_watcher.Renamed += file_watcher_Renamed;
             // 
             // timer_start
             // 

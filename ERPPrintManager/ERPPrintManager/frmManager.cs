@@ -124,7 +124,7 @@ namespace ERPPrintManager
 
             file_watcher.Path = folderPath;
             file_watcher.Filter = "*.txt";
-            file_watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.CreationTime;
+            file_watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.CreationTime | NotifyFilters.LastWrite;
             file_watcher.EnableRaisingEvents = true;
             timer_start.Enabled = false;
         }
@@ -160,6 +160,29 @@ namespace ERPPrintManager
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void file_watcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            try
+            {
+                Debug.WriteLine($"New JSON file detected: {e.FullPath}");
+                lblnotify.Text = "New invoice found...";
+                System.Threading.Thread.Sleep(500);
+                string json = File.ReadAllText(e.FullPath);
+                ReceiptData? receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
+                lblnotify.Text = "Processing invoice with invoice number " + receipt.InvoiceNo;
+                GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
+                ReceiptPrinter printer = new ReceiptPrinter(receipt);
+                printer.PrintReceipt1(System.Net.Dns.GetHostName());
+
+                lblnotify.Text = "Waiting for new invoice...";
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error parsing file {e.Name}: {ex.Message}");
+            }
         }
     }
 }
