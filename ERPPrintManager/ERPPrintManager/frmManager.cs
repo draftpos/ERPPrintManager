@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using QRCoder;
 using System.Diagnostics;
+using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ERPPrintManager
@@ -146,9 +147,21 @@ namespace ERPPrintManager
                 lblnotify.Text = "Processing invoice with invoice number " + receipt.InvoiceNo;
                 GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
                 ReceiptPrinter printer = new ReceiptPrinter(receipt);
-                printer.PrintReceipt1(System.Net.Dns.GetHostName());
 
-                lblnotify.Text = "Waiting for new invoice...";
+                if (Properties.Settings.Default.IsSinglePrinter)
+                {
+                    printer.PrintReceipt1(Properties.Settings.Default.DefaultPrinter);
+                }
+                if (Properties.Settings.Default.IsMultiplePrinter)
+                {
+                    foreach (string item in Properties.Settings.Default.MultiplePrinterList)
+                    {
+                        printer.PrintReceipt1(item);
+
+                    }
+                }
+
+                    lblnotify.Text = "Waiting for new invoice...";
 
             }
             catch (Exception ex)

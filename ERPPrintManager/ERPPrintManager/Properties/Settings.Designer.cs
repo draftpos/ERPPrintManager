@@ -34,5 +34,40 @@ namespace ERPPrintManager.Properties {
                 this["DefaultPrinter"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsSinglePrinter {
+            get {
+                return ((bool)(this["IsSinglePrinter"]));
+            }
+            set {
+                this["IsSinglePrinter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsMultiplePrinter {
+            get {
+                return ((bool)(this["IsMultiplePrinter"]));
+            }
+            set {
+                this["IsMultiplePrinter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection MultiplePrinterList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["MultiplePrinterList"]));
+            }
+            set {
+                this["MultiplePrinterList"] = value;
+            }
+        }
     }
 }

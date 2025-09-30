@@ -23,11 +23,11 @@ namespace ERPPrintManager
             receiptData = data;
         }
 
-        public void PrintReceipt1(string TillID)
+        public void PrintReceipt1(string myPrinterName)
         {
             PrintDocument printDoc = new PrintDocument();
                 printDoc.PrintPage += new PrintPageEventHandler(this.OnPrintPage);
-                printDoc.PrinterSettings.PrinterName = Properties.Settings.Default.DefaultPrinter;
+                printDoc.PrinterSettings.PrinterName = myPrinterName;
                 printDoc.Print();
         }
 
@@ -161,7 +161,8 @@ namespace ERPPrintManager
 
                     if (!string.IsNullOrEmpty(receiptData.InvoiceDate))
                     {
-                        subHeader.AppendLine($"DateTime:\t{receiptData.InvoiceDate}");
+                        DateTime dt = DateTime.ParseExact(receiptData.InvoiceDate,"yyyy-MM-dd HH:mm:ss.ffffff",CultureInfo.InvariantCulture);
+                        subHeader.AppendLine($"DateTime:\t{dt.ToString("dd/MM/yyyy")}");
                         irow += 1;
                     }
 
