@@ -194,6 +194,7 @@ namespace ERPPrintManager
             }
             catch (Exception ex)
             {
+                MessageBox.Show(this, $"Error parsing file {e.Name}: {ex.Message}", "Error Processing Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Debug.WriteLine($"Error parsing file {e.Name}: {ex.Message}");
             }
         }

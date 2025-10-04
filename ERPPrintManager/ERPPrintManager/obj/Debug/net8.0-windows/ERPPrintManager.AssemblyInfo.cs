@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERPPrintManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f2f8adfa060773a84fe0adce56ce62e115ba765")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e73d2ba58d8a7ef4f7e322fd9be8f2da4d6b375")]
 [assembly: System.Reflection.AssemblyProductAttribute("ERPPrintManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERPPrintManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

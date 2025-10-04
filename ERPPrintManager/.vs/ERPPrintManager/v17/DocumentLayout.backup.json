@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|c:\\users\\donsol\\desktop\\erpprintmanager\\erpprintmanager\\erpprintmanager\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\erpprintmanager\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|c:\\users\\donsol\\desktop\\erpprintmanager\\erpprintmanager\\erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|c:\\users\\donsol\\desktop\\erpprintmanager\\erpprintmanager\\erpprintmanager\\erpprintsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,8 +15,12 @@
       "RelativeMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\receiptprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|c:\\users\\donsol\\desktop\\erpprintmanager\\erpprintmanager\\erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|c:\\users\\donsol\\desktop\\erpprintmanager\\erpprintmanager\\erpprintmanager\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\erpprintmanager\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{2554480C-9410-431A-AE1E-576FFD932ED7}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "frmSettings.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmSettings.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\frmSettings.cs",
@@ -66,52 +66,52 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "ERPPrintSettings.cs",
               "DocumentMoniker": "C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\ERPPrintSettings.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\ERPPrintSettings.cs",
               "ToolTip": "C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\ERPPrintSettings.cs",
               "RelativeToolTip": "ERPPrintManager\\ERPPrintSettings.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAAAB8AAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAEQAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-18T16:27:41.767Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "ReceiptPrinter.cs",
               "DocumentMoniker": "C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\ReceiptPrinter.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\ReceiptPrinter.cs",
               "ToolTip": "C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\ReceiptPrinter.cs",
               "RelativeToolTip": "ERPPrintManager\\ReceiptPrinter.cs",
-              "ViewState": "AgIAAJkAAAAAAAAAAAAIwKYAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAFABAAAAAAAAAAAIwFUBAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-18T16:05:43.581Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "frmSettings.cs",
               "DocumentMoniker": "C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmSettings.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\frmSettings.cs",
               "ToolTip": "C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmSettings.cs",
               "RelativeToolTip": "ERPPrintManager\\frmSettings.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAIwCsAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAIwCoAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-17T15:47:28.017Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "frmManager.cs",
               "DocumentMoniker": "C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\frmManager.cs",
               "ToolTip": "C:\\Users\\Donsol\\Desktop\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.cs",
               "RelativeToolTip": "ERPPrintManager\\frmManager.cs",
-              "ViewState": "AgIAAI0AAAAAAAAAAAAYwJwAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAYwMQAAACaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-17T15:41:19.641Z",
               "EditorCaption": ""

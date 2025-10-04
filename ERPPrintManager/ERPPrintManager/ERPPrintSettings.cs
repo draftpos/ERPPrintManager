@@ -66,7 +66,7 @@ namespace ERPPrintManager
     public class Item
     {
         public string ProductName { get; set; }
-        public int productid { get; set; }
+        public string productid { get; set; }
         public double Qty { get; set; }
         public decimal Price { get; set; }
         public decimal Amount { get; set; }
