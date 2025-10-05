@@ -1,0 +1,16 @@
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\bin\Debug\ERPPrintManager.exe.config
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\bin\Debug\ERPPrintManager.exe
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\bin\Debug\ERPPrintManager.pdb
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\bin\Debug\QRCoder.dll
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.csproj.AssemblyReference.cache
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.frmManager.resources
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.frmSettings.resources
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.Properties.Resources.resources
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.csproj.GenerateResource.cache
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.csproj.CoreCompileInputs.cache
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrint.2903BDC4.Up2Date
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.exe
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.pdb
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.exe.config

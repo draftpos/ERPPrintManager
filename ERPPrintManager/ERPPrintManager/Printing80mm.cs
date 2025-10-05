@@ -1,8 +1,8 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Drawing;
 using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ namespace ERPPrintManager
         public static string printing_title = "ORDER";
         public static string titlecontent = "";
         private static Font largerBoldFont = new Font("Arial", 12, FontStyle.Bold);
-       
+
         public static FontStyle GetFontStyle(string fontStyleString)
         {
             FontStyle style = FontStyle.Regular; // Default
@@ -72,8 +72,8 @@ namespace ERPPrintManager
 
         public static void PrintReceipt(string TillID)
         {
-                pd.PrinterSettings.PrinterName = Properties.Settings.Default.DefaultPrinter;
-                pd.Print();
+            pd.PrinterSettings.PrinterName = Properties.Settings.Default.DefaultPrinter;
+            pd.Print();
         }
 
         public static string SaveImageFromBytes(byte[] imageBytes, string filePath)
@@ -104,6 +104,4 @@ namespace ERPPrintManager
         }
 
     }
-
-   
 }

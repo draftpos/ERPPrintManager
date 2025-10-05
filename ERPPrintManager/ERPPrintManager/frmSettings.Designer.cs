@@ -29,243 +29,240 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSettings));
-            panel1 = new Panel();
-            OptMultiple = new RadioButton();
-            OptSingle = new RadioButton();
-            btnSet = new Button();
-            cmbPrinter = new ComboBox();
-            label1 = new Label();
-            panel_single = new Panel();
-            panel_multi = new Panel();
-            btnRemove = new Button();
-            btnAdd = new Button();
-            lstprinter = new ListBox();
-            cmbSelectMultiple = new ComboBox();
-            label2 = new Label();
-            button1 = new Button();
-            panel1.SuspendLayout();
-            panel_single.SuspendLayout();
-            panel_multi.SuspendLayout();
-            SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.OptSingle = new System.Windows.Forms.RadioButton();
+            this.OptMultiple = new System.Windows.Forms.RadioButton();
+            this.panel_single = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbPrinter = new System.Windows.Forms.ComboBox();
+            this.panel_multi = new System.Windows.Forms.Panel();
+            this.cmbSelectMultiple = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lstprinter = new System.Windows.Forms.ListBox();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.btnSetMultiplePrinter = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
+            this.panel_single.SuspendLayout();
+            this.panel_multi.SuspendLayout();
+            this.SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(OptMultiple);
-            panel1.Controls.Add(OptSingle);
-            panel1.Location = new Point(12, 12);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(430, 51);
-            panel1.TabIndex = 0;
-            // 
-            // OptMultiple
-            // 
-            OptMultiple.AutoSize = true;
-            OptMultiple.Font = new Font("Segoe UI", 10F);
-            OptMultiple.ForeColor = Color.White;
-            OptMultiple.Location = new Point(260, 14);
-            OptMultiple.Name = "OptMultiple";
-            OptMultiple.Size = new Size(149, 23);
-            OptMultiple.TabIndex = 4;
-            OptMultiple.TabStop = true;
-            OptMultiple.Text = "Use Multiple Printer";
-            OptMultiple.UseVisualStyleBackColor = true;
-            OptMultiple.CheckedChanged += OptMultiple_CheckedChanged;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.OptMultiple);
+            this.panel1.Controls.Add(this.OptSingle);
+            this.panel1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(431, 60);
+            this.panel1.TabIndex = 0;
             // 
             // OptSingle
             // 
-            OptSingle.AutoSize = true;
-            OptSingle.Font = new Font("Segoe UI", 10F);
-            OptSingle.ForeColor = Color.White;
-            OptSingle.Location = new Point(15, 14);
-            OptSingle.Name = "OptSingle";
-            OptSingle.Size = new Size(135, 23);
-            OptSingle.TabIndex = 3;
-            OptSingle.TabStop = true;
-            OptSingle.Text = "Use Single Printer";
-            OptSingle.UseVisualStyleBackColor = true;
-            OptSingle.CheckedChanged += OptSingle_CheckedChanged;
+            this.OptSingle.AutoSize = true;
+            this.OptSingle.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.OptSingle.ForeColor = System.Drawing.Color.White;
+            this.OptSingle.Location = new System.Drawing.Point(14, 20);
+            this.OptSingle.Name = "OptSingle";
+            this.OptSingle.Size = new System.Drawing.Size(135, 23);
+            this.OptSingle.TabIndex = 0;
+            this.OptSingle.TabStop = true;
+            this.OptSingle.Text = "Use Single Printer";
+            this.OptSingle.UseVisualStyleBackColor = true;
+            this.OptSingle.CheckedChanged += new System.EventHandler(this.OptSingle_CheckedChanged);
             // 
-            // btnSet
+            // OptMultiple
             // 
-            btnSet.FlatAppearance.BorderColor = Color.MistyRose;
-            btnSet.FlatStyle = FlatStyle.Flat;
-            btnSet.Font = new Font("Segoe UI", 10F);
-            btnSet.ForeColor = Color.White;
-            btnSet.Image = Properties.Resources.my_set;
-            btnSet.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSet.Location = new Point(260, 30);
-            btnSet.Name = "btnSet";
-            btnSet.Size = new Size(136, 31);
-            btnSet.TabIndex = 2;
-            btnSet.Text = "Set Printer";
-            btnSet.UseVisualStyleBackColor = true;
-            btnSet.Click += btnSet_Click;
-            // 
-            // cmbPrinter
-            // 
-            cmbPrinter.Font = new Font("Segoe UI", 10F);
-            cmbPrinter.FormattingEnabled = true;
-            cmbPrinter.Location = new Point(15, 33);
-            cmbPrinter.Name = "cmbPrinter";
-            cmbPrinter.Size = new Size(234, 25);
-            cmbPrinter.TabIndex = 1;
-            cmbPrinter.Text = "Select Printer";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10F);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(15, 11);
-            label1.Name = "label1";
-            label1.Size = new Size(96, 19);
-            label1.TabIndex = 0;
-            label1.Text = "Select Printer :";
+            this.OptMultiple.AutoSize = true;
+            this.OptMultiple.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.OptMultiple.ForeColor = System.Drawing.Color.White;
+            this.OptMultiple.Location = new System.Drawing.Point(233, 20);
+            this.OptMultiple.Name = "OptMultiple";
+            this.OptMultiple.Size = new System.Drawing.Size(149, 23);
+            this.OptMultiple.TabIndex = 1;
+            this.OptMultiple.TabStop = true;
+            this.OptMultiple.Text = "Use Multiple Printer";
+            this.OptMultiple.UseVisualStyleBackColor = true;
+            this.OptMultiple.CheckedChanged += new System.EventHandler(this.OptMultiple_CheckedChanged);
             // 
             // panel_single
             // 
-            panel_single.BorderStyle = BorderStyle.FixedSingle;
-            panel_single.Controls.Add(cmbPrinter);
-            panel_single.Controls.Add(label1);
-            panel_single.Controls.Add(btnSet);
-            panel_single.Location = new Point(12, 66);
-            panel_single.Name = "panel_single";
-            panel_single.Size = new Size(430, 75);
-            panel_single.TabIndex = 1;
+            this.panel_single.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel_single.Controls.Add(this.button1);
+            this.panel_single.Controls.Add(this.cmbPrinter);
+            this.panel_single.Controls.Add(this.label1);
+            this.panel_single.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.panel_single.Location = new System.Drawing.Point(12, 78);
+            this.panel_single.Name = "panel_single";
+            this.panel_single.Size = new System.Drawing.Size(431, 69);
+            this.panel_single.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.Location = new System.Drawing.Point(10, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 19);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Select Printer :";
+            // 
+            // cmbPrinter
+            // 
+            this.cmbPrinter.FormattingEnabled = true;
+            this.cmbPrinter.Location = new System.Drawing.Point(14, 32);
+            this.cmbPrinter.Name = "cmbPrinter";
+            this.cmbPrinter.Size = new System.Drawing.Size(208, 25);
+            this.cmbPrinter.TabIndex = 1;
+            this.cmbPrinter.Text = "Select Printer";
             // 
             // panel_multi
             // 
-            panel_multi.BorderStyle = BorderStyle.FixedSingle;
-            panel_multi.Controls.Add(btnRemove);
-            panel_multi.Controls.Add(btnAdd);
-            panel_multi.Controls.Add(lstprinter);
-            panel_multi.Controls.Add(cmbSelectMultiple);
-            panel_multi.Controls.Add(label2);
-            panel_multi.Controls.Add(button1);
-            panel_multi.Location = new Point(12, 70);
-            panel_multi.Name = "panel_multi";
-            panel_multi.Size = new Size(430, 208);
-            panel_multi.TabIndex = 2;
-            // 
-            // btnRemove
-            // 
-            btnRemove.FlatAppearance.BorderColor = Color.MistyRose;
-            btnRemove.FlatStyle = FlatStyle.Flat;
-            btnRemove.Font = new Font("Segoe UI", 10F);
-            btnRemove.ForeColor = Color.White;
-            btnRemove.Image = Properties.Resources.remove;
-            btnRemove.ImageAlign = ContentAlignment.MiddleLeft;
-            btnRemove.Location = new Point(15, 171);
-            btnRemove.Name = "btnRemove";
-            btnRemove.Size = new Size(173, 31);
-            btnRemove.TabIndex = 5;
-            btnRemove.Text = "Remove Printer";
-            btnRemove.UseVisualStyleBackColor = true;
-            btnRemove.Click += btnRemove_Click;
-            // 
-            // btnAdd
-            // 
-            btnAdd.FlatAppearance.BorderColor = Color.MistyRose;
-            btnAdd.FlatStyle = FlatStyle.Flat;
-            btnAdd.Font = new Font("Segoe UI", 10F);
-            btnAdd.ForeColor = Color.White;
-            btnAdd.Image = Properties.Resources.add;
-            btnAdd.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdd.Location = new Point(260, 25);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(136, 31);
-            btnAdd.TabIndex = 4;
-            btnAdd.Text = "Add Printer";
-            btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click;
-            // 
-            // lstprinter
-            // 
-            lstprinter.FormattingEnabled = true;
-            lstprinter.ItemHeight = 15;
-            lstprinter.Location = new Point(15, 60);
-            lstprinter.Name = "lstprinter";
-            lstprinter.Size = new Size(234, 109);
-            lstprinter.TabIndex = 3;
+            this.panel_multi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel_multi.Controls.Add(this.btnAdd);
+            this.panel_multi.Controls.Add(this.btnRemove);
+            this.panel_multi.Controls.Add(this.lstprinter);
+            this.panel_multi.Controls.Add(this.btnSetMultiplePrinter);
+            this.panel_multi.Controls.Add(this.cmbSelectMultiple);
+            this.panel_multi.Controls.Add(this.label2);
+            this.panel_multi.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.panel_multi.Location = new System.Drawing.Point(12, 80);
+            this.panel_multi.Name = "panel_multi";
+            this.panel_multi.Size = new System.Drawing.Size(431, 231);
+            this.panel_multi.TabIndex = 2;
             // 
             // cmbSelectMultiple
             // 
-            cmbSelectMultiple.Font = new Font("Segoe UI", 10F);
-            cmbSelectMultiple.FormattingEnabled = true;
-            cmbSelectMultiple.Location = new Point(15, 29);
-            cmbSelectMultiple.Name = "cmbSelectMultiple";
-            cmbSelectMultiple.Size = new Size(234, 25);
-            cmbSelectMultiple.TabIndex = 1;
-            cmbSelectMultiple.Text = "Select Printer";
+            this.cmbSelectMultiple.FormattingEnabled = true;
+            this.cmbSelectMultiple.Location = new System.Drawing.Point(14, 32);
+            this.cmbSelectMultiple.Name = "cmbSelectMultiple";
+            this.cmbSelectMultiple.Size = new System.Drawing.Size(208, 25);
+            this.cmbSelectMultiple.TabIndex = 1;
+            this.cmbSelectMultiple.Text = "Select Printer";
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 10F);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(15, 7);
-            label2.Name = "label2";
-            label2.Size = new Size(96, 19);
-            label2.TabIndex = 0;
-            label2.Text = "Select Printer :";
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label2.Location = new System.Drawing.Point(10, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(96, 19);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Select Printer :";
+            // 
+            // lstprinter
+            // 
+            this.lstprinter.FormattingEnabled = true;
+            this.lstprinter.ItemHeight = 17;
+            this.lstprinter.Location = new System.Drawing.Point(14, 61);
+            this.lstprinter.Name = "lstprinter";
+            this.lstprinter.Size = new System.Drawing.Size(208, 123);
+            this.lstprinter.TabIndex = 3;
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemove.ForeColor = System.Drawing.Color.White;
+            this.btnRemove.Image = global::ERPPrintManager.Properties.Resources.remove;
+            this.btnRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRemove.Location = new System.Drawing.Point(14, 189);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(158, 30);
+            this.btnRemove.TabIndex = 5;
+            this.btnRemove.Text = "Remove Printer";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnSetMultiplePrinter
+            // 
+            this.btnSetMultiplePrinter.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnSetMultiplePrinter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetMultiplePrinter.ForeColor = System.Drawing.Color.White;
+            this.btnSetMultiplePrinter.Image = global::ERPPrintManager.Properties.Resources.my_set;
+            this.btnSetMultiplePrinter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSetMultiplePrinter.Location = new System.Drawing.Point(233, 67);
+            this.btnSetMultiplePrinter.Name = "btnSetMultiplePrinter";
+            this.btnSetMultiplePrinter.Size = new System.Drawing.Size(133, 33);
+            this.btnSetMultiplePrinter.TabIndex = 2;
+            this.btnSetMultiplePrinter.Text = "Set Printer";
+            this.btnSetMultiplePrinter.UseVisualStyleBackColor = true;
+            this.btnSetMultiplePrinter.Click += new System.EventHandler(this.btnSetMultiplePrinter_Click);
             // 
             // button1
             // 
-            button1.FlatAppearance.BorderColor = Color.MistyRose;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 10F);
-            button1.ForeColor = Color.White;
-            button1.Image = Properties.Resources.my_set;
-            button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.Location = new Point(260, 63);
-            button1.Name = "button1";
-            button1.Size = new Size(136, 31);
-            button1.TabIndex = 2;
-            button1.Text = "Set Printers";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Image = global::ERPPrintManager.Properties.Resources.my_set;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(233, 24);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(133, 33);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Set Printer";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdd.ForeColor = System.Drawing.Color.White;
+            this.btnAdd.Image = global::ERPPrintManager.Properties.Resources.add;
+            this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdd.Location = new System.Drawing.Point(233, 28);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(133, 30);
+            this.btnAdd.TabIndex = 6;
+            this.btnAdd.Text = "Add Printer";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // frmSettings
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Purple;
-            ClientSize = new Size(455, 293);
-            Controls.Add(panel_multi);
-            Controls.Add(panel_single);
-            Controls.Add(panel1);
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "frmSettings";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Settings";
-            Load += frmSettings_Load;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            panel_single.ResumeLayout(false);
-            panel_single.PerformLayout();
-            panel_multi.ResumeLayout(false);
-            panel_multi.PerformLayout();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Purple;
+            this.ClientSize = new System.Drawing.Size(455, 316);
+            this.Controls.Add(this.panel_multi);
+            this.Controls.Add(this.panel_single);
+            this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "frmSettings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Printer Settings";
+            this.Load += new System.EventHandler(this.frmSettings_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel_single.ResumeLayout(false);
+            this.panel_single.PerformLayout();
+            this.panel_multi.ResumeLayout(false);
+            this.panel_multi.PerformLayout();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
 
-        private Panel panel1;
-        private Button btnSet;
-        private ComboBox cmbPrinter;
-        private Label label1;
-        private RadioButton OptMultiple;
-        private RadioButton OptSingle;
-        private Panel panel_single;
-        private Panel panel_multi;
-        private ComboBox cmbSelectMultiple;
-        private Label label2;
-        private Button button1;
-        private Button btnRemove;
-        private Button btnAdd;
-        private ListBox lstprinter;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton OptMultiple;
+        private System.Windows.Forms.RadioButton OptSingle;
+        private System.Windows.Forms.Panel panel_single;
+        private System.Windows.Forms.ComboBox cmbPrinter;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel_multi;
+        private System.Windows.Forms.Button btnSetMultiplePrinter;
+        private System.Windows.Forms.ComboBox cmbSelectMultiple;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox lstprinter;
+        private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnAdd;
     }
 }

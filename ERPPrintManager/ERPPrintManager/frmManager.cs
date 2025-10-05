@@ -1,8 +1,16 @@
 ﻿using Newtonsoft.Json;
 using QRCoder;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ERPPrintManager
 {
@@ -11,6 +19,11 @@ namespace ERPPrintManager
         public frmManager()
         {
             InitializeComponent();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         private void setDefaultPrinterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -32,7 +45,6 @@ namespace ERPPrintManager
             MyNotifyIcon.Visible = false;
             Application.Exit();
         }
-
 
         private void frmManager_Load(object sender, EventArgs e)
         {
@@ -95,31 +107,8 @@ namespace ERPPrintManager
             }
         }
 
-        private void OnNewJsonFile(object sender, FileSystemEventArgs e)
-        {
-            try
-            {
-                Console.WriteLine($"New JSON file detected: {e.FullPath}");
-                lblnotify.Text = "New invoice found...";
-                System.Threading.Thread.Sleep(500);
-                string json = File.ReadAllText(e.FullPath);
-                ReceiptData? receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
-                lblnotify.Text = "Processing invoice with invoice number " + receipt.InvoiceNo;
-                GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
-                Printing80mm.SetReceiptData(receipt);
-                Printing80mm.PrintReceipt(System.Net.Dns.GetHostName());
-                lblnotify.Text = "Waiting for new invoice...";
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error parsing file {e.Name}: {ex.Message}");
-            }
-        }
-
         private void timer_start_Tick(object sender, EventArgs e)
         {
-
             Debug.WriteLine("Monitor started");
             string folderPath = @"C:\InvoiceFolder";
 
@@ -130,21 +119,18 @@ namespace ERPPrintManager
             timer_start.Enabled = false;
         }
 
-        private void lblnotify_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void file_watcher_Created(object sender, FileSystemEventArgs e)
         {
             try
             {
                 Debug.WriteLine($"New JSON file detected: {e.FullPath}");
                 lblnotify.Text = "New invoice found...";
+                Application.DoEvents();
                 System.Threading.Thread.Sleep(500);
                 string json = File.ReadAllText(e.FullPath);
-                ReceiptData? receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
+                ReceiptData receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
                 lblnotify.Text = "Processing invoice with invoice number " + receipt.InvoiceNo;
+                Application.DoEvents();
                 GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
                 ReceiptPrinter printer = new ReceiptPrinter(receipt);
 
@@ -161,7 +147,7 @@ namespace ERPPrintManager
                     }
                 }
 
-                    lblnotify.Text = "Waiting for new invoice...";
+                lblnotify.Text = "Waiting for new invoice...";
 
             }
             catch (Exception ex)
@@ -170,21 +156,18 @@ namespace ERPPrintManager
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void file_watcher_Renamed(object sender, RenamedEventArgs e)
         {
             try
             {
                 Debug.WriteLine($"New JSON file detected: {e.FullPath}");
                 lblnotify.Text = "New invoice found...";
+                Application.DoEvents();
                 System.Threading.Thread.Sleep(500);
                 string json = File.ReadAllText(e.FullPath);
-                ReceiptData? receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
+                ReceiptData receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
                 lblnotify.Text = "Processing invoice with invoice number " + receipt.InvoiceNo;
+                Application.DoEvents();
                 GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
                 ReceiptPrinter printer = new ReceiptPrinter(receipt);
                 printer.PrintReceipt1(System.Net.Dns.GetHostName());

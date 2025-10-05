@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.Devices;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -10,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ERPPrintManager
 {
@@ -20,37 +17,6 @@ namespace ERPPrintManager
         {
             InitializeComponent();
         }
-
-        private void btnSet_Click(object sender, EventArgs e)
-        {
-            if ((cmbPrinter.Text == "Select Printer") || (cmbPrinter.Text == ""))
-
-            {
-                MessageBox.Show(
-                    this, "Please select Printer", "No Printer selected",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            if (OptSingle.Checked)
-            {
-                ERPPrintManager.Properties.Settings.Default.DefaultPrinter = cmbPrinter.Text;
-                ERPPrintManager.Properties.Settings.Default.IsSinglePrinter= true;
-                Properties.Settings.Default.IsMultiplePrinter = false;
-                try
-                {
-                    Properties.Settings.Default.MultiplePrinterList.Clear();
-                }
-                catch (Exception ex)
-                {
-                }
-
-                ERPPrintManager.Properties.Settings.Default.Save();
-                MessageBox.Show(
-                        this, "Default Printer Saved", "ERPPrint Manager",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
 
         public void PopulateInstalledPrinters()
         {
@@ -80,18 +46,16 @@ namespace ERPPrintManager
             }
         }
 
-
-        private void frmSettings_Load(object sender, EventArgs e)
+        private void btnRemove_Click(object sender, EventArgs e)
         {
-            PopulateInstalledPrinters();
-            if (ERPPrintManager.Properties.Settings.Default.IsSinglePrinter)
+            if (lstprinter.SelectedItem != null)
             {
-                cmbPrinter.Text = ERPPrintManager.Properties.Settings.Default.DefaultPrinter;
+                lstprinter.Items.Remove(lstprinter.SelectedItem);
             }
-            if (ERPPrintManager.Properties.Settings.Default.IsMultiplePrinter)
+            else
             {
-                OptMultiple.Checked = true;
-                LoadPrinterList();
+                MessageBox.Show("Please select printer to remove.", "No Selection",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -108,55 +72,9 @@ namespace ERPPrintManager
             {
                 lstprinter.Items.Add(cmbSelectMultiple.Text);
             }
-
-
         }
 
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-            if (lstprinter.SelectedItem != null)
-            {
-                lstprinter.Items.Remove(lstprinter.SelectedItem);
-            }
-            else
-            {
-                MessageBox.Show("Please select printer to remove.", "No Selection",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void SavePrinterList()
-        {
-            
-            StringCollection collection = new StringCollection();
-
-            foreach (var item in lstprinter.Items)
-            {
-                collection.Add(item.ToString());
-            }
-
-            Properties.Settings.Default.MultiplePrinterList = collection;
-            Properties.Settings.Default.IsMultiplePrinter= true;
-            Properties.Settings.Default.IsSinglePrinter = false;
-            Properties.Settings.Default.DefaultPrinter = "";
-            Properties.Settings.Default.Save(); // persist to user.config
-        }
-
-        // Load listBox items from Properties.Settings
-        private void LoadPrinterList()
-        {
-            if (Properties.Settings.Default.MultiplePrinterList != null)
-            {
-                lstprinter.Items.Clear();
-
-                foreach (string item in Properties.Settings.Default.MultiplePrinterList)
-                {
-                    lstprinter.Items.Add(item);
-                }
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSetMultiplePrinter_Click(object sender, EventArgs e)
         {
             if (lstprinter.Items.Count == 0)
             {
@@ -178,7 +96,7 @@ namespace ERPPrintManager
         {
             if (OptMultiple.Checked)
             {
-                this.Size = new Size(471, 337);
+                this.Size = new Size(471, 355);
                 panel_single.Visible = false;
                 panel_multi.Visible = true;
 
@@ -189,9 +107,84 @@ namespace ERPPrintManager
         {
             if (OptSingle.Checked)
             {
-                this.Size = new Size(471, 185);
+                this.Size = new Size(471, 203);
                 panel_single.Visible = true;
                 panel_multi.Visible = false;
+            }
+        }
+        private void SavePrinterList()
+        {
+
+            StringCollection collection = new StringCollection();
+
+            foreach (var item in lstprinter.Items)
+            {
+                collection.Add(item.ToString());
+            }
+
+            Properties.Settings.Default.MultiplePrinterList = collection;
+            Properties.Settings.Default.IsMultiplePrinter = true;
+            Properties.Settings.Default.IsSinglePrinter = false;
+            Properties.Settings.Default.DefaultPrinter = "";
+            Properties.Settings.Default.Save(); // persist to user.config
+        }
+
+        // Load listBox items from Properties.Settings
+        private void LoadPrinterList()
+        {
+            if (Properties.Settings.Default.MultiplePrinterList != null)
+            {
+                lstprinter.Items.Clear();
+
+                foreach (string item in Properties.Settings.Default.MultiplePrinterList)
+                {
+                    lstprinter.Items.Add(item);
+                }
+            }
+        }
+
+        private void frmSettings_Load(object sender, EventArgs e)
+        {
+            PopulateInstalledPrinters();
+            if (ERPPrintManager.Properties.Settings.Default.IsSinglePrinter)
+            {
+                cmbPrinter.Text = ERPPrintManager.Properties.Settings.Default.DefaultPrinter;
+            }
+            if (ERPPrintManager.Properties.Settings.Default.IsMultiplePrinter)
+            {
+                OptMultiple.Checked = true;
+                LoadPrinterList();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if ((cmbPrinter.Text == "Select Printer") || (cmbPrinter.Text == ""))
+
+            {
+                MessageBox.Show(
+                    this, "Please select Printer", "No Printer selected",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (OptSingle.Checked)
+            {
+                ERPPrintManager.Properties.Settings.Default.DefaultPrinter = cmbPrinter.Text;
+                ERPPrintManager.Properties.Settings.Default.IsSinglePrinter = true;
+                Properties.Settings.Default.IsMultiplePrinter = false;
+                try
+                {
+                    if (ERPPrintManager.Properties.Settings.Default.MultiplePrinterList != null)
+                        Properties.Settings.Default.MultiplePrinterList.Clear();
+                }
+                catch (Exception ex)
+                {
+                }
+
+                ERPPrintManager.Properties.Settings.Default.Save();
+                MessageBox.Show(
+                        this, "Default Printer Saved", "ERPPrint Manager",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

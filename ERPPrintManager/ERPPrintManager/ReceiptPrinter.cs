@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,9 +27,9 @@ namespace ERPPrintManager
         public void PrintReceipt1(string myPrinterName)
         {
             PrintDocument printDoc = new PrintDocument();
-                printDoc.PrintPage += new PrintPageEventHandler(this.OnPrintPage);
-                printDoc.PrinterSettings.PrinterName = myPrinterName;
-                printDoc.Print();
+            printDoc.PrintPage += new PrintPageEventHandler(this.OnPrintPage);
+            printDoc.PrinterSettings.PrinterName = myPrinterName;
+            printDoc.Print();
         }
 
         private void OnPrintPage(object sender, PrintPageEventArgs e)
@@ -53,8 +54,8 @@ namespace ERPPrintManager
             int offset = 20;
             int pageHeight = e.PageBounds.Height; // Available height on the page
             int maxOffset = pageHeight - 5; // Adjust to leave space for margins
-             int itemsPrinted = 0;
-             bool headerPrinted = false;
+            int itemsPrinted = 0;
+            bool headerPrinted = false;
 
             if (!headerPrinted)
             {
@@ -76,7 +77,7 @@ namespace ERPPrintManager
 
                 // Draw logo below "COPIED"
                 string logo_path = @"C:\InvoiceFolder\logo.png";
-                if ( File.Exists(logo_path))
+                if (File.Exists(logo_path))
                 {
                     Image logo = Image.FromFile(logo_path);
                     int logoWidth = 140;
@@ -161,7 +162,7 @@ namespace ERPPrintManager
 
                     if (!string.IsNullOrEmpty(receiptData.InvoiceDate))
                     {
-                        DateTime dt = DateTime.ParseExact(receiptData.InvoiceDate,"yyyy-MM-dd HH:mm:ss.ffffff",CultureInfo.InvariantCulture);
+                        DateTime dt = DateTime.ParseExact(receiptData.InvoiceDate, "yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture);
                         subHeader.AppendLine($"DateTime:\t{dt.ToString("dd/MM/yyyy")}");
                         irow += 1;
                     }
@@ -205,7 +206,7 @@ namespace ERPPrintManager
                         subHeader.AppendLine($"Fiscal Day:\t{receiptData.FiscalDay}");
                         irow += 1;
                     }
-                
+
                     string subHeaderString1 = subHeader.ToString();
                     graphics.DrawString(subHeaderString1, fontRegular, blackBrush, startX, startY + offset);
                     offset += (int)(fontRegular.GetHeight(graphics) * (irow - 1));
@@ -259,7 +260,7 @@ namespace ERPPrintManager
                     }
 
                     irow = irow - 2;
-                
+
 
                     string subHeaderString = subHeader.ToString();
                     graphics.DrawString(subHeaderString, fontRegular, blackBrush, startX, startY + offset);
@@ -270,7 +271,7 @@ namespace ERPPrintManager
                     graphics.DrawLine(Pens.Black, startX, startY + offset, startX + 250, startY + offset);
                     offset += 10;
                 }
-                string itemHeader = "Item Description" + Environment.NewLine + "ProductName" + Environment.NewLine + "Qty" + "\t" + "Price(Inc)  " +  "VAT" + "\t"  + "  Total(Inc)";
+                string itemHeader = "Item Description" + Environment.NewLine + "ProductName" + Environment.NewLine + "Qty" + "\t" + "Price(Inc)  " + "VAT" + "\t" + "  Total(Inc)";
                 graphics.DrawString(itemHeader, fontBold, blueBrush, startX, startY + offset);
                 offset += (int)(fontBold.GetHeight(graphics) * 3);
                 headerPrinted = true;
@@ -299,7 +300,7 @@ namespace ERPPrintManager
                 // Print product details
                 graphics.DrawString(detail.ProductName, fontRegular, blackBrush, startX, startY + offset);
                 offset += (int)fontRegular.GetHeight(graphics) + 2;
-               
+
                 int qtyWidth = 40;
                 int priceWidth = 80;
                 int vatWidth = 60;
@@ -315,10 +316,10 @@ namespace ERPPrintManager
                 int vatXPosition = priceXPosition + priceWidth + AdjustSpacing(priceText);
                 int totalXPosition = vatXPosition + vatWidth + AdjustSpacing(vatText);
                 graphics.DrawString(qtyText, fontRegular, blackBrush, startX, startY + offset);
-                graphics.DrawString(priceText, fontRegular, blackBrush, priceXPosition+20, startY + offset);
+                graphics.DrawString(priceText, fontRegular, blackBrush, priceXPosition + 20, startY + offset);
 
-                graphics.DrawString(vatText, fontRegular, blackBrush, vatXPosition+15, startY + offset);
-               
+                graphics.DrawString(vatText, fontRegular, blackBrush, vatXPosition + 15, startY + offset);
+
                 graphics.DrawString(amountText, fontRegular, blackBrush, totalXPosition, startY + offset);
                 offset += (int)fontRegular.GetHeight(graphics);
 
@@ -335,12 +336,12 @@ namespace ERPPrintManager
             }
             int box_to = offset;
             // Boxed In Item
-            graphics.DrawLine(grayPen, startX, box_from+3, startX, box_to);
-            graphics.DrawLine(grayPen, startX+250, box_from+3, startX+250, box_to);
+            graphics.DrawLine(grayPen, startX, box_from + 3, startX, box_to);
+            graphics.DrawLine(grayPen, startX + 250, box_from + 3, startX + 250, box_to);
             //======END =====
             decimal sumvat = 0;
             sumvat = receiptData.itemlist.Sum(d => d.vat);
-            
+
             int spaceNeededForTotals = (int)(fontRegular.GetHeight(graphics) * 6);
             if ((startY + offset + spaceNeededForTotals) > maxOffset)
             {
@@ -356,7 +357,7 @@ namespace ERPPrintManager
                 graphics.DrawLine(blueBrush2, startX, startY + offset, startX + 250, startY + offset);
                 offset += 10;
 
-                decimal totalamt_exclusive = (Convert.ToDecimal(receiptData.Subtotal) );
+                decimal totalamt_exclusive = (Convert.ToDecimal(receiptData.Subtotal));
                 int labelWidth = 250;
                 int valueXPosition = startX + labelWidth;
 
@@ -400,7 +401,7 @@ namespace ERPPrintManager
             {
                 if (!string.IsNullOrEmpty(receiptData.Currency))
                 {
-                    graphics.DrawString($"Currency: {receiptData.Currency}", fontRegular, blueBrush, startX, startY + offset+5);
+                    graphics.DrawString($"Currency: {receiptData.Currency}", fontRegular, blueBrush, startX, startY + offset + 5);
                     offset += (int)fontRegular.GetHeight(graphics) * 2;
                 }
 
@@ -449,7 +450,7 @@ namespace ERPPrintManager
                     int qrCodeWidth2 = 80;
                     int qrCodeHeight2 = 80;
                     int qrCodeX2 = (paperWidth - qrCodeWidth2) / 2;
-                    graphics.DrawImage(qrCode2, qrCodeX2+15, startY + offset, qrCodeWidth2, qrCodeHeight2);
+                    graphics.DrawImage(qrCode2, qrCodeX2 + 15, startY + offset, qrCodeWidth2, qrCodeHeight2);
                     offset += 80;
                 }
                 printedqrcode = true;
@@ -471,7 +472,7 @@ namespace ERPPrintManager
                 return;
             }
 
-             bool vcodeprinted = false;
+            bool vcodeprinted = false;
             if (!vcodeprinted)
             {
                 // === VERIFICATION CODE ===
@@ -489,7 +490,7 @@ namespace ERPPrintManager
                 }
 
                 string footer = $"Havano Point of Sale v11{Environment.NewLine}   Thanks....Visit Again!";
-                graphics.DrawString(footer, fontRegular, blackBrush, startX+40, startY + offset+5);
+                graphics.DrawString(footer, fontRegular, blackBrush, startX + 40, startY + offset + 5);
                 vcodeprinted = true;
             }
 
@@ -519,19 +520,25 @@ namespace ERPPrintManager
                 //return -5 * (text.Length - maxLength);
                 return 0;
             }
-            return 0; 
+            return 0;
         }
 
         // Stub: Replace with your font style converter
         private FontStyle GetFontStyle(string style)
         {
-            return style.ToLower() switch
-            {
-                "bold" => FontStyle.Bold,
-                "italic" => FontStyle.Italic,
-                _ => FontStyle.Regular,
-            };
-        }
-    }
+            if (string.IsNullOrEmpty(style))
+                return FontStyle.Regular;
 
+            switch (style.ToLower())
+            {
+                case "bold":
+                    return FontStyle.Bold;
+                case "italic":
+                    return FontStyle.Italic;
+                default:
+                    return FontStyle.Regular;
+            }
+        }
+
+    }
 }

@@ -8,7 +8,7 @@ namespace ERPPrintManager
 {
     public class PrintManagerAdvanceSettings
     {
-    
+
     }
 
     public class Advance_settings
@@ -60,7 +60,7 @@ namespace ERPPrintManager
         public string Email { get; set; }
         public string TIN { get; set; }
         public string InvoiceHeader { get; set; }
-       
+
     }
 
     public class Item

@@ -37,13 +37,12 @@ namespace ERPPrintManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsSinglePrinter {
+        public global::System.Collections.Specialized.StringCollection MultiplePrinterList {
             get {
-                return ((bool)(this["IsSinglePrinter"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["MultiplePrinterList"]));
             }
             set {
-                this["IsSinglePrinter"] = value;
+                this["MultiplePrinterList"] = value;
             }
         }
         
@@ -61,12 +60,13 @@ namespace ERPPrintManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection MultiplePrinterList {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsSinglePrinter {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["MultiplePrinterList"]));
+                return ((bool)(this["IsSinglePrinter"]));
             }
             set {
-                this["MultiplePrinterList"] = value;
+                this["IsSinglePrinter"] = value;
             }
         }
     }
