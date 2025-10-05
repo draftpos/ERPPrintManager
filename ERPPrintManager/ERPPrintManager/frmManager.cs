@@ -46,6 +46,33 @@ namespace ERPPrintManager
             Application.Exit();
         }
 
+        private void DeleteAllTextFiles(string folderPath)
+        {
+            try
+            {
+                if (Directory.Exists(folderPath))
+                {
+                    string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
+
+                    foreach (string file in txtFiles)
+                    {
+                        File.Delete(file);
+                        Console.WriteLine($"Deleted: {Path.GetFileName(file)}");
+                    }
+
+                    Console.WriteLine("All .txt files deleted successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Folder not found: " + folderPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error deleting files: " + ex.Message);
+            }
+        }
+
         private void frmManager_Load(object sender, EventArgs e)
         {
             string invoice_Path = @"C:\InvoiceFolder";
@@ -55,6 +82,8 @@ namespace ERPPrintManager
             {
                 Directory.CreateDirectory(invoice_Path);
             }
+
+            DeleteAllTextFiles(invoice_Path);
 
             MyNotifyIcon.Visible = false;
             ContextMenuStrip contextMenu = new ContextMenuStrip();
