@@ -75,8 +75,9 @@ namespace ERPPrintManager
 
         private void frmManager_Load(object sender, EventArgs e)
         {
+            //string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //string invoice_Path = Path.Combine(documentsPath, "ERPInvoiceFolder");
             string invoice_Path = @"C:\InvoiceFolder";
-
             // Ensure directory exists
             if (!Directory.Exists(invoice_Path))
             {
@@ -114,6 +115,9 @@ namespace ERPPrintManager
         }
         public static string GenerateQRCode(string data, string invoice_no)
         {
+            //string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //string invoice_Path = Path.Combine(documentsPath, "ERPInvoiceFolder");
+            //string savePath = Path.Combine(invoice_Path, "QRCode");
             string savePath = Path.Combine(@"C:\InvoiceFolder", "QRCode");
             // Ensure directory exists
             if (!Directory.Exists(savePath))
@@ -139,6 +143,8 @@ namespace ERPPrintManager
         private void timer_start_Tick(object sender, EventArgs e)
         {
             Debug.WriteLine("Monitor started");
+            //string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //string folderPath = Path.Combine(documentsPath, "ERPInvoiceFolder");
             string folderPath = @"C:\InvoiceFolder";
 
             file_watcher.Path = folderPath;
@@ -199,16 +205,32 @@ namespace ERPPrintManager
                 Application.DoEvents();
                 GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
                 ReceiptPrinter printer = new ReceiptPrinter(receipt);
-                printer.PrintReceipt1(System.Net.Dns.GetHostName());
+                if (Properties.Settings.Default.IsSinglePrinter)
+                {
+                    printer.PrintReceipt1(Properties.Settings.Default.DefaultPrinter);
+                }
+                if (Properties.Settings.Default.IsMultiplePrinter)
+                {
+                    foreach (string item in Properties.Settings.Default.MultiplePrinterList)
+                    {
+                        printer.PrintReceipt1(item);
+
+                    }
+                }
 
                 lblnotify.Text = "Waiting for new invoice...";
 
-            }
+        }
             catch (Exception ex)
             {
                 MessageBox.Show(this, $"Error parsing file {e.Name}: {ex.Message}", "Error Processing Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Debug.WriteLine($"Error parsing file {e.Name}: {ex.Message}");
+        Debug.WriteLine($"Error parsing file {e.Name}: {ex.Message}");
             }
+}
+
+        private void file_watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+
         }
     }
 }

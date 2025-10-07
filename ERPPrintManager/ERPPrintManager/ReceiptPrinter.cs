@@ -513,7 +513,7 @@ namespace ERPPrintManager
         private int AdjustSpacing(string text)
         {
             int maxLength = 6;
-            Debug.WriteLine(text.Length);
+            //Debug.WriteLine(text.Length);
             if (text.Length > maxLength)
             {
                 Debug.WriteLine($" Space Returned for {text} :{-5 * (text.Length - maxLength)}");

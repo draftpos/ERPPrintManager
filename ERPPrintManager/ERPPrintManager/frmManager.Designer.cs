@@ -134,6 +134,7 @@
             // 
             this.file_watcher.EnableRaisingEvents = true;
             this.file_watcher.SynchronizingObject = this;
+            this.file_watcher.Changed += new System.IO.FileSystemEventHandler(this.file_watcher_Changed);
             this.file_watcher.Created += new System.IO.FileSystemEventHandler(this.file_watcher_Created);
             this.file_watcher.Renamed += new System.IO.RenamedEventHandler(this.file_watcher_Renamed);
             // 
