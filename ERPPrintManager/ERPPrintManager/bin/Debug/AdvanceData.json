@@ -1,0 +1,19 @@
+{
+  "DMarkup": 0.0,
+  "loyalper": 0.0,
+  "ERP_P": false,
+  "Phar": false,
+  "Ordervisibilty": false,
+  "Dispatch": false,
+  "allowmultipos": false,
+  "CusCharStat": false,
+  "batches_additional_column": false,
+  "ContentFontSize": 11,
+  "ContentFontStyle": "Regular",
+  "ContentHeaderSize": 12,
+  "ContentHeaderStyle": "Bold",
+  "SubheaderSize": 10,
+  "SubheaderStyle": "Bold",
+  "orderContentFontSize": 20,
+  "orderContentFontStyle": "Bold"
+}

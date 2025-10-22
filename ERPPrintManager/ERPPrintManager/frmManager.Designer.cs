@@ -40,6 +40,7 @@
             this.MyNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.file_watcher = new System.IO.FileSystemWatcher();
             this.timer_start = new System.Windows.Forms.Timer(this.components);
+            this.labelPrinterSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -92,6 +93,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.labelPrinterSettingsToolStripMenuItem,
             this.setDefaultPrinterToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -106,7 +108,7 @@
             this.setDefaultPrinterToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.setDefaultPrinterToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.settings_small;
             this.setDefaultPrinterToolStripMenuItem.Name = "setDefaultPrinterToolStripMenuItem";
-            this.setDefaultPrinterToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.setDefaultPrinterToolStripMenuItem.Size = new System.Drawing.Size(208, 24);
             this.setDefaultPrinterToolStripMenuItem.Text = "Set Default Printer";
             this.setDefaultPrinterToolStripMenuItem.Click += new System.EventHandler(this.setDefaultPrinterToolStripMenuItem_Click);
             // 
@@ -116,7 +118,7 @@
             this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.exitToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.close_small;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(208, 24);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -142,6 +144,16 @@
             // 
             this.timer_start.Enabled = true;
             this.timer_start.Tick += new System.EventHandler(this.timer_start_Tick);
+            // 
+            // labelPrinterSettingsToolStripMenuItem
+            // 
+            this.labelPrinterSettingsToolStripMenuItem.BackColor = System.Drawing.Color.Purple;
+            this.labelPrinterSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.labelPrinterSettingsToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.settings_small;
+            this.labelPrinterSettingsToolStripMenuItem.Name = "labelPrinterSettingsToolStripMenuItem";
+            this.labelPrinterSettingsToolStripMenuItem.Size = new System.Drawing.Size(208, 24);
+            this.labelPrinterSettingsToolStripMenuItem.Text = "Label Printer Settings";
+            this.labelPrinterSettingsToolStripMenuItem.Click += new System.EventHandler(this.labelPrinterSettingsToolStripMenuItem_Click);
             // 
             // frmManager
             // 
@@ -182,6 +194,7 @@
         private System.Windows.Forms.Label lblnotify;
         private System.IO.FileSystemWatcher file_watcher;
         private System.Windows.Forms.Timer timer_start;
+        private System.Windows.Forms.ToolStripMenuItem labelPrinterSettingsToolStripMenuItem;
     }
 }
 

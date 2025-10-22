@@ -98,6 +98,8 @@ namespace ERPPrintManager
             timer_start.Enabled = true;
             timer_start.Start();
 
+
+         
         }
 
         private void MyNotifyIcon_DoubleClick(object sender, EventArgs e)
@@ -231,6 +233,14 @@ namespace ERPPrintManager
         private void file_watcher_Changed(object sender, FileSystemEventArgs e)
         {
 
+        }
+
+        private void labelPrinterSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLabelPrinterSettings frm;
+            frm = new frmLabelPrinterSettings();
+           // frm.Dispose();
+            frm.ShowDialog();
         }
     }
 }
