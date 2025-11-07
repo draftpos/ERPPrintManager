@@ -160,7 +160,6 @@ namespace ERPPrintManager
         private void button1_Click(object sender, EventArgs e)
         {
             if ((cmbPrinter.Text == "Select Printer") || (cmbPrinter.Text == ""))
-
             {
                 MessageBox.Show(
                     this, "Please select Printer", "No Printer selected",

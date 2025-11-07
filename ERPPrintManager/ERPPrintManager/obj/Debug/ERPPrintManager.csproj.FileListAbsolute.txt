@@ -5,6 +5,7 @@ C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\bin\Debu
 C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\bin\Debug\QRCoder.dll
 C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.csproj.AssemblyReference.cache
+C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.frmClosedayreport.resources
 C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.frmManager.resources
 C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.frmSettings.resources
 C:\Users\Donsol\Desktop\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.Properties.Resources.resources

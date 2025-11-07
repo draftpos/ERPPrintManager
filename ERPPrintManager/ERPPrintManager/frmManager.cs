@@ -232,5 +232,11 @@ namespace ERPPrintManager
         {
 
         }
+
+        private void closeDayReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmClosedayreport frm = new frmClosedayreport();
+            frm.ShowDialog();
+        }
     }
 }

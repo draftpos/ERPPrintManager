@@ -32,18 +32,20 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManager));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblnotify = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setDefaultPrinterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MyNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.file_watcher = new System.IO.FileSystemWatcher();
             this.timer_start = new System.Windows.Forms.Timer(this.components);
+            this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.setDefaultPrinterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeDayReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.file_watcher)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -69,20 +71,11 @@
             this.lblnotify.Text = "Waiting for print request...";
             this.lblnotify.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::ERPPrintManager.Properties.Resources.printer_img;
-            this.pictureBox1.Location = new System.Drawing.Point(10, 24);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(68, 65);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.reportToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(485, 27);
@@ -99,26 +92,6 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 23);
             this.fileToolStripMenuItem.Text = "File";
-            // 
-            // setDefaultPrinterToolStripMenuItem
-            // 
-            this.setDefaultPrinterToolStripMenuItem.BackColor = System.Drawing.Color.Purple;
-            this.setDefaultPrinterToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.setDefaultPrinterToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.settings_small;
-            this.setDefaultPrinterToolStripMenuItem.Name = "setDefaultPrinterToolStripMenuItem";
-            this.setDefaultPrinterToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
-            this.setDefaultPrinterToolStripMenuItem.Text = "Set Default Printer";
-            this.setDefaultPrinterToolStripMenuItem.Click += new System.EventHandler(this.setDefaultPrinterToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.BackColor = System.Drawing.Color.Purple;
-            this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.exitToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.close_small;
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // MyNotifyIcon
             // 
@@ -143,6 +116,56 @@
             this.timer_start.Enabled = true;
             this.timer_start.Tick += new System.EventHandler(this.timer_start_Tick);
             // 
+            // reportToolStripMenuItem
+            // 
+            this.reportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeDayReportToolStripMenuItem});
+            this.reportToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.reportToolStripMenuItem.ForeColor = System.Drawing.Color.Purple;
+            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
+            this.reportToolStripMenuItem.Size = new System.Drawing.Size(62, 23);
+            this.reportToolStripMenuItem.Text = "Report";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ERPPrintManager.Properties.Resources.printer_img;
+            this.pictureBox1.Location = new System.Drawing.Point(10, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(68, 65);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // setDefaultPrinterToolStripMenuItem
+            // 
+            this.setDefaultPrinterToolStripMenuItem.BackColor = System.Drawing.Color.Purple;
+            this.setDefaultPrinterToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.setDefaultPrinterToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.settings_small;
+            this.setDefaultPrinterToolStripMenuItem.Name = "setDefaultPrinterToolStripMenuItem";
+            this.setDefaultPrinterToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.setDefaultPrinterToolStripMenuItem.Text = "Set Default Printer";
+            this.setDefaultPrinterToolStripMenuItem.Click += new System.EventHandler(this.setDefaultPrinterToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.BackColor = System.Drawing.Color.Purple;
+            this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.exitToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.close_small;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // closeDayReportToolStripMenuItem
+            // 
+            this.closeDayReportToolStripMenuItem.BackColor = System.Drawing.Color.Purple;
+            this.closeDayReportToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.closeDayReportToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.report;
+            this.closeDayReportToolStripMenuItem.Name = "closeDayReportToolStripMenuItem";
+            this.closeDayReportToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
+            this.closeDayReportToolStripMenuItem.Text = "Close Day Report";
+            this.closeDayReportToolStripMenuItem.Click += new System.EventHandler(this.closeDayReportToolStripMenuItem_Click);
+            // 
             // frmManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,10 +184,10 @@
             this.Load += new System.EventHandler(this.frmManager_Load);
             this.Resize += new System.EventHandler(this.frmManager_Resize);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.file_watcher)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -182,6 +205,8 @@
         private System.Windows.Forms.Label lblnotify;
         private System.IO.FileSystemWatcher file_watcher;
         private System.Windows.Forms.Timer timer_start;
+        private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeDayReportToolStripMenuItem;
     }
 }
 
