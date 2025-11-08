@@ -70,7 +70,7 @@ namespace ERPPrintManager
         public double Qty { get; set; }
         public decimal Price { get; set; }
         public decimal Amount { get; set; }
-        public decimal vat { get; set; }
+        public decimal tax_amount { get; set; }
     }
 
     public class MultiCurrencyDetail

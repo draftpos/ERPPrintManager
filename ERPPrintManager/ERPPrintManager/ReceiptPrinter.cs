@@ -562,7 +562,7 @@ namespace ERPPrintManager
 
                 string qtyText = $"{detail.Qty}";
                 string priceText = $"{detail.Price:F2}";
-                string vatText = $"{detail.vat:F2}";
+                string vatText = $"{detail.tax_amount:F2}";
                 //string vatText = companyInfo.vat_display ? $"{detail.vat:F2}" : "";
                 string amountText = $"{detail.Amount:F2}";
 
@@ -594,7 +594,7 @@ namespace ERPPrintManager
             graphics.DrawLine(grayPen, startX + 250, box_from + 3, startX + 250, box_to);
             //======END =====
             decimal sumvat = 0;
-            sumvat = receiptData.itemlist.Sum(d => d.vat);
+            sumvat = receiptData.itemlist.Sum(d => d.tax_amount);
 
             int spaceNeededForTotals = (int)(fontRegular.GetHeight(graphics) * 6);
             if ((startY + offset + spaceNeededForTotals) > maxOffset)
