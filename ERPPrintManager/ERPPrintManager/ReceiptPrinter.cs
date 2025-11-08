@@ -416,7 +416,7 @@ namespace ERPPrintManager
 
                     if (!string.IsNullOrEmpty(receiptData.InvoiceDate))
                     {
-                        DateTime dt = DateTime.ParseExact(receiptData.InvoiceDate, "yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture);
+                        DateTime dt = DateTime.ParseExact(receiptData.InvoiceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                         subHeader.AppendLine($"DateTime:\t{dt.ToString("dd/MM/yyyy")}");
                         irow += 1;
                     }
