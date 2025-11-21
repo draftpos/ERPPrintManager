@@ -124,9 +124,13 @@ namespace ERPPrintManager
             {
                 Directory.CreateDirectory(savePath);
             }
-
+            if (data == null)
+            {
+                return "";
+            }
             using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
             {
+
                 QRCodeData qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
                 using (QRCode qrCode = new QRCode(qrCodeData))
                 {
@@ -166,7 +170,11 @@ namespace ERPPrintManager
                 ReceiptData receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
                 lblnotify.Text = "Processing invoice with invoice number " + receipt.InvoiceNo;
                 Application.DoEvents();
-                GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
+               
+                if (receipt.doc_type == null)
+                {
+                    GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
+                }
                 ReceiptPrinter printer = new ReceiptPrinter(receipt);
 
                 if (Properties.Settings.Default.IsSinglePrinter)

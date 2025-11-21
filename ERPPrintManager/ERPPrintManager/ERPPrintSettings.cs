@@ -81,6 +81,7 @@ namespace ERPPrintManager
 
     public class ReceiptData
     {
+        public string doc_type { get; set; } = null;
         public string CompanyLogoPath { get; set; }
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }

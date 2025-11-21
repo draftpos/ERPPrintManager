@@ -344,7 +344,15 @@ namespace ERPPrintManager
                 offset = currentY;
                 // Invoice Header
                 Company companyinfo = new Company();
-                companyinfo.InvoiceHeader = "TAX INVOICE";
+                if (receiptData.doc_type == null)
+                {
+                    companyinfo.InvoiceHeader = "TAX INVOICE";
+
+                }
+                else
+                {
+                    companyinfo.InvoiceHeader = "QUOTATION";
+                }
                 if (!string.IsNullOrEmpty(companyinfo.InvoiceHeader))
                 {
                     textsize = graphics.MeasureString(companyinfo.InvoiceHeader, contentHeaderFont, paperWidth);
@@ -441,7 +449,9 @@ namespace ERPPrintManager
 
                 }
 
-                if (receiptData.DeviceID != null)
+                //===== Fiscalization===========
+                
+                if ((receiptData.DeviceID != null) && (receiptData.doc_type==null) )
                 {
                     if (!string.IsNullOrEmpty(receiptData.DeviceID))
                     {
@@ -468,7 +478,9 @@ namespace ERPPrintManager
                     graphics.DrawLine(Pens.Black, startX, startY + offset, startX + 250, startY + offset);
                     offset += 3;
                 }
+                //===== Fiscalization===========
                 subHeader = new StringBuilder();
+                
                 if (receiptData.CustomerTradeName != null)
                 {
                     if (!string.IsNullOrEmpty(receiptData.CustomerName))
@@ -584,7 +596,6 @@ namespace ERPPrintManager
                     FormatFlags = StringFormatFlags.LineLimit
                 };
 
-
                 graphics.DrawLine(grayPen, startX, startY + offset, startX + 250, startY + offset);
                 offset += 10;
             }
@@ -630,124 +641,130 @@ namespace ERPPrintManager
                 graphics.DrawString(Convert.ToDecimal(receiptData.GrandTotal).ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
                 offset += (int)fontRegular.GetHeight(graphics);
 
-                // Amount Tendered
-                graphics.DrawString("Amount Tendered:", fontRegular, brownBrush, startX, startY + offset);
-                graphics.DrawString(Convert.ToDecimal(receiptData.AmountTendered).ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
-                offset += (int)fontRegular.GetHeight(graphics);
+                if (receiptData.doc_type == null)
+                {
+                    // Amount Tendered
+                    graphics.DrawString("Amount Tendered:", fontRegular, brownBrush, startX, startY + offset);
+                    graphics.DrawString(Convert.ToDecimal(receiptData.AmountTendered).ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
+                    offset += (int)fontRegular.GetHeight(graphics);
 
-                // Change
-                graphics.DrawString("Change:", fontRegular, brownBrush, startX, startY + offset);
-                graphics.DrawString(Convert.ToDecimal(receiptData.Change).ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
-                offset += (int)fontRegular.GetHeight(graphics);
-
+                    // Change
+                    graphics.DrawString("Change:", fontRegular, brownBrush, startX, startY + offset);
+                    graphics.DrawString(Convert.ToDecimal(receiptData.Change).ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
+                    offset += (int)fontRegular.GetHeight(graphics);
+                }
                 totalsPrinted = true;
             }
 
-            int spaceNeededForCurrency = (int)(fontRegular.GetHeight(graphics) * (receiptData.MultiCurrencyDetails.Count + 2));
+            //===========Doc_type==============
+            if (receiptData.doc_type == null)
+            {
+                int spaceNeededForCurrency = (int)(fontRegular.GetHeight(graphics) * (receiptData.MultiCurrencyDetails.Count + 2));
             if ((startY + offset + spaceNeededForCurrency) > maxOffset)
             {
                 e.HasMorePages = true;
                 return;
             }
 
-            bool curencyHeader = false;
-            if (!curencyHeader)
-            {
-                if (!string.IsNullOrEmpty(receiptData.Currency))
+            
+                bool curencyHeader = false;
+                if (!curencyHeader)
                 {
-                    graphics.DrawString($"Currency: {receiptData.Currency}", fontRegular, blueBrush, startX, startY + offset + 5);
-                    offset += (int)fontRegular.GetHeight(graphics) * 2;
-                }
-
-                if (receiptData.MultiCurrencyDetails != null && receiptData.MultiCurrencyDetails.Count > 0)
-                {
-                    graphics.DrawString("Multi Currency Details", fontBold, blackBrush, startX, startY + offset);
-                    offset += (int)fontBold.GetHeight(graphics);
-                    graphics.DrawString("CURRENCY    AMOUNT", fontRegular, blackBrush, startX, startY + offset);
-                    offset += (int)fontRegular.GetHeight(graphics);
-
-                    foreach (var mc in receiptData.MultiCurrencyDetails)
+                    if (!string.IsNullOrEmpty(receiptData.Currency))
                     {
-                        if (mc.Value == 0) continue;
-                        graphics.DrawString($"{mc.Key}       {mc.Value:F2}", fontRegular, blackBrush, startX, startY + offset);
+                        graphics.DrawString($"Currency: {receiptData.Currency}", fontRegular, blueBrush, startX, startY + offset + 5);
+                        offset += (int)fontRegular.GetHeight(graphics) * 2;
+                    }
+
+                    if (receiptData.MultiCurrencyDetails != null && receiptData.MultiCurrencyDetails.Count > 0)
+                    {
+                        graphics.DrawString("Multi Currency Details", fontBold, blackBrush, startX, startY + offset);
+                        offset += (int)fontBold.GetHeight(graphics);
+                        graphics.DrawString("CURRENCY    AMOUNT", fontRegular, blackBrush, startX, startY + offset);
+                        offset += (int)fontRegular.GetHeight(graphics);
+
+                        foreach (var mc in receiptData.MultiCurrencyDetails)
+                        {
+                            if (mc.Value == 0) continue;
+                            graphics.DrawString($"{mc.Key}       {mc.Value:F2}", fontRegular, blackBrush, startX, startY + offset);
+                            offset += (int)fontRegular.GetHeight(graphics);
+                        }
                         offset += (int)fontRegular.GetHeight(graphics);
                     }
-                    offset += (int)fontRegular.GetHeight(graphics);
+                    curencyHeader = true;
                 }
-                curencyHeader = true;
-            }
 
-            int spaceNeededForQRCode = 100;
-            if ((startY + offset + spaceNeededForQRCode) > maxOffset)
-            {
-                e.HasMorePages = true;
-                return;
-            }
-
-            bool printedqrcode = false;
-            if (!printedqrcode)
-            {
-                if (!string.IsNullOrEmpty(receiptData.QRCodePath) && File.Exists(receiptData.QRCodePath))
+                int spaceNeededForQRCode = 100;
+                if ((startY + offset + spaceNeededForQRCode) > maxOffset)
                 {
-                    Image qrCode = Image.FromFile(receiptData.QRCodePath);
-                    int qrCodeWidth = 90;
-                    int qrCodeHeight = 90;
-                    int qrCodeX = (paperWidth - qrCodeWidth) / 2;
-                    graphics.DrawImage(qrCode, qrCodeX, startY + offset, qrCodeWidth, qrCodeHeight);
-                    offset += 90;
+                    e.HasMorePages = true;
+                    return;
                 }
 
-                string qr_path = Path.Combine(@"C:\InvoiceFolder\QRCode", receiptData.InvoiceNo + "_qrccode.png");
-                if (File.Exists(qr_path))
+                bool printedqrcode = false;
+                if (!printedqrcode)
                 {
-                    Image qrCode2 = Image.FromFile(qr_path);
-                    int qrCodeWidth2 = 80;
-                    int qrCodeHeight2 = 80;
-                    int qrCodeX2 = (paperWidth - qrCodeWidth2) / 2;
-                    graphics.DrawImage(qrCode2, qrCodeX2 + 15, startY + offset, qrCodeWidth2, qrCodeHeight2);
-                    offset += 80;
+                    if (!string.IsNullOrEmpty(receiptData.QRCodePath) && File.Exists(receiptData.QRCodePath))
+                    {
+                        Image qrCode = Image.FromFile(receiptData.QRCodePath);
+                        int qrCodeWidth = 90;
+                        int qrCodeHeight = 90;
+                        int qrCodeX = (paperWidth - qrCodeWidth) / 2;
+                        graphics.DrawImage(qrCode, qrCodeX, startY + offset, qrCodeWidth, qrCodeHeight);
+                        offset += 90;
+                    }
+
+                    string qr_path = Path.Combine(@"C:\InvoiceFolder\QRCode", receiptData.InvoiceNo + "_qrccode.png");
+                    if (File.Exists(qr_path))
+                    {
+                        Image qrCode2 = Image.FromFile(qr_path);
+                        int qrCodeWidth2 = 80;
+                        int qrCodeHeight2 = 80;
+                        int qrCodeX2 = (paperWidth - qrCodeWidth2) / 2;
+                        graphics.DrawImage(qrCode2, qrCodeX2 + 15, startY + offset, qrCodeWidth2, qrCodeHeight2);
+                        offset += 80;
+                    }
+                    printedqrcode = true;
                 }
-                printedqrcode = true;
-            }
 
-            int spaceNeededForVerificationCode;
-            if (!string.IsNullOrEmpty(receiptData.VCode))
-            {
-                spaceNeededForVerificationCode = (int)(fontRegular.GetHeight(graphics) * 3);
-            }
-            else
-            {
-                spaceNeededForVerificationCode = (int)(fontRegular.GetHeight(graphics) * 2);
-            }
-
-            if ((startY + offset + spaceNeededForVerificationCode) > maxOffset)
-            {
-                e.HasMorePages = true;
-                return;
-            }
-
-            bool vcodeprinted = false;
-            if (!vcodeprinted)
-            {
-                // === VERIFICATION CODE ===
+                int spaceNeededForVerificationCode;
                 if (!string.IsNullOrEmpty(receiptData.VCode))
                 {
-                    graphics.DrawString("Verification Code: ", fontRegular, blackBrush, startX + 50, startY + offset);
-                    offset += 20;
-                    graphics.DrawString(receiptData.VCode, fontRegular, blackBrush, startX + 40, startY + offset);
-                    offset += 20;
-                    graphics.DrawString("You can verify this receipt manually at", fontRegular, blackBrush, startX, startY + offset);
-                    offset += 20;
-                    graphics.DrawString("https://fdms.zimra.co.zw", fontRegular, blackBrush, startX + 40, startY + offset);
-                    offset += 20;
-
+                    spaceNeededForVerificationCode = (int)(fontRegular.GetHeight(graphics) * 3);
+                }
+                else
+                {
+                    spaceNeededForVerificationCode = (int)(fontRegular.GetHeight(graphics) * 2);
                 }
 
-                string footer = $"Havano Point of Sale v11{Environment.NewLine}   Thanks....Visit Again!";
-                graphics.DrawString(footer, fontRegular, blackBrush, startX + 40, startY + offset + 5);
-                vcodeprinted = true;
-            }
+                if ((startY + offset + spaceNeededForVerificationCode) > maxOffset)
+                {
+                    e.HasMorePages = true;
+                    return;
+                }
 
+                bool vcodeprinted = false;
+                if (!vcodeprinted)
+                {
+                    // === VERIFICATION CODE ===
+                    if (!string.IsNullOrEmpty(receiptData.VCode))
+                    {
+                        graphics.DrawString("Verification Code: ", fontRegular, blackBrush, startX + 50, startY + offset);
+                        offset += 20;
+                        graphics.DrawString(receiptData.VCode, fontRegular, blackBrush, startX + 40, startY + offset);
+                        offset += 20;
+                        graphics.DrawString("You can verify this receipt manually at", fontRegular, blackBrush, startX, startY + offset);
+                        offset += 20;
+                        graphics.DrawString("https://fdms.zimra.co.zw", fontRegular, blackBrush, startX + 40, startY + offset);
+                        offset += 20;
+
+                    }
+
+                    string footer = $"Havano Point of Sale v11{Environment.NewLine}   Thanks....Visit Again!";
+                    graphics.DrawString(footer, fontRegular, blackBrush, startX + 40, startY + offset + 5);
+                    vcodeprinted = true;
+                }
+            }
             if (offset < maxOffset)
             {
                 e.HasMorePages = false;
