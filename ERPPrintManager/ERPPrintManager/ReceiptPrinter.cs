@@ -17,6 +17,8 @@ namespace ERPPrintManager
     {
         private ReceiptData receiptData;
         private CloseDayData closeday_data;
+        private KitchenData kitchen_data;
+
         private int currentPage = 1; // Track the current page
         Advance_settings advancedata = new Advance_settings();
         private bool headerPrinted = false;
@@ -31,6 +33,11 @@ namespace ERPPrintManager
             closeday_data = data;
         }
 
+        public ReceiptPrinter(KitchenData data)
+        {
+            kitchen_data = data;
+        }
+
         public void PrintReceipt1(string myPrinterName)
         {
             PrintDocument printDoc = new PrintDocument();
@@ -39,6 +46,13 @@ namespace ERPPrintManager
             printDoc.Print();
         }
 
+        public void PrintKitchenReceipt(string myPrinterName)
+        {
+            PrintDocument printDoc = new PrintDocument();
+            printDoc.PrintPage += new PrintPageEventHandler(this.OnPrintKitchenOrder);
+            printDoc.PrinterSettings.PrinterName = myPrinterName;
+            printDoc.Print();
+        }
         public void PrintCloseDayReport(string myPrinterName)
         {
             PrintDocument printDoc = new PrintDocument();
@@ -105,18 +119,7 @@ namespace ERPPrintManager
                 offset = currentY;
                 // Invoice Header
                 Company companyinfo = new Company();
-                //companyinfo.InvoiceHeader = "ZREPORT";
-                //if (!string.IsNullOrEmpty(companyinfo.InvoiceHeader))
-                //{
-                //    textsize = graphics.MeasureString(companyinfo.InvoiceHeader, contentHeaderFont, paperWidth);
-                //    int textX = (int)((paperWidth - textsize.Width) / 2);
-                //    RectangleF layoutRectangle = new RectangleF(textX, startY + offset, paperWidth, textsize.Height);
-                //    StringFormat stringFormat = new StringFormat();
-                //    stringFormat.Alignment = StringAlignment.Near;
-                //    stringFormat.FormatFlags = StringFormatFlags.LineLimit;
-                //    graphics.DrawString(companyinfo.InvoiceHeader, contentHeaderFont, blackBrush, layoutRectangle, stringFormat);
-                //    offset += (int)textsize.Height + 5;
-                //}
+                
 
                 StringBuilder header = new StringBuilder();
                 if (!string.IsNullOrEmpty(ERPPrintManager.Properties.Settings.Default.CompanyName))
@@ -271,6 +274,251 @@ namespace ERPPrintManager
             }
 
            
+            if (offset < maxOffset)
+            {
+                e.HasMorePages = false;
+                currentPage = 1;
+            }
+            else
+            {
+                e.HasMorePages = true;
+            }
+
+            // After printing all details, reset the pagination
+            itemsPrinted = 0;
+            headerPrinted = false;
+            e.HasMorePages = false;
+        }
+        /// <summary>
+        /// =KITCHEN ORDER SCOPE
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void OnPrintKitchenOrder(object sender, PrintPageEventArgs e)
+        {
+            advancedata = advancedata.GetAdvanceData();
+            Graphics graphics = e.Graphics;
+            Font fontRegular = new Font("Arial", advancedata.ContentFontSize, GetFontStyle(advancedata.ContentFontStyle));
+            Font fontBold = new Font("Arial", advancedata.SubheaderSize, GetFontStyle(advancedata.SubheaderStyle));
+            Font contentFont = new Font("Arial", advancedata.ContentFontSize, GetFontStyle(advancedata.ContentFontStyle));
+            Font ordercontentFont = new Font("Arial", advancedata.orderContentFontSize, GetFontStyle(advancedata.orderContentFontStyle));
+            Font contentsubHeaderFont = new Font("Arial", advancedata.SubheaderSize, GetFontStyle(advancedata.SubheaderStyle));
+            Font contentHeaderFont = new Font("Arial", advancedata.ContentHeaderSize, GetFontStyle(advancedata.ContentHeaderStyle));
+            SolidBrush blackBrush = new SolidBrush(Color.Black);
+            SolidBrush brownBrush = new SolidBrush(Color.OrangeRed);
+            Pen grayPen = new Pen(Color.Gray, 1);
+            grayPen.DashStyle = DashStyle.Dot;
+            Pen blackPen = new Pen(Color.Black, 1);
+            blackPen.DashStyle = DashStyle.Solid;
+            SolidBrush blueBrush = new SolidBrush(Color.Blue);
+            Pen blueBrush2 = new Pen(Color.Blue, 1);
+            int paperWidth = 215; // 80mm paper width in pixels
+            int startX = 10;
+            int startY = 10;
+            int offset = 20;
+            int pageHeight = e.PageBounds.Height; // Available height on the page
+            int maxOffset = pageHeight - 5; // Adjust to leave space for margins
+            int itemsPrinted = 0;
+            bool headerPrinted = false;
+
+            if (!headerPrinted)
+            {
+                SizeF textsize;
+                int currentY = startY;
+
+                // Draw logo below "COPIED"
+                string logo_path = @"C:\InvoiceFolder\logo.png";
+                if (File.Exists(logo_path))
+                {
+                    Image logo = Image.FromFile(logo_path);
+                    int logoWidth = 140;
+                    int logoHeight = 100;
+                    int logoX = (paperWidth - logoWidth) / 2;
+                    graphics.DrawImage(logo, logoX, currentY, logoWidth, logoHeight);
+                    currentY += logoHeight;
+                }
+
+                offset = currentY;
+                // Invoice Header
+                Company companyinfo = new Company();
+                companyinfo.InvoiceHeader = "KITCHEN ORDER";
+                
+                if (!string.IsNullOrEmpty(companyinfo.InvoiceHeader))
+                {
+                    textsize = graphics.MeasureString(companyinfo.InvoiceHeader, contentHeaderFont, paperWidth);
+                    int textX = (int)((paperWidth - textsize.Width) / 2);
+                    RectangleF layoutRectangle = new RectangleF(textX, startY + offset, paperWidth, textsize.Height);
+                    StringFormat stringFormat = new StringFormat();
+                    stringFormat.Alignment = StringAlignment.Near;
+                    stringFormat.FormatFlags = StringFormatFlags.LineLimit;
+                    graphics.DrawString(companyinfo.InvoiceHeader, contentHeaderFont, blackBrush, layoutRectangle, stringFormat);
+                    offset += (int)textsize.Height + 5;
+                }
+
+                StringBuilder header = new StringBuilder();
+                if (!string.IsNullOrEmpty(kitchen_data.CompanyName))
+                {
+                    textsize = graphics.MeasureString(kitchen_data.CompanyName, contentHeaderFont, paperWidth);
+                    RectangleF layoutRectangle1 = new RectangleF(0, startY + offset, paperWidth, textsize.Height);
+                    StringFormat stringFormat1 = new StringFormat();
+                    stringFormat1.Alignment = StringAlignment.Center;
+                    stringFormat1.FormatFlags = StringFormatFlags.LineLimit;
+                    graphics.DrawString(kitchen_data.CompanyName, contentHeaderFont, blackBrush, layoutRectangle1, stringFormat1);
+                    offset += (int)textsize.Height + 5;
+                }
+
+              
+
+                string headerString = header.ToString();
+                RectangleF layoutRectangle2 = new RectangleF(0, startY + offset, paperWidth, graphics.MeasureString(headerString, contentsubHeaderFont, paperWidth).Height);
+                StringFormat stringFormat2 = new StringFormat();
+                stringFormat2.Alignment = StringAlignment.Center;
+                stringFormat2.FormatFlags = StringFormatFlags.LineLimit;
+                graphics.DrawString(headerString, contentsubHeaderFont, blackBrush, layoutRectangle2, stringFormat2);
+                offset += (int)layoutRectangle2.Height + 5;
+                graphics.DrawLine(Pens.Black, startX, startY + offset, startX + 250, startY + offset);
+                offset += 10;
+
+                StringBuilder subHeader = new StringBuilder();
+                int irow = 1;
+                if (kitchen_data != null)
+                {
+                    if (!string.IsNullOrEmpty(kitchen_data.Waiter))
+                    {
+                        subHeader.AppendLine($"Waiter: \t{kitchen_data.Waiter}");
+                        irow += 1;
+                    }
+
+                    if (!string.IsNullOrEmpty(kitchen_data.Cashier))
+                    {
+                        subHeader.AppendLine($"Casheir: {kitchen_data.Waiter}");
+                        irow += 1;
+                    }
+
+                    if (!string.IsNullOrEmpty(kitchen_data.OrderDate))
+                    {
+                        subHeader.AppendLine($"Date Time: {kitchen_data.OrderDate}");
+                        irow += 1;
+                    }
+
+                    if (!string.IsNullOrEmpty(kitchen_data.OrderType))
+                    {
+                        subHeader.AppendLine($"Order Type: {kitchen_data.OrderType}");
+                        irow += 1;
+                    }
+
+                    if (!string.IsNullOrEmpty(kitchen_data.OrderNo))
+                    {
+                        subHeader.AppendLine($"Order No.: {kitchen_data.OrderNo}");
+                        irow += 1;
+                    }
+
+                    irow = irow - 2;
+                    string subHeaderString = subHeader.ToString();
+                    graphics.DrawString(subHeaderString, fontRegular, blackBrush, startX, startY + offset);
+                    offset += 80;
+
+                   
+                }
+                graphics.DrawLine(Pens.Black, startX, startY + offset, startX + 250, startY + offset);
+                offset += 10;
+
+                string itemHeader = "Item Description" + Environment.NewLine + "Item"  + "\t\t\t\tQty";
+                graphics.DrawString(itemHeader, fontBold, blueBrush, startX, startY + offset);
+                offset += (int)(fontBold.GetHeight(graphics) * 2);
+                headerPrinted = true;
+            }
+
+            // Print item description header
+            if (itemsPrinted == 0)
+            {
+                graphics.DrawLine(Pens.Black, startX, startY + offset, startX + 250, startY + offset);
+                offset += 7;
+            }
+            int box_from = offset;
+
+            // Print details with pagination support
+            
+            for (int i = itemsPrinted; i < kitchen_data.itemlist.Count; i++)
+            {
+                KitchenItem detail = kitchen_data.itemlist[i];
+                itemsPrinted = i + 1;
+               
+                if (offset >= maxOffset)
+                {
+                    e.HasMorePages = true;
+                    return;
+                }
+
+                // Print product details
+               
+                int itemWidth = 40;
+                int qtyWidth = 300;
+
+                string qtyText = $"{detail.Qty}";
+                string itemText = $"{detail.ItemName:F2}";
+               
+
+                int qtyXPosition = startX + itemWidth + AdjustSpacing(itemText);
+                graphics.DrawString(itemText, fontRegular, blackBrush, startX, startY + offset);
+                graphics.DrawString(qtyText, fontRegular, blackBrush, qtyXPosition + 180, startY + offset);
+                offset += (int)fontRegular.GetHeight(graphics);
+
+                if (!string.IsNullOrEmpty(detail.Remark))
+                {
+                    graphics.DrawString($"({detail.Remark})", fontRegular, blackBrush, startX, startY + offset);
+                    offset += (int)fontRegular.GetHeight(graphics);
+                }
+                //RectangleF layoutRectangle3 = new RectangleF(0, startY + offset, paperWidth, graphics.MeasureString(detail.RemarkText, contentsubHeaderFont, paperWidth).Height);
+                StringFormat stringFormat3 = new StringFormat
+                {
+                    Alignment = StringAlignment.Center,
+                    FormatFlags = StringFormatFlags.LineLimit
+                };
+
+                graphics.DrawLine(blackPen, startX, startY + offset, startX + 250, startY + offset);
+                offset += 10;
+            }
+            int box_to = offset;
+            // Boxed In Item
+            graphics.DrawLine(blackPen, startX, box_from - 37, startX, box_to);
+            graphics.DrawLine(blackPen, startX + 250, box_from - 37, startX + 250, box_to);
+            //======END =====
+           
+            int spaceNeededForTotals = (int)(fontRegular.GetHeight(graphics) * 6);
+            if ((startY + offset + spaceNeededForTotals) > maxOffset)
+            {
+                e.HasMorePages = true;
+                return;
+            }
+
+            bool totalsPrinted = false;
+            if (!totalsPrinted)
+            {
+                //graphics.DrawLine(blueBrush2, startX, startY + offset, startX + 250, startY + offset);
+                //offset += 10;
+
+                //decimal totalamt_exclusive = (Convert.ToDecimal(kitchen_data.itemlist.Count));
+                int labelWidth = 250;
+                int valueXPosition = startX + labelWidth;
+
+                // Sub Total Exc.
+                graphics.DrawString("Total Items: \t" + kitchen_data.itemlist.Count, fontRegular, blackBrush, startX, startY + offset);
+                //graphics.DrawString(totalamt_exclusive.ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
+                offset += (int)fontRegular.GetHeight(graphics);
+                offset += 10;
+
+                totalsPrinted = true;
+            }
+
+            //===========Doc_type==============
+            int spaceNeededForVerificationCode;
+            spaceNeededForVerificationCode = (int)(fontRegular.GetHeight(graphics) * 2);
+               
+            string footer = $"Havano Point of Sale v11{Environment.NewLine}   Thanks....Visit Again!";
+            graphics.DrawString(footer, fontRegular, blackBrush, startX + 40, startY + offset + 5);
+            
             if (offset < maxOffset)
             {
                 e.HasMorePages = false;
@@ -451,7 +699,7 @@ namespace ERPPrintManager
 
                 //===== Fiscalization===========
                 
-                if ((receiptData.DeviceID != null) && (receiptData.doc_type==null) )
+                if ((receiptData.DeviceID != null) && (receiptData.doc_type==null) || (receiptData.DeviceID != null) && (receiptData.doc_type == "payment"))
                 {
                     if (!string.IsNullOrEmpty(receiptData.DeviceID))
                     {
@@ -480,7 +728,7 @@ namespace ERPPrintManager
                 }
                 //===== Fiscalization===========
                 subHeader = new StringBuilder();
-                
+
                 if (receiptData.CustomerTradeName != null)
                 {
                     if (!string.IsNullOrEmpty(receiptData.CustomerName))
@@ -537,7 +785,7 @@ namespace ERPPrintManager
                     graphics.DrawLine(Pens.Black, startX, startY + offset, startX + 250, startY + offset);
                     offset += 10;
                 }
-                string itemHeader = "Item Description" + Environment.NewLine + "ProductName" + Environment.NewLine + "Qty" + "\t" + "Price(Inc)  " + "VAT" + "\t" + "  Total(Inc)";
+                string itemHeader = "Item Description" + "\t Payments" + Environment.NewLine + "ProductName" + Environment.NewLine + "Qty" + "\t" + "Price(Inc)  " + "VAT" + "\t" + "  Total(Inc)";
                 graphics.DrawString(itemHeader, fontBold, blueBrush, startX, startY + offset);
                 offset += (int)(fontBold.GetHeight(graphics) * 3);
                 headerPrinted = true;
@@ -641,7 +889,7 @@ namespace ERPPrintManager
                 graphics.DrawString(Convert.ToDecimal(receiptData.GrandTotal).ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
                 offset += (int)fontRegular.GetHeight(graphics);
 
-                if (receiptData.doc_type == null)
+                if ((receiptData.doc_type == null)||(receiptData.doc_type == "payment"))
                 {
                     // Amount Tendered
                     graphics.DrawString("Amount Tendered:", fontRegular, brownBrush, startX, startY + offset);
@@ -657,7 +905,7 @@ namespace ERPPrintManager
             }
 
             //===========Doc_type==============
-            if (receiptData.doc_type == null)
+            if ((receiptData.doc_type == null) || (receiptData.doc_type == "payment"))
             {
                 int spaceNeededForCurrency = (int)(fontRegular.GetHeight(graphics) * (receiptData.MultiCurrencyDetails.Count + 2));
             if ((startY + offset + spaceNeededForCurrency) > maxOffset)

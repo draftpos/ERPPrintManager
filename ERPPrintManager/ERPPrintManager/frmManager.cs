@@ -175,21 +175,39 @@ namespace ERPPrintManager
                 {
                     GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
                 }
-                ReceiptPrinter printer = new ReceiptPrinter(receipt);
-
-                if (Properties.Settings.Default.IsSinglePrinter)
+                if (receipt.doc_type == "kitchen")
                 {
-                    printer.PrintReceipt1(Properties.Settings.Default.DefaultPrinter);
-                }
-                if (Properties.Settings.Default.IsMultiplePrinter)
-                {
-                    foreach (string item in Properties.Settings.Default.MultiplePrinterList)
+                    KitchenData receipt1 = JsonConvert.DeserializeObject<KitchenData>(json);
+                    ReceiptPrinter printer = new ReceiptPrinter(receipt1);
+                    if (Properties.Settings.Default.IsSinglePrinter)
                     {
-                        printer.PrintReceipt1(item);
+                        printer.PrintKitchenReceipt(Properties.Settings.Default.DefaultPrinter);
+                    }
+                    if (Properties.Settings.Default.IsMultiplePrinter)
+                    {
+                        foreach (string item in Properties.Settings.Default.MultiplePrinterList)
+                        {
+                            printer.PrintKitchenReceipt(item);
 
+                        }
                     }
                 }
+                else
+                {
+                    ReceiptPrinter printer = new ReceiptPrinter(receipt);
+                    if (Properties.Settings.Default.IsSinglePrinter)
+                    {
+                        printer.PrintReceipt1(Properties.Settings.Default.DefaultPrinter);
+                    }
+                    if (Properties.Settings.Default.IsMultiplePrinter)
+                    {
+                        foreach (string item in Properties.Settings.Default.MultiplePrinterList)
+                        {
+                            printer.PrintReceipt1(item);
 
+                        }
+                    }
+                }
                 lblnotify.Text = "Waiting for new invoice...";
 
             }
