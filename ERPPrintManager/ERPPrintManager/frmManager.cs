@@ -113,6 +113,29 @@ namespace ERPPrintManager
                 this.Hide();
             }
         }
+
+        public static string SaveQRCode(string data, string invoice_no)
+        {
+            string savePath = Path.Combine(@"C:\InvoiceFolder", "QRCode");
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
+            if (data == null)
+            {
+                return "";
+            }
+            if (data.StartsWith("data:image"))
+            {
+                int commaIndex = data.IndexOf(',');
+                data = data.Substring(commaIndex + 1);
+            }
+            byte[] imageBytes = Convert.FromBase64String(data);
+            string qrCodePath = Path.Combine(savePath, invoice_no + "_qrccode.png");
+            File.WriteAllBytes(qrCodePath, imageBytes);
+            return qrCodePath;
+
+        }
         public static string GenerateQRCode(string data, string invoice_no)
         {
             //string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -173,7 +196,8 @@ namespace ERPPrintManager
                
                 if (receipt.doc_type == null)
                 {
-                    GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
+                    //GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
+                    SaveQRCode(receipt.QRCode, receipt.InvoiceNo);
                 }
                 if (receipt.doc_type == "kitchen")
                 {
@@ -229,7 +253,8 @@ namespace ERPPrintManager
                 ReceiptData receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
                 lblnotify.Text = "Processing invoice with invoice number " + receipt.InvoiceNo;
                 Application.DoEvents();
-                GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
+                //GenerateQRCode(receipt.QRCode, receipt.InvoiceNo);
+                SaveQRCode(receipt.QRCode, receipt.InvoiceNo);
                 ReceiptPrinter printer = new ReceiptPrinter(receipt);
                 if (Properties.Settings.Default.IsSinglePrinter)
                 {
