@@ -12,17 +12,17 @@ namespace ERPPrintManager
         public string doc_type { get; set; }
         public string CompanyName { get; set; }
         public string Waiter { get; set; }
-        public string Cashier { get; set; }
+        public string CashierName { get; set; }
         public string OrderDate { get; set; }
         public string OrderType { get; set; }
-        public string OrderNo { get; set; }
+        public string InvoiceNo { get; set; }
         public List<KitchenItem> itemlist { get; set; }
         public string TotalItem { get; set; }
     }
 
     public class KitchenItem
     {
-        public string ItemName { get; set; }
+        public string ProductName { get; set; }
         public int Qty { get; set; }
         public string Remark { get; set; }
     }

@@ -28,15 +28,21 @@ namespace ERPPrintManager
             receiptData = data;
         }
 
+        public ReceiptPrinter(KitchenData data)
+        {
+            kitchen_data = data;
+        }
+
+
         public ReceiptPrinter(CloseDayData data, bool start)
         {
             closeday_data = data;
         }
 
-        public ReceiptPrinter(KitchenData data)
-        {
-            kitchen_data = data;
-        }
+        //public ReceiptPrinter(KitchenData data)
+        //{
+        //    kitchen_data = data;
+        //}
 
         public void PrintReceipt1(string myPrinterName)
         {
@@ -384,40 +390,40 @@ namespace ERPPrintManager
                 int irow = 1;
                 if (kitchen_data != null)
                 {
-                    if (!string.IsNullOrEmpty(kitchen_data.Waiter))
+                    if (!string.IsNullOrEmpty(kitchen_data.CashierName))
                     {
-                        subHeader.AppendLine($"Waiter: \t{kitchen_data.Waiter}");
+                        subHeader.AppendLine($"Waiter: \t{kitchen_data.CashierName}");
                         irow += 1;
                     }
 
-                    if (!string.IsNullOrEmpty(kitchen_data.Cashier))
-                    {
-                        subHeader.AppendLine($"Casheir: {kitchen_data.Waiter}");
-                        irow += 1;
-                    }
+                    //if (!string.IsNullOrEmpty(kitchen_data.CashierName))
+                    //{
+                    //    subHeader.AppendLine($"Casheir: {kitchen_data.CashierName}");
+                    //    irow += 1;
+                    //}
 
-                    if (!string.IsNullOrEmpty(kitchen_data.OrderDate))
-                    {
-                        subHeader.AppendLine($"Date Time: {kitchen_data.OrderDate}");
-                        irow += 1;
-                    }
+                    //if (!string.IsNullOrEmpty(kitchen_data.OrderDate))
+                    //{
+                    //    subHeader.AppendLine($"Date Time: {kitchen_data.OrderDate}");
+                    //    irow += 1;
+                    //}
 
-                    if (!string.IsNullOrEmpty(kitchen_data.OrderType))
-                    {
-                        subHeader.AppendLine($"Order Type: {kitchen_data.OrderType}");
-                        irow += 1;
-                    }
+                    //if (!string.IsNullOrEmpty(kitchen_data.OrderType))
+                    //{
+                    //    subHeader.AppendLine($"Order Type: {kitchen_data.OrderType}");
+                    //    irow += 1;
+                    //}
 
-                    if (!string.IsNullOrEmpty(kitchen_data.OrderNo))
+                    if (!string.IsNullOrEmpty(kitchen_data.InvoiceNo))
                     {
-                        subHeader.AppendLine($"Order No.: {kitchen_data.OrderNo}");
+                        subHeader.AppendLine($"Order No.: {kitchen_data.InvoiceNo}");
                         irow += 1;
                     }
 
                     irow = irow - 2;
                     string subHeaderString = subHeader.ToString();
                     graphics.DrawString(subHeaderString, fontRegular, blackBrush, startX, startY + offset);
-                    offset += 80;
+                    offset += 30;
 
                    
                 }
@@ -457,7 +463,7 @@ namespace ERPPrintManager
                 int qtyWidth = 300;
 
                 string qtyText = $"{detail.Qty}";
-                string itemText = $"{detail.ItemName:F2}";
+                string itemText = $"{detail.ProductName}";
                
 
                 int qtyXPosition = startX + itemWidth + AdjustSpacing(itemText);
