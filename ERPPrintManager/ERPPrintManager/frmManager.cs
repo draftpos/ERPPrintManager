@@ -45,42 +45,42 @@ namespace ERPPrintManager
             Application.Exit();
         }
 
-        private void DeleteAllTextFiles(string folderPath)
-        {
-            try
-            {
-                if (Directory.Exists(folderPath))
-                {
-                    string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
+        //private void DeleteAllTextFiles(string folderPath)
+        //{
+        //    try
+        //    {
+        //        if (Directory.Exists(folderPath))
+        //        {
+        //            string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
 
-                    foreach (string file in txtFiles)
-                    {
-                        File.Delete(file);
-                        Console.WriteLine($"Deleted: {Path.GetFileName(file)}");
-                    }
+        //            foreach (string file in txtFiles)
+        //            {
+        //                File.Delete(file);
+        //                Console.WriteLine($"Deleted: {Path.GetFileName(file)}");
+        //            }
 
-                    Console.WriteLine("All .txt files deleted successfully.");
-                }
-                else
-                {
-                    Console.WriteLine("Folder not found: " + folderPath);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error deleting files: " + ex.Message);
-            }
-        }
+        //            Console.WriteLine("All .txt files deleted successfully.");
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("Folder not found: " + folderPath);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Error deleting files: " + ex.Message);
+        //    }
+        //}
 
         private void frmManager_Load(object sender, EventArgs e)
         {
-            string invoice_Path = @"C:\InvoiceFolder";
-            if (!Directory.Exists(invoice_Path))
-            {
-                Directory.CreateDirectory(invoice_Path);
-            }
+            //string invoice_Path = @"C:\InvoiceFolder";
+            //if (!Directory.Exists(invoice_Path))
+            //{
+            //    Directory.CreateDirectory(invoice_Path);
+            //}
 
-            DeleteAllTextFiles(invoice_Path);
+            //DeleteAllTextFiles(invoice_Path);
 
             MyNotifyIcon.Visible = false;
             ContextMenuStrip contextMenu = new ContextMenuStrip();
@@ -160,6 +160,8 @@ namespace ERPPrintManager
             }
         }
 
+
+
         private void timer_start_Tick(object sender, EventArgs e)
         {
             Debug.WriteLine("Monitor started");
@@ -172,89 +174,93 @@ namespace ERPPrintManager
             timer_start.Enabled = false;
         }
 
-        private void file_watcher_Created(object sender, FileSystemEventArgs e)
-        {
-            try
-            {
-                Debug.WriteLine($"New JSON file detected: {e.FullPath}");
 
-                // Wait until file is fully written and readable
-                string json = string.Empty;
-                while (true)
-                {
-                    try
-                    {
-                        json = File.ReadAllText(e.FullPath);
-                        break;
-                    }
-                    catch (IOException)
-                    {
-                        Task.Delay(100).Wait();
-                    }
-                }
 
-                ReceiptData receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
 
-                this.Invoke((MethodInvoker)(() =>
-                {
-                    lblnotify.Text = "New invoice found...";
-                    lblnotify.Text = "Processing invoice with invoice number " + receipt.InvoiceNo;
-                }));
 
-                if (receipt.doc_type == null)
-                {
-                    SaveQRCode(receipt.QRCode, receipt.InvoiceNo);
-                }
+        //private void file_watcher_Created(object sender, FileSystemEventArgs e)
+        //{
+        //    try
+        //    {
+        //        Debug.WriteLine($"New JSON file detected: {e.FullPath}");
 
-                if (receipt.doc_type == "kitchen")
-                {
-                    KitchenData receipt1 = JsonConvert.DeserializeObject<KitchenData>(json);
-                    ReceiptPrinter printer = new ReceiptPrinter(receipt1);
-                    if (Properties.Settings.Default.IsSinglePrinter)
-                    {
-                        printer.PrintKitchenReceipt(Properties.Settings.Default.DefaultPrinter);
-                    }
-                    if (Properties.Settings.Default.IsMultiplePrinter)
-                    {
-                        foreach (string item in Properties.Settings.Default.MultiplePrinterList)
-                        {
-                            printer.PrintKitchenReceipt(item);
-                        }
-                    }
-                }
-                else
-                {
-                    ReceiptPrinter printer = new ReceiptPrinter(receipt);
-                    if (Properties.Settings.Default.IsSinglePrinter)
-                    {
-                        printer.PrintReceipt1(Properties.Settings.Default.DefaultPrinter);
-                    }
-                    if (Properties.Settings.Default.IsMultiplePrinter)
-                    {
-                        foreach (string item in Properties.Settings.Default.MultiplePrinterList)
-                        {
-                            printer.PrintReceipt1(item);
-                        }
-                    }
-                }
+        //        // Wait until file is fully written and readable
+        //        string json = string.Empty;
+        //        while (true)
+        //        {
+        //            try
+        //            {
+        //                json = File.ReadAllText(e.FullPath);
+        //                break;
+        //            }
+        //            catch (IOException)
+        //            {
+        //                Task.Delay(100).Wait();
+        //            }
+        //        }
 
-                // Clean up processed file
-                File.Delete(e.FullPath);
+        //        ReceiptData receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
 
-                this.Invoke((MethodInvoker)(() =>
-                {
-                    lblnotify.Text = "Waiting for invoice...";
-                }));
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error parsing file {e.Name}: {ex.Message}");
-                this.Invoke((MethodInvoker)(() =>
-                {
-                    lblnotify.Text = "Waiting for invoice...";
-                }));
-            }
-        }
+        //        this.Invoke((MethodInvoker)(() =>
+        //        {
+        //            lblnotify.Text = "New invoice found...";
+        //            lblnotify.Text = "Processing invoice with invoice number " + receipt.InvoiceNo;
+        //        }));
+
+        //        if (receipt.doc_type == null)
+        //        {
+        //            SaveQRCode(receipt.QRCode, receipt.InvoiceNo);
+        //        }
+
+        //        if (receipt.doc_type == "kitchen")
+        //        {
+        //            KitchenData receipt1 = JsonConvert.DeserializeObject<KitchenData>(json);
+        //            ReceiptPrinter printer = new ReceiptPrinter(receipt1);
+        //            if (Properties.Settings.Default.IsSinglePrinter)
+        //            {
+        //                printer.PrintKitchenReceipt(Properties.Settings.Default.DefaultPrinter);
+        //            }
+        //            if (Properties.Settings.Default.IsMultiplePrinter)
+        //            {
+        //                foreach (string item in Properties.Settings.Default.MultiplePrinterList)
+        //                {
+        //                    printer.PrintKitchenReceipt(item);
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ReceiptPrinter printer = new ReceiptPrinter(receipt);
+        //            if (Properties.Settings.Default.IsSinglePrinter)
+        //            {
+        //                printer.PrintReceipt1(Properties.Settings.Default.DefaultPrinter);
+        //            }
+        //            if (Properties.Settings.Default.IsMultiplePrinter)
+        //            {
+        //                foreach (string item in Properties.Settings.Default.MultiplePrinterList)
+        //                {
+        //                    printer.PrintReceipt1(item);
+        //                }
+        //            }
+        //        }
+
+        //        // Clean up processed file
+        //        File.Delete(e.FullPath);
+
+        //        this.Invoke((MethodInvoker)(() =>
+        //        {
+        //            lblnotify.Text = "Waiting for invoice...";
+        //        }));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine($"Error parsing file {e.Name}: {ex.Message}");
+        //        this.Invoke((MethodInvoker)(() =>
+        //        {
+        //            lblnotify.Text = "Waiting for invoice...";
+        //        }));
+        //    }
+        //}
 
         private async Task Printout()
         {
@@ -273,13 +279,38 @@ namespace ERPPrintManager
                     else
                         txtPrintingPath = Path.Combine(documentsPath, "TxtPrinting");
 
+                    const string defaultDir = @"C:\InvoiceFolder";
+
                     if (!Directory.Exists(txtPrintingPath))
                     {
                         this.Invoke((MethodInvoker)(() =>
                         {
                             using (FolderBrowserDialog dialog = new FolderBrowserDialog())
                             {
-                                dialog.Description = "Select a directory for Label Printing Text files";
+
+                                var result = MessageBox.Show(
+           "Printing directory is not set.\n\n" +
+           "Yes  → Use default directory (C:\\InvoiceFolder)\n" +
+           "No   → Let me choose a directory",
+           "Directory Not Set",
+           MessageBoxButtons.YesNo,
+           MessageBoxIcon.Question
+       );
+                                if (result == DialogResult.Yes)
+                                {
+                                    //now check if Dir Exist else create folder DIr
+                                                                        Directory.CreateDirectory(defaultDir);
+                                    txtPrintingPath = defaultDir;
+                                    File.WriteAllText(pathConfigFile, txtPrintingPath);
+                                }
+
+
+                                else
+                                {
+                                
+                               
+
+                                    dialog.Description = "Select a directory for Label Printing Text files";
                                 if (dialog.ShowDialog() == DialogResult.OK)
                                 {
                                     txtPrintingPath = dialog.SelectedPath;
@@ -291,9 +322,15 @@ namespace ERPPrintManager
                                     MessageBox.Show("No directory selected. Printing aborted.");
                                     return; // Stop monitoring
                                 }
+
+                                }
+
                             }
                         }));
                     }
+
+
+
                     //MessageBox.Show("Execution started1");
 
                     if (!File.Exists(printedFilesPath))
@@ -348,86 +385,113 @@ namespace ERPPrintManager
 
                             if (!File.Exists(settingsFilePath))
                             {
-                                MessageBox.Show("Printer settings file not found");
-                                return;
+                                MessageBox.Show("Printer settings file not found, Set the Printer Settings ");
+                                //return;
                             }
 
-                            string printerJson = File.ReadAllText(settingsFilePath, Encoding.UTF8);
-                            JArray printersArray = JArray.Parse(printerJson);
-
-                            foreach (var printerItem in printersArray)
+                            //Printing
+                            else
                             {
-                                string printerName = printerItem["PrinterName"]?.ToString();
-                                bool isDefault = printerItem["IsDefault"]?.Value<bool>() ?? false;
-                                bool isKitchen = printerItem["IsKitchenPrinter"]?.Value<bool>() ?? false;
 
-                                if (string.IsNullOrEmpty(printerName) || !isDefault)
-                                    continue;
 
-                                if (!isKitchen)
+
+                                string printerJson = File.ReadAllText(settingsFilePath, Encoding.UTF8);
+                                JArray printersArray = JArray.Parse(printerJson);
+
+                                foreach (var printerItem in printersArray)
                                 {
-                                    // ✅ Receipt printer
-                                    ReceiptData receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
+                                    string printerName = printerItem["PrinterName"]?.ToString();
+                                    bool isDefault = printerItem["IsDefault"]?.Value<bool>() ?? false;
+                                    bool isKitchen = printerItem["IsKitchenPrinter"]?.Value<bool>() ?? false;
+                                    bool IsBoth = printerItem["IsBoth"]?.Value<bool>() ?? false;
+                                    
+                                    if (string.IsNullOrEmpty(printerName) || !isDefault)
+                                        continue;
 
-                                    if (receipt == null)
-                                        throw new Exception("Receipt data deserialization failed");
-
-                                    SaveQRCode(receipt.QRCode, receipt.InvoiceNo);
-
-                                    ReceiptPrinter printer = new ReceiptPrinter(receipt);
-                                    printer.PrintReceipt1(printerName);
-                                }
-                                else
-                                {
-                                    // ✅ Kitchen printer
-                                    //KitchenData kitchen = JsonConvert.DeserializeObject<KitchenData>(json);
-                                    //// ch
-                                    //if (kitchen == null)
-                                    //    throw new Exception("Kitchen data deserialization failed");
-
-                                    //ReceiptPrinter printer = new ReceiptPrinter(kitchen);
-                                    //printer.PrintKitchenReceipt(printerName); // 🔴 important: different method
-
-                                    KitchenData kitchen = JsonConvert.DeserializeObject<KitchenData>(json);
-                                    if (kitchen == null)
+                                    // Case 1: Send to BOTH Kitchen and Receipt
+                                    if (IsBoth)
                                     {
-                                        Console.WriteLine("Kitchen data deserialization failed");
-                                        throw new Exception("Kitchen data deserialization failed");
+                                        // ===== Receipt =====
+                                        ReceiptData receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
+                                        if (receipt == null)
+                                            throw new Exception("Receipt data deserialization failed");
+
+                                        SaveQRCode(receipt.QRCode, receipt.InvoiceNo);
+
+                                        ReceiptPrinter receiptPrinter = new ReceiptPrinter(receipt);
+                                        receiptPrinter.PrintReceipt1(printerName);
+
+                                        // ===== Kitchen =====
+                                        KitchenData kitchen = JsonConvert.DeserializeObject<KitchenData>(json);
+                                        if (kitchen == null)
+                                            throw new Exception("Kitchen data deserialization failed");
+
+                                        if (kitchen.itemlist != null && kitchen.itemlist.Any(i => i.IsKitchenItem))
+                                        {
+                                            kitchen.itemlist = kitchen.itemlist
+                                                                        .Where(i => i.IsKitchenItem)
+                                                                        .ToList();
+
+                                            ReceiptPrinter kitchenPrinter = new ReceiptPrinter(kitchen);
+                                            kitchenPrinter.PrintKitchenReceipt(printerName);
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"No Kitchen Item on Invoice label file {fileName}");
+                                        }
                                     }
 
-                                    // 1️⃣ Check if there is at least one kitchen item
-                                    if (kitchen.itemlist == null ||
-                                        !kitchen.itemlist.Any(i => i.IsKitchenItem))
+                                    // Case 2: Receipt ONLY
+                                    else if (!isKitchen)
                                     {
+                                        ReceiptData receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
+                                        if (receipt == null)
+                                            throw new Exception("Receipt data deserialization failed");
 
-                                        Console.WriteLine($"No Kitchen Item on Invoice label file {fileName}:");
+                                        SaveQRCode(receipt.QRCode, receipt.InvoiceNo);
 
-                                        //return; // No kitchen items → exit silently
+                                        ReceiptPrinter printer = new ReceiptPrinter(receipt);
+                                        printer.PrintReceipt1(printerName);
                                     }
 
-                                    // 2️⃣ Keep only kitchen items
+                                    // Case 3: Kitchen ONLY
                                     else
                                     {
-                                        kitchen.itemlist = kitchen.itemlist
-                                                                  .Where(i => i.IsKitchenItem)
-                                                                  .ToList();
+                                        KitchenData kitchen = JsonConvert.DeserializeObject<KitchenData>(json);
+                                        if (kitchen == null)
+                                            throw new Exception("Kitchen data deserialization failed");
 
-                                        // 3️⃣ Print
+                                        if (kitchen.itemlist == null || !kitchen.itemlist.Any(i => i.IsKitchenItem))
+                                        {
+                                            Console.WriteLine($"No Kitchen Item on Invoice label file {fileName}");
+                                            return;
+                                        }
+
+                                        kitchen.itemlist = kitchen.itemlist
+                                                                    .Where(i => i.IsKitchenItem)
+                                                                    .ToList();
+
                                         ReceiptPrinter printer = new ReceiptPrinter(kitchen);
                                         printer.PrintKitchenReceipt(printerName);
                                     }
 
 
 
-                                }
-                            }
 
-                            File.AppendAllText(printedFilesPath, fileName + Environment.NewLine);
+                                }
+
+                                File.AppendAllText(printedFilesPath, fileName + Environment.NewLine);
+                            }
+                        
+                        //end printing
+                       
+                        
+                        
                         }
                         catch (Exception ex)
-                            {
-                                Debug.WriteLine($"Error processing label file {fileName}: {ex.Message}");
-                            }
+                        {
+                            Debug.WriteLine($"Error processing label file {fileName}: {ex.Message}");
+                        }
                         }
 
                     await Task.Delay(3000);

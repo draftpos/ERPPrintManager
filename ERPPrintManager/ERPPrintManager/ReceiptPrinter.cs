@@ -607,6 +607,7 @@ namespace ERPPrintManager
                 {
                     companyinfo.InvoiceHeader = "QUOTATION";
                 }
+
                 if (!string.IsNullOrEmpty(companyinfo.InvoiceHeader))
                 {
                     textsize = graphics.MeasureString(companyinfo.InvoiceHeader, contentHeaderFont, paperWidth);
@@ -669,13 +670,6 @@ namespace ERPPrintManager
                         irow += 1;
                     }
 
-                    //// ORDER NO
-                    //if (!string.IsNullOrEmpty(receiptData.SalesOpenNo) && !advancedata.Ordervisibilty)
-                    //{
-                    //    graphics.DrawString($"Order No. {receiptData.SalesOpenNo}", ordercontentFont, blackBrush, startX, startY + offset);
-                    //    offset += (int)ordercontentFont.GetHeight(graphics) + 5;
-                    //}
-
                     if (!string.IsNullOrEmpty(receiptData.InvoiceDate))
                     {
                         DateTime dt = DateTime.ParseExact(receiptData.InvoiceDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -705,8 +699,8 @@ namespace ERPPrintManager
 
                 //===== Fiscalization===========
                 
-                if ((receiptData.DeviceID != null) && (receiptData.doc_type==null) || (receiptData.DeviceID != null) && (receiptData.doc_type == "payment"))
-                {
+                //if ((receiptData.DeviceID != null) && (receiptData.doc_type==null) || (receiptData.DeviceID != null) && (receiptData.doc_type == "payment"))
+                //{
                     if (!string.IsNullOrEmpty(receiptData.DeviceID))
                     {
                         subHeader.AppendLine($"Device ID:\t{receiptData.DeviceID}");
@@ -731,8 +725,16 @@ namespace ERPPrintManager
                     irow = 1;
                     graphics.DrawLine(Pens.Black, startX, startY + offset, startX + 250, startY + offset);
                     offset += 3;
-                }
-                //===== Fiscalization===========
+                //}
+
+
+         
+                
+                
+                
+                
+                
+                //===== customer===========
                 subHeader = new StringBuilder();
 
                 if (receiptData.CustomerTradeName != null)

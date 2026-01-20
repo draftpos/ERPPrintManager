@@ -38,7 +38,8 @@ namespace ERPPrintManager
                 else
                 {
                     string json = File.ReadAllText(settingsFilePath);
-                    printerSettings = JsonConvert.DeserializeObject<List<PrinterSetting>>(json) ?? new List<PrinterSetting>();
+                    printerSettings = JsonConvert.DeserializeObject<List<PrinterSetting>>(json)
+                                      ?? new List<PrinterSetting>();
 
                     var allPrinters = PrinterSettingsHelper.GetAllPrintersWithDefaultStatus();
                     foreach (var printer in allPrinters)
@@ -56,7 +57,8 @@ namespace ERPPrintManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading printer settings:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error loading printer settings:\n" + ex.Message,
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -84,21 +86,29 @@ namespace ERPPrintManager
                     Width = 120
                 };
 
-                dataGridView1.Columns.Add(colPrinter);
-                dataGridView1.Columns.Add(colStatus);
-                dataGridView1.Columns.Add(colKitchen);
+                var colBoth = new DataGridViewCheckBoxColumn
+                {
+                    HeaderText = "Both",
+                    Width = 100
+                };
+
+                dataGridView1.Columns.Add(colPrinter);    // 0
+                dataGridView1.Columns.Add(colStatus);     // 1
+                dataGridView1.Columns.Add(colKitchen);    // 2
+                dataGridView1.Columns.Add(colBoth);       // 3
             }
 
             // Clear rows only
             dataGridView1.Rows.Clear();
 
-            // Fill rows using column indices
+            // Fill rows
             foreach (var printer in printerSettings)
             {
                 int rowIndex = dataGridView1.Rows.Add();
                 dataGridView1.Rows[rowIndex].Cells[0].Value = printer.PrinterName;
                 dataGridView1.Rows[rowIndex].Cells[1].Value = printer.IsDefault;
                 dataGridView1.Rows[rowIndex].Cells[2].Value = printer.IsKitchenPrinter;
+                dataGridView1.Rows[rowIndex].Cells[3].Value = printer.IsBoth;   // new column
             }
 
             dataGridView1.AllowUserToAddRows = false;
@@ -113,7 +123,8 @@ namespace ERPPrintManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error saving settings:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error saving settings:\n" + ex.Message,
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -128,17 +139,22 @@ namespace ERPPrintManager
 
                 bool isDefault = row.Cells[1].Value is bool b1 && b1;
                 bool isKitchen = row.Cells[2].Value is bool b2 && b2;
+                bool isBoth = row.Cells[3].Value is bool b3 && b3;    // new column
 
-                var printer = printerSettings.FirstOrDefault(p => p.PrinterName.Equals(printerName, StringComparison.OrdinalIgnoreCase));
+                var printer = printerSettings.FirstOrDefault(p =>
+                    p.PrinterName.Equals(printerName, StringComparison.OrdinalIgnoreCase));
+
                 if (printer != null)
                 {
                     printer.IsDefault = isDefault;
                     printer.IsKitchenPrinter = isKitchen;
+                    printer.IsBoth = isBoth;               // save new setting
                 }
             }
 
             SavePrinterSettings();
-            MessageBox.Show("Printer settings saved successfully!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Printer settings saved successfully!",
+                            "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 
@@ -148,6 +164,7 @@ namespace ERPPrintManager
         public string PrinterName { get; set; }
         public bool IsDefault { get; set; }
         public bool IsKitchenPrinter { get; set; }
+        public bool IsBoth { get; set; }          // ← Added for the new "Both" column
     }
 
     // Helper to get system printers
@@ -162,7 +179,8 @@ namespace ERPPrintManager
                 {
                     PrinterName = printer,
                     IsDefault = false,
-                    IsKitchenPrinter = false
+                    IsKitchenPrinter = false,
+                    IsBoth = false                    // default value for new property
                 });
             }
             return printers;
