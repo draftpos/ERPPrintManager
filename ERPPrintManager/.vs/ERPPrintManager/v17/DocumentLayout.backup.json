@@ -3,7 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|c:\\users\\user\\documents\\github\\erpprintmanager\\erpprintmanager\\erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\erpprintmanager\\txtprinting_folder\\frmlabelprintersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\txtprinting_folder\\frmlabelprintersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\erpprintmanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -34,11 +34,11 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "KitchenData.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\KitchenData.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\KitchenData.cs",
@@ -46,30 +46,29 @@
               "RelativeToolTip": "ERPPrintManager\\KitchenData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwBYAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-19T16:44:21.962Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-19T16:44:21.962Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "frmManager.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\frmManager.cs",
-              "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.cs",
-              "RelativeToolTip": "ERPPrintManager\\frmManager.cs",
-              "ViewState": "AgIAAIcBAAAAAAAAAAAcwJ8BAAAbAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.cs*",
+              "RelativeToolTip": "ERPPrintManager\\frmManager.cs*",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAgwEQAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-19T14:58:45.436Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "frmManager.cs [Design]",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\frmManager.cs",
-              "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.cs [Design]",
-              "RelativeToolTip": "ERPPrintManager\\frmManager.cs [Design]",
+              "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.cs [Design]*",
+              "RelativeToolTip": "ERPPrintManager\\frmManager.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-19T14:58:40.621Z",
               "EditorCaption": " [Design]"
@@ -88,7 +87,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "frmLabelPrinterSettings.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\TxtPrinting_Folder\\frmLabelPrinterSettings.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\TxtPrinting_Folder\\frmLabelPrinterSettings.cs",

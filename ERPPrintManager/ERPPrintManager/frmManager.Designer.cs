@@ -36,13 +36,13 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setDefaultPrinterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelPrintingSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeDayReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MyNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.file_watcher = new System.IO.FileSystemWatcher();
             this.timer_start = new System.Windows.Forms.Timer(this.components);
-            this.labelPrintingSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -108,12 +108,23 @@
             // setDefaultPrinterToolStripMenuItem
             // 
             this.setDefaultPrinterToolStripMenuItem.BackColor = System.Drawing.Color.Purple;
+            this.setDefaultPrinterToolStripMenuItem.Enabled = false;
             this.setDefaultPrinterToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.setDefaultPrinterToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.settings_small;
             this.setDefaultPrinterToolStripMenuItem.Name = "setDefaultPrinterToolStripMenuItem";
             this.setDefaultPrinterToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
             this.setDefaultPrinterToolStripMenuItem.Text = "Set Default Printer";
             this.setDefaultPrinterToolStripMenuItem.Click += new System.EventHandler(this.setDefaultPrinterToolStripMenuItem_Click);
+            // 
+            // labelPrintingSettingsToolStripMenuItem
+            // 
+            this.labelPrintingSettingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.labelPrintingSettingsToolStripMenuItem.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPrintingSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.labelPrintingSettingsToolStripMenuItem.Name = "labelPrintingSettingsToolStripMenuItem";
+            this.labelPrintingSettingsToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
+            this.labelPrintingSettingsToolStripMenuItem.Text = "Label Printing Settings";
+            this.labelPrintingSettingsToolStripMenuItem.Click += new System.EventHandler(this.labelPrintingSettingsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -167,16 +178,6 @@
             // 
             this.timer_start.Enabled = true;
             this.timer_start.Tick += new System.EventHandler(this.timer_start_Tick);
-            // 
-            // labelPrintingSettingsToolStripMenuItem
-            // 
-            this.labelPrintingSettingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.labelPrintingSettingsToolStripMenuItem.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPrintingSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.labelPrintingSettingsToolStripMenuItem.Name = "labelPrintingSettingsToolStripMenuItem";
-            this.labelPrintingSettingsToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
-            this.labelPrintingSettingsToolStripMenuItem.Text = "Label Printing Settings";
-            this.labelPrintingSettingsToolStripMenuItem.Click += new System.EventHandler(this.labelPrintingSettingsToolStripMenuItem_Click);
             // 
             // frmManager
             // 
