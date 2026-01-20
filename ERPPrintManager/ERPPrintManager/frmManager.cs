@@ -380,13 +380,45 @@ namespace ERPPrintManager
                                 else
                                 {
                                     // ✅ Kitchen printer
+                                    //KitchenData kitchen = JsonConvert.DeserializeObject<KitchenData>(json);
+                                    //// ch
+                                    //if (kitchen == null)
+                                    //    throw new Exception("Kitchen data deserialization failed");
+
+                                    //ReceiptPrinter printer = new ReceiptPrinter(kitchen);
+                                    //printer.PrintKitchenReceipt(printerName); // 🔴 important: different method
+
                                     KitchenData kitchen = JsonConvert.DeserializeObject<KitchenData>(json);
-
                                     if (kitchen == null)
+                                    {
+                                        Console.WriteLine("Kitchen data deserialization failed");
                                         throw new Exception("Kitchen data deserialization failed");
+                                    }
 
-                                    ReceiptPrinter printer = new ReceiptPrinter(kitchen);
-                                    printer.PrintKitchenReceipt(printerName); // 🔴 important: different method
+                                    // 1️⃣ Check if there is at least one kitchen item
+                                    if (kitchen.itemlist == null ||
+                                        !kitchen.itemlist.Any(i => i.IsKitchenItem))
+                                    {
+
+                                        Console.WriteLine($"No Kitchen Item on Invoice label file {fileName}:");
+
+                                        //return; // No kitchen items → exit silently
+                                    }
+
+                                    // 2️⃣ Keep only kitchen items
+                                    else
+                                    {
+                                        kitchen.itemlist = kitchen.itemlist
+                                                                  .Where(i => i.IsKitchenItem)
+                                                                  .ToList();
+
+                                        // 3️⃣ Print
+                                        ReceiptPrinter printer = new ReceiptPrinter(kitchen);
+                                        printer.PrintKitchenReceipt(printerName);
+                                    }
+
+
+
                                 }
                             }
 

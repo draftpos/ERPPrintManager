@@ -25,6 +25,8 @@ namespace ERPPrintManager
         public string ProductName { get; set; }
         public int Qty { get; set; }
         public string Remark { get; set; }
+        public bool IsKitchenItem { get; set; } = false;
     }
+
 
 }
