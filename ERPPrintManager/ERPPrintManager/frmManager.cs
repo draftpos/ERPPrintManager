@@ -175,7 +175,7 @@ namespace ERPPrintManager
         }
 
 
-
+        bool msg = false;
 
 
         //private void file_watcher_Created(object sender, FileSystemEventArgs e)
@@ -319,8 +319,11 @@ namespace ERPPrintManager
                                 }
                                 else
                                 {
+                                        if (!msg) { 
                                     MessageBox.Show("No directory selected. Printing aborted.");
-                                    return; // Stop monitoring
+                                            msg = true;
+                                    return; // Stop monitoring\
+                                            }
                                 }
 
                                 }
@@ -385,8 +388,12 @@ namespace ERPPrintManager
 
                             if (!File.Exists(settingsFilePath))
                             {
-                                MessageBox.Show("Printer settings file not found, Set the Printer Settings ");
-                                //return;
+                                if (!msg)
+                                {
+                                    MessageBox.Show("Printer settings file not found, Set the Printer Settings ");
+                                    //return;
+                                    msg = true;
+                                }
                             }
 
                             //Printing
@@ -477,10 +484,11 @@ namespace ERPPrintManager
 
 
 
+                                    File.AppendAllText(printedFilesPath, fileName + Environment.NewLine);
 
                                 }
 
-                                File.AppendAllText(printedFilesPath, fileName + Environment.NewLine);
+                                // File.AppendAllText(printedFilesPath, fileName + Environment.NewLine);
                             }
                         
                         //end printing
