@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|c:\\users\\user\\documents\\github\\erpprintmanager\\erpprintmanager\\erpprintmanager\\kitchendata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\kitchendata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\erpprintmanager\\receiptprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\receiptprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|c:\\users\\user\\documents\\github\\erpprintmanager\\erpprintmanager\\erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\erpprintmanager\\frmmanager.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\frmmanager.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\erpprintmanager\\receiptprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59A72C54-8665-42DB-988A-1FCCF467156C}|ERPPrintManager\\ERPPrintManager.csproj|solutionrelative:erpprintmanager\\receiptprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,11 +26,24 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "KitchenData.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\KitchenData.cs",
+              "RelativeDocumentMoniker": "ERPPrintManager\\KitchenData.cs",
+              "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\KitchenData.cs",
+              "RelativeToolTip": "ERPPrintManager\\KitchenData.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAUwBgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T15:06:29.661Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "frmManager.Designer.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.Designer.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\frmManager.Designer.cs",
@@ -34,29 +51,31 @@
               "RelativeToolTip": "ERPPrintManager\\frmManager.Designer.cs",
               "ViewState": "AgIAAKEAAAAAAAAAAIAwwLEAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T13:03:21.128Z"
+              "WhenOpened": "2026-01-20T13:03:21.128Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "ReceiptPrinter.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\ReceiptPrinter.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\ReceiptPrinter.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\ReceiptPrinter.cs",
               "RelativeToolTip": "ERPPrintManager\\ReceiptPrinter.cs",
-              "ViewState": "AgIAAL8CAAAAAAAAAAAwwNUCAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAvwB4AAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T12:39:35.762Z"
+              "WhenOpened": "2026-01-20T12:39:35.762Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "frmManager.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.cs",
               "RelativeDocumentMoniker": "ERPPrintManager\\frmManager.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\ERPPrintManager\\ERPPrintManager\\ERPPrintManager\\frmManager.cs",
               "RelativeToolTip": "ERPPrintManager\\frmManager.cs",
-              "ViewState": "AgIAAHYBAAAAAAAAAAAawIsBAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAJ4BAAAAAAAAAAAuwOABAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-19T14:58:45.436Z",
               "EditorCaption": ""

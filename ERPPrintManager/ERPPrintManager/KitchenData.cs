@@ -23,7 +23,7 @@ namespace ERPPrintManager
     public class KitchenItem
     {
         public string ProductName { get; set; }
-        public int Qty { get; set; }
+        public double Qty { get; set; }
         public string Remark { get; set; }
         public bool IsKitchenItem { get; set; } = false;
     }
