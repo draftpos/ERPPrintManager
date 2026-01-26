@@ -16,6 +16,7 @@ namespace ERPPrintManager
         public string OrderDate { get; set; }
         public string OrderType { get; set; }
         public string InvoiceNo { get; set; }
+        public string ReceiptType { get; set; }//
         public List<KitchenItem> itemlist { get; set; }
         public string TotalItem { get; set; }
     }

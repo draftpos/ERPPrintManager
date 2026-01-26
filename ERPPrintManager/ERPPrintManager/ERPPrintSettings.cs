@@ -26,7 +26,7 @@ namespace ERPPrintManager
             Advance_settings settings = new Advance_settings();
 
             // Default values
-            int defaultHeaderSize = 12;
+            int defaultHeaderSize = 14;
             string defaultHeaderStyle = "Bold";
             int defaultContentSize = 10;
             int defaultSubheaderSize = 10;
@@ -81,7 +81,8 @@ namespace ERPPrintManager
 
     public class ReceiptData
     {
-        public string doc_type { get; set; } = null;
+        public string doc_type { get; set; } = null;//
+        public string ReceiptType { get; set; } = null;
         public string CompanyLogoPath { get; set; }
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }

@@ -348,8 +348,9 @@ namespace ERPPrintManager
                 offset = currentY;
                 // Invoice Header
                 Company companyinfo = new Company();
-                companyinfo.InvoiceHeader = "KITCHEN ORDER";
-                
+                companyinfo.InvoiceHeader = kitchen_data.ReceiptType; //"KITCHEN ORDER";
+
+
                 if (!string.IsNullOrEmpty(companyinfo.InvoiceHeader))
                 {
                     textsize = graphics.MeasureString(companyinfo.InvoiceHeader, contentHeaderFont, paperWidth);
@@ -362,15 +363,18 @@ namespace ERPPrintManager
                     offset += (int)textsize.Height + 5;
                 }
 
+
+
+
                 StringBuilder header = new StringBuilder();
                 if (!string.IsNullOrEmpty(kitchen_data.CompanyName))
                 {
-                    textsize = graphics.MeasureString(kitchen_data.CompanyName, contentHeaderFont, paperWidth);
+                    textsize = graphics.MeasureString(kitchen_data.CompanyName, contentsubHeaderFont, paperWidth);
                     RectangleF layoutRectangle1 = new RectangleF(0, startY + offset, paperWidth, textsize.Height);
                     StringFormat stringFormat1 = new StringFormat();
                     stringFormat1.Alignment = StringAlignment.Center;
                     stringFormat1.FormatFlags = StringFormatFlags.LineLimit;
-                    graphics.DrawString(kitchen_data.CompanyName, contentHeaderFont, blackBrush, layoutRectangle1, stringFormat1);
+                    graphics.DrawString(kitchen_data.CompanyName, contentsubHeaderFont, blackBrush, layoutRectangle1, stringFormat1);
                     offset += (int)textsize.Height + 5;
                 }
 
@@ -414,11 +418,21 @@ namespace ERPPrintManager
                     //    irow += 1;
                     //}
 
+                    //if (!string.IsNullOrEmpty(kitchen_data.InvoiceNo))
+                    //{
+                    //    subHeader.AppendLine($"Order No.: {kitchen_data.InvoiceNo}");
+                    //    irow += 1;
+                    //}
                     if (!string.IsNullOrEmpty(kitchen_data.InvoiceNo))
                     {
-                        subHeader.AppendLine($"Order No.: {kitchen_data.InvoiceNo}");
+                        string orderNo = kitchen_data.InvoiceNo.Length > 5
+                            ? kitchen_data.InvoiceNo.Substring(kitchen_data.InvoiceNo.Length - 5)
+                            : kitchen_data.InvoiceNo;
+
+                        subHeader.AppendLine($"Order No.: {orderNo}");
                         irow += 1;
                     }
+
 
                     irow = irow - 2;
                     string subHeaderString = subHeader.ToString();
@@ -598,15 +612,18 @@ namespace ERPPrintManager
                 offset = currentY;
                 // Invoice Header
                 Company companyinfo = new Company();
-                if (receiptData.doc_type == null)
-                {
-                    companyinfo.InvoiceHeader = "TAX INVOICE";
+                //if (receiptData.doc_type == null)
+                //{
+                //    companyinfo.InvoiceHeader = "TAX INVOICE";
 
-                }
-                else
-                {
-                    companyinfo.InvoiceHeader = "QUOTATION";
-                }
+                //}
+                //else
+                //{
+                //    companyinfo.InvoiceHeader = "QUOTATION";
+                //}
+
+                companyinfo.InvoiceHeader = receiptData.ReceiptType;
+
 
                 if (!string.IsNullOrEmpty(companyinfo.InvoiceHeader))
                 {
