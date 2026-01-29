@@ -522,14 +522,13 @@ namespace ERPPrintManager
         */
 
 
-
         private async Task Printout()
         {
-            //MessageBox.Show("Execution started");
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string pathConfigFile = Path.Combine(documentsPath, "TxtPrintingPath.txt");
             string printedFilesPath = Path.Combine(documentsPath, "PrintedFiles.txt");
             string txtPrintingPath;
+            bool msg = false;
 
             while (true)
             {
@@ -548,18 +547,16 @@ namespace ERPPrintManager
                         {
                             using (FolderBrowserDialog dialog = new FolderBrowserDialog())
                             {
-
                                 var result = MessageBox.Show(
-           "Printing directory is not set.\n\n" +
-           "Yes  → Use default directory (C:\\InvoiceFolder)\n" +
-           "No   → Let me choose a directory",
-           "Directory Not Set",
-           MessageBoxButtons.YesNo,
-           MessageBoxIcon.Question
-        );
+                                    "Printing directory is not set.\n\n" +
+                                    "Yes  → Use default directory (C:\\InvoiceFolder)\n" +
+                                    "No   → Let me choose a directory",
+                                    "Directory Not Set",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question);
+
                                 if (result == DialogResult.Yes)
                                 {
-                                    //now check if Dir Exist else create folder DIr
                                     Directory.CreateDirectory(defaultDir);
                                     txtPrintingPath = defaultDir;
                                     File.WriteAllText(pathConfigFile, txtPrintingPath);
@@ -579,7 +576,7 @@ namespace ERPPrintManager
                                         {
                                             MessageBox.Show("No directory selected. Printing aborted.");
                                             msg = true;
-                                            return; // Stop monitoring
+                                            return;
                                         }
                                     }
                                 }
@@ -613,156 +610,225 @@ namespace ERPPrintManager
                         if (printedFiles.Contains(fileName))
                             continue;
 
-                        Debug.WriteLine($"Processing label file: {fileName}");
+                        Debug.WriteLine($"Processing file: {fileName}");
                         this.Invoke((MethodInvoker)(() =>
                         {
-                            lblnotify.Text = $"Processing label {fileName}...";
+                            lblnotify.Text = $"Processing {fileName}...";
                         }));
 
                         try
                         {
                             string json = File.ReadAllText(file, Encoding.UTF8);
 
-                            string settingsFilePath = Path.Combine(documentsPath, "Labelprintingsttings.dll");
+                            string settingsFilePath = Path.Combine(documentsPath, "LabelPrinterSettings.json");
 
+                            List<PrinterSetting> printerSettings;
                             if (!File.Exists(settingsFilePath))
                             {
                                 if (!msg)
                                 {
-                                    MessageBox.Show("Printer settings file not found, Set the Printer Settings ");
+                                    MessageBox.Show("Printer settings file not found. Please set the Printer Settings first.");
                                     msg = true;
                                 }
+                                File.AppendAllText(printedFilesPath, fileName + Environment.NewLine);
                                 continue;
                             }
-
-                            string printerJson = File.ReadAllText(settingsFilePath, Encoding.UTF8);
-                            JArray printersArray = JArray.Parse(printerJson);
-
-                            // Parse JSON once for custom field access
-                            JObject root = JObject.Parse(json);
-                            JArray itemsJson = root["itemlist"] as JArray;
-
-                            ReceiptData receipt = null;
-                            bool receiptPrinted = false;
-
-                            // === 1. Print receipt to default printer(s) (if configured for receipt or both) ===
-                            foreach (JToken printerItem in printersArray)
+                            else
                             {
-                                string printerName = printerItem["PrinterName"]?.ToString()?.Trim();
-                                if (string.IsNullOrEmpty(printerName)) continue;
+                                string printerJson = File.ReadAllText(settingsFilePath, Encoding.UTF8);
+                                printerSettings = JsonConvert.DeserializeObject<List<PrinterSetting>>(printerJson)
+                                                  ?? new List<PrinterSetting>();
+                            }
 
-                                bool isDefault = printerItem["IsDefault"]?.Value<bool>() ?? false;
-                                bool isKitchen = printerItem["IsKitchenPrinter"]?.Value<bool>() ?? false;
-                                bool isBoth = printerItem["IsBoth"]?.Value<bool>() ?? false;
+                            // Deserialize once for receipt, once for kitchen base data
+                            ReceiptData receiptData = JsonConvert.DeserializeObject<ReceiptData>(json);
+                            KitchenData kitchenBase = JsonConvert.DeserializeObject<KitchenData>(json);
 
-                                if (!isDefault) continue;
-                                if (isKitchen && !isBoth) continue; // Kitchen-only default → no receipt
+                            if (receiptData == null && kitchenBase == null)
+                                throw new Exception("Failed to deserialize print data");
 
-                                receiptPrinted = true;
-                                if (receipt == null)
+                            // Determine if there are any kitchen items (using existing IsKitchenItem property)
+                            bool hasKitchenItems = kitchenBase?.itemlist?.Any(i => i.IsKitchenItem) ?? false;
+
+                            // --- Receipt Printing (to enabled non-kitchen printers) ---
+                            var receiptPrinters = printerSettings
+                                .Where(p => p.IsDefault &&(p.IsAll || p.IsMain))
+                                .ToList();
+
+                            if (receiptPrinters.Any() && receiptData != null)
+                            {
+                                SaveQRCode(receiptData.QRCode, receiptData.InvoiceNo);
+
+                                var receiptPrinter = new ReceiptPrinter(receiptData);
+                                foreach (var p in receiptPrinters)
                                 {
-                                    receipt = JsonConvert.DeserializeObject<ReceiptData>(json);
-                                    if (receipt != null)
-                                        SaveQRCode(receipt.QRCode, receipt.InvoiceNo);
-                                }
+                                    receiptPrinter.PrintReceipt1(p.PrinterName);
 
-                                if (receipt != null)
-                                {
-                                    ReceiptPrinter printer = new ReceiptPrinter(receipt);
-                                    printer.PrintReceipt1(printerName);
                                 }
                             }
 
-                            // === 2. Print to kitchen printers (multiple supported) ===
-                            if (itemsJson != null && itemsJson.Count > 0)
+                            //Console.WriteLine("Kicthen  items found" )
+                            // --- Kitchen Printing (granular routing) ---
+                            /*                         if (hasKitchenItems && kitchenBase?.itemlist != null)
+                                                     {
+                                                         var kitchenPrinters = printerSettings
+                                                             .Where(p => p.IsDefault && p.IsKitchenPrinter)
+                                                             .ToList();
+
+                                                         Console.WriteLine($"Kicthen  items found {kitchenPrinters.Count.ToString()}");
+                                                         //MessageBox.Show("Set" + kitchenPrinters.Count.ToString());
+                                                         foreach (var kp in kitchenPrinters)
+                                                         {
+                                                             var filteredItems = new List<KitchenItem>();
+                                                             //MessageBox.Show("Set11");
+
+                                                             foreach (var item in kitchenBase.itemlist)
+                                                             {
+                                                                 //MessageBox.Show("Set2");
+
+                                                                 if (!item.IsKitchenItem) continue;
+
+                                                                 bool matches = kp.IsAll || kp.IsMain;
+
+                                                                 if (!matches)
+                                                                 {
+                                                                     matches = (kp.IsOrder1 && item.IsOrderItem1) ||
+                                                                               (kp.IsOrder2 && item.IsOrderItem2) ||
+                                                                               (kp.IsOrder3 && item.IsOrderItem3) ||
+                                                                               (kp.IsOrder4 && item.IsOrderItem4) ||
+                                                                               (kp.IsOrder5 && item.IsOrderItem5) ||
+                                                                               (kp.IsOrder6 && item.IsOrderItem6) ||
+                                                                               (kp.IsOrder7 && item.IsOrderItem7) ||
+                                                                               (kp.IsOrder8 && item.IsOrderItem8) ||
+                                                                               (kp.IsOrder9 && item.IsOrderItem9) ||
+                                                                               (kp.IsOrder10 && item.IsOrderItem10);
+                                                                 }
+
+                                                                 if (matches)
+                                                                 {
+                                                                     filteredItems.Add(item);
+                                                                 }
+                                                             }
+
+                                                             if (filteredItems.Any())
+                                                             {
+                                                                 // Create a fresh KitchenData instance and replace only the itemlist
+                                                                 KitchenData kitchenToPrint = JsonConvert.DeserializeObject<KitchenData>(json);
+                                                                 kitchenToPrint.itemlist = filteredItems;
+
+                                                                 var kitchenPrinter = new ReceiptPrinter(kitchenToPrint);
+                                                                 kitchenPrinter.PrintKitchenReceipt(kp.PrinterName);
+                                                                 //File.AppendAllText(printedFilesPath, fileName + Environment.NewLine);
+
+                                                             }
+                                                         }
+                                                     }
+                         */
+
+                            // --- Kitchen Printing (granular routing with separate prints per station) ---
+                            if (hasKitchenItems && kitchenBase?.itemlist != null)
                             {
-                                foreach (JToken printerItem in printersArray)
+                                var kitchenPrinters = printerSettings
+                                    .Where(p => p.IsDefault && p.IsKitchenPrinter)
+                                    .ToList();
+
+                                foreach (var kp in kitchenPrinters)
                                 {
-                                    string printerName = printerItem["PrinterName"]?.ToString()?.Trim();
-                                    if (string.IsNullOrEmpty(printerName)) continue;
-
-                                    bool isBoth = printerItem["IsBoth"]?.Value<bool>() ?? false;
-                                    bool isKitchen = printerItem["IsKitchenPrinter"]?.Value<bool>() ?? false;
-                                    if (!isKitchen && !isBoth) continue;
-
-                                    // Match printer names like "order1", "ORDER   7", "ORder  5", etc.
-                                    var match = Regex.Match(printerName, @"^order\s*(\d+)", RegexOptions.IgnoreCase);
-                                    if (!match.Success)
+                                    // If "All" or "MAIN" is checked → print ALL kitchen items in ONE document
+                                   /* if (kp.IsAll || kp.IsMain)
                                     {
-                                        // Fallback for non-order-named kitchen printers (general kitchen)
-                                        // Print items that belong to ANY order station
-                                        KitchenData kitchenFallback = JsonConvert.DeserializeObject<KitchenData>(json);
-                                        if (kitchenFallback?.itemlist != null)
+                                        var filteredItems = kitchenBase.itemlist
+                                            .Where(i => i.IsKitchenItem)
+                                            .ToList();
+
+                                        if (filteredItems.Any())
                                         {
-                                            bool hasAny = false;
-                                            for (int i = 0; i < kitchenFallback.itemlist.Count; i++)
-                                            {
-                                                JObject jitem = itemsJson[i] as JObject;
-                                                bool belongsToAny = false;
-                                                if (jitem != null)
-                                                {
-                                                    foreach (var prop in jitem.Properties())
-                                                    {
-                                                        if (prop.Name.StartsWith("Item-custom_is_order_item_") &&
-                                                            prop.Value.Type == JTokenType.Boolean &&
-                                                            prop.Value.Value<bool>())
-                                                        {
-                                                            belongsToAny = true;
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                                kitchenFallback.itemlist[i].IsKitchenItem = belongsToAny;
-                                                if (belongsToAny) hasAny = true;
-                                            }
+                                            KitchenData kitchenToPrint = JsonConvert.DeserializeObject<KitchenData>(json);
+                                            kitchenToPrint.itemlist = filteredItems;
 
-                                            if (hasAny)
-                                            {
-                                                ReceiptPrinter kp = new ReceiptPrinter(kitchenFallback);
-                                                kp.PrintKitchenReceipt(printerName);
-                                            }
+                                            var kitchenPrinter = new ReceiptPrinter(kitchenToPrint);
+                                            kitchenPrinter.PrintKitchenReceipt(kp.PrinterName);
                                         }
-                                        continue;
                                     }
-
-                                    // Specific order printer (e.g., order1 → look for Item-custom_is_order_item_1)
-                                    string orderNo = match.Groups[1].Value;
-                                    string customKey = "Item-custom_is_order_item_" + orderNo;
-
-                                    KitchenData kitchen = JsonConvert.DeserializeObject<KitchenData>(json);
-                                    if (kitchen?.itemlist == null) continue;
-
-                                    bool hasItemForThisPrinter = false;
-                                    for (int i = 0; i < kitchen.itemlist.Count; i++)
-                                    {
-                                        JToken customValToken = itemsJson[i][customKey];
-                                        bool isForThisPrinter = customValToken != null &&
-                                                                customValToken.Type == JTokenType.Boolean &&
-                                                                customValToken.Value<bool>();
-
-                                        kitchen.itemlist[i].IsKitchenItem = isForThisPrinter;
-                                        if (isForThisPrinter) hasItemForThisPrinter = true;
-                                    }
-
-                                    if (hasItemForThisPrinter)
-                                    {
-                                        ReceiptPrinter kitchenPrinter = new ReceiptPrinter(kitchen);
-                                        kitchenPrinter.PrintKitchenReceipt(printerName);
-                                    }
+                                    // Otherwise → print SEPARATE documents for each enabled ORDER1–ORDER10
                                     else
-                                    {
-                                        Console.WriteLine($"No items for kitchen printer {printerName} on invoice {fileName}");
-                                    }
+                                    {*/
+                                        // ORDER1
+                                        if (kp.IsOrder1)
+                                        {
+                                            var filtered = kitchenBase.itemlist.Where(i => i.IsOrderItem1).ToList();
+                                            if (filtered.Any()) PrintKitchenSlip(json, filtered, kp.PrinterName);
+                                        }
+                                        // ORDER2
+                                        if (kp.IsOrder2)
+                                        {
+                                            var filtered = kitchenBase.itemlist.Where(i => i.IsOrderItem2).ToList();
+                                            if (filtered.Any()) PrintKitchenSlip(json, filtered, kp.PrinterName);
+                                        }
+                                        // ORDER3
+                                        if (kp.IsOrder3)
+                                        {
+                                            var filtered = kitchenBase.itemlist.Where(i => i.IsOrderItem3).ToList();
+                                            if (filtered.Any()) PrintKitchenSlip(json, filtered, kp.PrinterName);
+                                        }
+                                        // ORDER4
+                                        if (kp.IsOrder4)
+                                        {
+                                            var filtered = kitchenBase.itemlist.Where(i => i.IsOrderItem4).ToList();
+                                            if (filtered.Any()) PrintKitchenSlip(json, filtered, kp.PrinterName);
+                                        }
+                                        // ORDER5
+                                        if (kp.IsOrder5)
+                                        {
+                                            var filtered = kitchenBase.itemlist.Where(i => i.IsOrderItem5).ToList();
+                                            if (filtered.Any()) PrintKitchenSlip(json, filtered, kp.PrinterName);
+                                        }
+                                        // ORDER6
+                                        if (kp.IsOrder6)
+                                        {
+                                            var filtered = kitchenBase.itemlist.Where(i => i.IsOrderItem6).ToList();
+                                            if (filtered.Any()) PrintKitchenSlip(json, filtered, kp.PrinterName);
+                                        }
+                                        // ORDER7
+                                        if (kp.IsOrder7)
+                                        {
+                                            var filtered = kitchenBase.itemlist.Where(i => i.IsOrderItem7).ToList();
+                                            if (filtered.Any()) PrintKitchenSlip(json, filtered, kp.PrinterName);
+                                        }
+                                        // ORDER8
+                                        if (kp.IsOrder8)
+                                        {
+                                            var filtered = kitchenBase.itemlist.Where(i => i.IsOrderItem8).ToList();
+                                            if (filtered.Any()) PrintKitchenSlip(json, filtered, kp.PrinterName);
+                                        }
+                                        // ORDER9
+                                        if (kp.IsOrder9)
+                                        {
+                                            var filtered = kitchenBase.itemlist.Where(i => i.IsOrderItem9).ToList();
+                                            if (filtered.Any()) PrintKitchenSlip(json, filtered, kp.PrinterName);
+                                        }
+                                        // ORDER10
+                                        if (kp.IsOrder10)
+                                        {
+                                            var filtered = kitchenBase.itemlist.Where(i => i.IsOrderItem10).ToList();
+                                            if (filtered.Any()) PrintKitchenSlip(json, filtered, kp.PrinterName);
+                                        }
+                                    //}
                                 }
                             }
 
-                            // Mark file as printed only after all printing is done
+
                             File.AppendAllText(printedFilesPath, fileName + Environment.NewLine);
+
+                            // Mark as processed only after everything succeeds
                         }
+
+
                         catch (Exception ex)
                         {
-                            Debug.WriteLine($"Error processing label file {fileName}: {ex.Message}");
-                            // Do NOT mark as printed on error – it will be retried
+                            Debug.WriteLine($"Error processing file {fileName}: {ex.Message}");
+                            File.AppendAllText(printedFilesPath, "Couldn't Print File " + fileName + ex.ToString() + Environment.NewLine);
+                            // File.AppendAllText(printedFilesPath, fileName + Environment.NewLine);
                         }
                     }
 
@@ -770,7 +836,7 @@ namespace ERPPrintManager
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("Error in label monitoring loop: " + ex.Message);
+                    Debug.WriteLine("Error in monitoring loop: " + ex.Message);
                     await Task.Delay(3000);
                 }
                 finally
@@ -781,6 +847,15 @@ namespace ERPPrintManager
                     }));
                 }
             }
+        }
+
+        private void PrintKitchenSlip(string originalJson, List<KitchenItem> items, string printerName)
+        {
+            KitchenData kitchenToPrint = JsonConvert.DeserializeObject<KitchenData>(originalJson);
+            kitchenToPrint.itemlist = items;
+
+            var kitchenPrinter = new ReceiptPrinter(kitchenToPrint);
+            kitchenPrinter.PrintKitchenReceipt(printerName);
         }
         private void file_watcher_Renamed(object sender, RenamedEventArgs e)
         {
