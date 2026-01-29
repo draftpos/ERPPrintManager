@@ -348,7 +348,7 @@ namespace ERPPrintManager
                 offset = currentY;
                 // Invoice Header
                 Company companyinfo = new Company();
-                companyinfo.InvoiceHeader = kitchen_data.ReceiptType; //"KITCHEN ORDER";
+                companyinfo.InvoiceHeader ="KITCHEN ORDER";// kitchen_data.ReceiptType; //
 
 
                 if (!string.IsNullOrEmpty(companyinfo.InvoiceHeader))
@@ -614,7 +614,7 @@ namespace ERPPrintManager
                 Company companyinfo = new Company();
                 //if (receiptData.doc_type == null)
                 //{
-                //    companyinfo.InvoiceHeader = "TAX INVOICE";
+                  companyinfo.InvoiceHeader = "TAX INVOICE";
 
                 //}
                 //else
@@ -622,7 +622,7 @@ namespace ERPPrintManager
                 //    companyinfo.InvoiceHeader = "QUOTATION";
                 //}
 
-                companyinfo.InvoiceHeader = receiptData.ReceiptType;
+                //companyinfo.InvoiceHeader = receiptData.ReceiptType;
 
 
                 if (!string.IsNullOrEmpty(companyinfo.InvoiceHeader))
@@ -652,6 +652,10 @@ namespace ERPPrintManager
                 // Build the header string
                 if (!string.IsNullOrEmpty(receiptData.CompanyAddress))
                     header.AppendLine(receiptData.CompanyAddress);
+                if (!string.IsNullOrEmpty(receiptData.CompanyAddressLine1))
+                    header.AppendLine(receiptData.CompanyAddressLine1);
+                if (!string.IsNullOrEmpty(receiptData.CompanyAddressLine2))
+                    header.AppendLine(receiptData.CompanyAddressLine2);
                 if (!string.IsNullOrEmpty(receiptData.City))
                     header.AppendLine(receiptData.City);
                 if (!string.IsNullOrEmpty(receiptData.State))
