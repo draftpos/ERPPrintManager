@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ERPPrintManager
 {
+
     public static class Printing80mm
     {
         private static PrintDocument pd = new PrintDocument();
@@ -17,7 +18,6 @@ namespace ERPPrintManager
         public static string printing_title = "ORDER";
         public static string titlecontent = "";
         private static Font largerBoldFont = new Font("Arial", 12, FontStyle.Bold);
-
         public static FontStyle GetFontStyle(string fontStyleString)
         {
             FontStyle style = FontStyle.Regular; // Default

@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Media.TextFormatting;
 
 namespace ERPPrintManager
@@ -598,9 +599,17 @@ namespace ERPPrintManager
                 //}
 
                 // Draw logo below "COPIED"
-                string logo_path = @"C:\InvoiceFolder\logo.png";
+                //string logo_path = @"C:\InvoiceFolder\logo.png";
+                string basePath = @"C:\logo\logo";
+                string[] extensions = { ".png", ".jpg", ".jpeg" };
+
+                string logo_path = extensions
+                    .Select(ext => basePath + ext)
+                    .FirstOrDefault(File.Exists);
+
                 if (File.Exists(logo_path))
                 {
+                    //MessageBox.Show("Found");
                     Image logo = Image.FromFile(logo_path);
                     int logoWidth = 140;
                     int logoHeight = 100;
@@ -608,8 +617,13 @@ namespace ERPPrintManager
                     graphics.DrawImage(logo, logoX, currentY, logoWidth, logoHeight);
                     currentY += logoHeight;
                 }
+               /* else 
+                {
+                
+                
+                }*/
 
-                offset = currentY;
+                    offset = currentY;
                 // Invoice Header
                 Company companyinfo = new Company();
                 //if (receiptData.doc_type == null)
