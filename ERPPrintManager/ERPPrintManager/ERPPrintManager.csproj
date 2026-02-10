@@ -78,6 +78,7 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="InvoiceCustomizationService.cs" />
     <Compile Include="KitchenData.cs" />
     <Compile Include="Printing80mm.cs" />
     <Compile Include="Program.cs" />

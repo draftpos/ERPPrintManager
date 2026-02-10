@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -39,6 +40,10 @@ namespace ERPPrintManager
         {
             closeday_data = data;
         }
+
+
+
+
 
         //public ReceiptPrinter(KitchenData data)
         //{
@@ -557,6 +562,7 @@ namespace ERPPrintManager
         }
         private void OnPrintPage(object sender, PrintPageEventArgs e)
         {
+            InvoiceCustomization config = InvoiceCustomizationService.GetCustomization();
             advancedata = advancedata.GetAdvanceData();
             Graphics graphics = e.Graphics;
             Font fontRegular = new Font("Arial", advancedata.ContentFontSize, GetFontStyle(advancedata.ContentFontStyle));
@@ -628,7 +634,7 @@ namespace ERPPrintManager
                 Company companyinfo = new Company();
                 //if (receiptData.doc_type == null)
                 //{
-                  companyinfo.InvoiceHeader = "TAX INVOICE";
+                companyinfo.InvoiceHeader = config.Type;// "TAX INVOICE";
 
                 //}
                 //else
@@ -772,7 +778,7 @@ namespace ERPPrintManager
                 //===== customer===========
                 subHeader = new StringBuilder();
 
-                if (receiptData.CustomerTradeName != null)
+                if (config.ShowPaymentsLabel && config.ShowDescriptionLabel) if (receiptData.CustomerTradeName != null)
                 {
                     if (!string.IsNullOrEmpty(receiptData.CustomerName))
                     {
@@ -828,10 +834,16 @@ namespace ERPPrintManager
                     graphics.DrawLine(Pens.Black, startX, startY + offset, startX + 250, startY + offset);
                     offset += 10;
                 }
-                string itemHeader = "Item Description" + "\t Payments" + Environment.NewLine + "ProductName" + Environment.NewLine + "Qty" + "\t" + "Price(Inc)  " + "VAT" + "\t" + "  Total(Inc)";
+                string vattext = "\nVAT";
+                if (!config.Vat)  vattext = "";
+                    string itemHeader = "Item Description" + "\t Payments" + Environment.NewLine + "ProductName" + $"{vattext}" + "\t" + "Price(Inc)  " + "VAT" + "\t" + "  Total(Inc)";
+                if (!config.ShowPaymentsLabel || !config.ShowDescriptionLabel) itemHeader =  "Qty" + "\t" + "Price(Inc)  " + $"{vattext}" + "\t" + "  Total(Inc)";
+           
                 graphics.DrawString(itemHeader, fontBold, blueBrush, startX, startY + offset);
-                offset += (int)(fontBold.GetHeight(graphics) * 3);
-                headerPrinted = true;
+            
+                if (!config.ShowPaymentsLabel || !config.ShowDescriptionLabel) offset += (int)(fontBold.GetHeight(graphics) *1);
+                if (config.ShowPaymentsLabel && config.ShowDescriptionLabel) offset += (int)(fontBold.GetHeight(graphics) * 3);
+                                headerPrinted = true;
             }
 
             // Print item description header
@@ -875,7 +887,7 @@ namespace ERPPrintManager
                 graphics.DrawString(qtyText, fontRegular, blackBrush, startX, startY + offset);
                 graphics.DrawString(priceText, fontRegular, blackBrush, priceXPosition + 20, startY + offset);
 
-                graphics.DrawString(vatText, fontRegular, blackBrush, vatXPosition + 15, startY + offset);
+           if (config.Vat)graphics.DrawString(vatText, fontRegular, blackBrush, vatXPosition + 15, startY + offset);
 
                 graphics.DrawString(amountText, fontRegular, blackBrush, totalXPosition, startY + offset);
                 offset += (int)fontRegular.GetHeight(graphics);
@@ -918,14 +930,14 @@ namespace ERPPrintManager
                 int valueXPosition = startX + labelWidth;
 
                 // Sub Total Exc.
-                graphics.DrawString("Sub Total Exc.", fontRegular, brownBrush, startX, startY + offset);
-                graphics.DrawString(totalamt_exclusive.ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
-                offset += (int)fontRegular.GetHeight(graphics);
+                if (config.SubtotalExcl) graphics.DrawString("Sub Total Exc.", fontRegular, brownBrush, startX, startY + offset);
+              if (config.SubtotalExcl) graphics.DrawString(totalamt_exclusive.ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
+                if (config.SubtotalExcl) offset += (int)fontRegular.GetHeight(graphics);
 
                 // Total Tax
-                graphics.DrawString("Total Tax:", fontRegular, brownBrush, startX, startY + offset);
-                graphics.DrawString(sumvat.ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
-                offset += (int)fontRegular.GetHeight(graphics);
+                if (config.Vat) graphics.DrawString("Total Tax:", fontRegular, brownBrush, startX, startY + offset);
+                if (config.Vat) graphics.DrawString(sumvat.ToString("F2"), fontRegular, blackBrush, valueXPosition, startY + offset, new StringFormat(StringFormatFlags.DirectionRightToLeft));
+                if (config.Vat) offset += (int)fontRegular.GetHeight(graphics);
 
                 // Invoice Amount Inc.
                 graphics.DrawString("Invoice Amount Inc.:", fontRegular, brownBrush, startX, startY + offset);
@@ -967,7 +979,7 @@ namespace ERPPrintManager
                         offset += (int)fontRegular.GetHeight(graphics) * 2;
                     }
 
-                    if (receiptData.MultiCurrencyDetails != null && receiptData.MultiCurrencyDetails.Count > 0)
+                   if (config.ShowPaymentsLabel) if (receiptData.MultiCurrencyDetails != null && receiptData.MultiCurrencyDetails.Count > 0)
                     {
                         graphics.DrawString("Multi Currency Details", fontBold, blackBrush, startX, startY + offset);
                         offset += (int)fontBold.GetHeight(graphics);
@@ -1051,7 +1063,7 @@ namespace ERPPrintManager
 
                     }
 
-                    string footer = $"Havano Point of Sale v11{Environment.NewLine}   Thanks....Visit Again!";
+                    string footer = config.Footer;// $"Havano Point of Sale v11{Environment.NewLine}   Thanks....Visit Again!";
                     graphics.DrawString(footer, fontRegular, blackBrush, startX + 40, startY + offset + 5);
                     vcodeprinted = true;
                 }

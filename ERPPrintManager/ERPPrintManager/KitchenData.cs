@@ -69,4 +69,19 @@ namespace ERPPrintManager
                                      IsOrderItem6 || IsOrderItem7 || IsOrderItem8 || IsOrderItem9 || IsOrderItem10;
     }
 
+
+    public class InvoiceCustomization
+    {
+        public string Type { get; set; }
+        public bool Vat { get; set; }
+        public string Footer { get; set; }
+        public bool SubtotalExcl { get; set; }
+        public bool Inclusive { get; set; }
+
+        public bool ShowDescriptionLabel { get; set; }
+        public bool ShowProductNameLabel { get; set; }
+        public bool ShowPaymentsLabel { get; set; }
+         //public bool IsShowPayment { get; set; }
+    }
+
 }
