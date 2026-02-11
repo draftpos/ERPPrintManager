@@ -90,6 +90,12 @@
     <Compile Include="TxtPrinting_Folder\frmLabelPrinterSettings.Designer.cs">
       <DependentUpon>frmLabelPrinterSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="TxtPrinting_Folder\frm_invoice_customization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TxtPrinting_Folder\frm_invoice_customization.Designer.cs">
+      <DependentUpon>frm_invoice_customization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Zimra.cs" />
     <EmbeddedResource Include="frmClosedayreport.resx">
       <DependentUpon>frmClosedayreport.cs</DependentUpon>
@@ -112,6 +118,9 @@
     </Compile>
     <EmbeddedResource Include="TxtPrinting_Folder\frmLabelPrinterSettings.resx">
       <DependentUpon>frmLabelPrinterSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TxtPrinting_Folder\frm_invoice_customization.resx">
+      <DependentUpon>frm_invoice_customization.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

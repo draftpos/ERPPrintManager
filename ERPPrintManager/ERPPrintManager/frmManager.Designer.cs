@@ -43,6 +43,12 @@
             this.MyNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.file_watcher = new System.IO.FileSystemWatcher();
             this.timer_start = new System.Windows.Forms.Timer(this.components);
+            this.invoiceConfigurationSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -97,7 +103,13 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setDefaultPrinterToolStripMenuItem,
+            this.toolStripSeparator1,
             this.labelPrintingSettingsToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.toolStripSeparator3,
+            this.invoiceConfigurationSettingsToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.toolStripSeparator5,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.Purple;
@@ -112,17 +124,18 @@
             this.setDefaultPrinterToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.setDefaultPrinterToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.settings_small;
             this.setDefaultPrinterToolStripMenuItem.Name = "setDefaultPrinterToolStripMenuItem";
-            this.setDefaultPrinterToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
+            this.setDefaultPrinterToolStripMenuItem.Size = new System.Drawing.Size(272, 24);
             this.setDefaultPrinterToolStripMenuItem.Text = "Set Default Printer";
             this.setDefaultPrinterToolStripMenuItem.Click += new System.EventHandler(this.setDefaultPrinterToolStripMenuItem_Click);
             // 
             // labelPrintingSettingsToolStripMenuItem
             // 
-            this.labelPrintingSettingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.labelPrintingSettingsToolStripMenuItem.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPrintingSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.labelPrintingSettingsToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.labelPrintingSettingsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.labelPrintingSettingsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPrintingSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.Purple;
             this.labelPrintingSettingsToolStripMenuItem.Name = "labelPrintingSettingsToolStripMenuItem";
-            this.labelPrintingSettingsToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
+            this.labelPrintingSettingsToolStripMenuItem.Size = new System.Drawing.Size(272, 24);
             this.labelPrintingSettingsToolStripMenuItem.Text = "Label Printing Settings";
             this.labelPrintingSettingsToolStripMenuItem.Click += new System.EventHandler(this.labelPrintingSettingsToolStripMenuItem_Click);
             // 
@@ -132,7 +145,7 @@
             this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.exitToolStripMenuItem.Image = global::ERPPrintManager.Properties.Resources.close_small;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(272, 24);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -171,13 +184,48 @@
             this.file_watcher.EnableRaisingEvents = true;
             this.file_watcher.SynchronizingObject = this;
             this.file_watcher.Changed += new System.IO.FileSystemEventHandler(this.file_watcher_Changed);
-            //this.file_watcher.Created += new System.IO.FileSystemEventHandler(this.file_watcher_Created);
             this.file_watcher.Renamed += new System.IO.RenamedEventHandler(this.file_watcher_Renamed);
             // 
             // timer_start
             // 
             this.timer_start.Enabled = true;
             this.timer_start.Tick += new System.EventHandler(this.timer_start_Tick);
+            // 
+            // invoiceConfigurationSettingsToolStripMenuItem
+            // 
+            this.invoiceConfigurationSettingsToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.invoiceConfigurationSettingsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.invoiceConfigurationSettingsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.invoiceConfigurationSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.Purple;
+            this.invoiceConfigurationSettingsToolStripMenuItem.Name = "invoiceConfigurationSettingsToolStripMenuItem";
+            this.invoiceConfigurationSettingsToolStripMenuItem.Size = new System.Drawing.Size(272, 24);
+            this.invoiceConfigurationSettingsToolStripMenuItem.Text = "Invoice Configuration Settings";
+            this.invoiceConfigurationSettingsToolStripMenuItem.Click += new System.EventHandler(this.invoiceConfigurationSettingsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(269, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(269, 6);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(269, 6);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(269, 6);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(269, 6);
             // 
             // frmManager
             // 
@@ -221,6 +269,12 @@
         private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeDayReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem labelPrintingSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem invoiceConfigurationSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }
 

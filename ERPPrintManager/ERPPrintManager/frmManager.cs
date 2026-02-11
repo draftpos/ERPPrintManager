@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ERPPrintManager.TxtPrinting_Folder;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using QRCoder;
 using System;
@@ -876,6 +877,12 @@ namespace ERPPrintManager
         private void labelPrintingSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmLabelPrinterSettings frm = new frmLabelPrinterSettings();
+            frm.ShowDialog();
+        }
+
+        private void invoiceConfigurationSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frm_invoice_customization frm = new frm_invoice_customization();
             frm.ShowDialog();
         }
     }
