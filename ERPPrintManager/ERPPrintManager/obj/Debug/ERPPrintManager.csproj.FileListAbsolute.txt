@@ -33,3 +33,4 @@ C:\Users\USER\Documents\GitHub\ERPPrintManager\ERPPrintManager\ERPPrintManager\o
 C:\Users\USER\Documents\GitHub\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.pdb
 C:\Users\USER\Documents\GitHub\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.frmLabelPrinterSettings.resources
 C:\Users\USER\Documents\GitHub\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.TxtPrinting_Folder.frm_invoice_customization.resources
+C:\Users\USER\Documents\GitHub\ERPPrintManager\ERPPrintManager\ERPPrintManager\obj\Debug\ERPPrintManager.TxtPrinting_Folder.frm_font_setting.resources

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,37 +13,89 @@ namespace ERPPrintManager
 
     }
 
+
+
+
     public class Advance_settings
     {
+        public string ContentFontName { get; set; }
         public int ContentFontSize { get; set; }
         public string ContentFontStyle { get; set; }
+
+        public string ContentHeaderFontName { get; set; }
         public int ContentHeaderSize { get; set; }
         public string ContentHeaderStyle { get; set; }
+
+        public string SubheaderFontName { get; set; }
         public int SubheaderSize { get; set; }
         public string SubheaderStyle { get; set; }
-        public int orderContentFontSize { get; set; }
-        public string orderContentFontStyle { get; set; }
-        public Advance_settings GetAdvanceData()
+
+        public string OrderContentFontName { get; set; }
+        public int OrderContentFontSize { get; set; }
+        public string OrderContentStyle { get; set; }
+
+
+        public Advance_settings GetAdvanceData(string filePath)
         {
             Advance_settings settings = new Advance_settings();
 
-            // Default values
-            int defaultHeaderSize = 11;
-            string defaultHeaderStyle = "Bold";
-            int defaultContentSize = 10;
-            int defaultSubheaderSize = 10;
-            int orderDefaultContentSize = 10;
-            string orderDefaultContentStyle = "Bold";
-
-            // Initialize settings with default values
-            settings.ContentFontSize = defaultContentSize;
+            // ===== DEFAULT VALUES =====
+            settings.ContentFontName = "Arial";
+            settings.ContentFontSize = 10;
             settings.ContentFontStyle = "Regular";
-            settings.ContentHeaderSize = defaultHeaderSize;
-            settings.ContentHeaderStyle = defaultHeaderStyle;
-            settings.SubheaderSize = defaultSubheaderSize;
+
+            settings.ContentHeaderFontName = "Arial";
+            settings.ContentHeaderSize = 11;
+            settings.ContentHeaderStyle = "Bold";
+
+            settings.SubheaderFontName = "Times New Roman";
+            settings.SubheaderSize = 10;
             settings.SubheaderStyle = "Bold";
-            settings.orderContentFontSize = orderDefaultContentSize;
-            settings.orderContentFontStyle = orderDefaultContentStyle;
+
+            settings.OrderContentFontName = "Arial";
+            settings.OrderContentFontSize = 10;
+            settings.OrderContentStyle = "Bold";
+         
+
+            if (!File.Exists(filePath))
+                return settings;
+
+            try
+            {
+                string json = File.ReadAllText(filePath);
+
+                var fileSettings = JsonConvert.DeserializeObject<Advance_settings>(json);
+
+                if (fileSettings != null)
+                {
+                    // Only overwrite if values exist
+                    settings.ContentFontName = fileSettings.ContentFontName ?? settings.ContentFontName;
+                    settings.ContentFontStyle = fileSettings.ContentFontStyle ?? settings.ContentFontStyle;
+                    settings.ContentHeaderFontName = fileSettings.ContentHeaderFontName ?? settings.ContentHeaderFontName;
+                    settings.ContentHeaderStyle = fileSettings.ContentHeaderStyle ?? settings.ContentHeaderStyle;
+                    settings.SubheaderFontName = fileSettings.SubheaderFontName ?? settings.SubheaderFontName;
+                    settings.SubheaderStyle = fileSettings.SubheaderStyle ?? settings.SubheaderStyle;
+                    settings.OrderContentFontName = fileSettings.OrderContentFontName ?? settings.OrderContentFontName;
+                    settings.OrderContentStyle = fileSettings.OrderContentStyle ?? settings.OrderContentStyle;
+
+                    if (fileSettings.ContentFontSize > 0)
+                        settings.ContentFontSize = fileSettings.ContentFontSize;
+
+                    if (fileSettings.ContentHeaderSize > 0)
+                        settings.ContentHeaderSize = fileSettings.ContentHeaderSize;
+
+                    if (fileSettings.SubheaderSize > 0)
+                        settings.SubheaderSize = fileSettings.SubheaderSize;
+
+                    if (fileSettings.OrderContentFontSize > 0)
+                        settings.OrderContentFontSize = fileSettings.OrderContentFontSize;
+                }
+            }
+            catch
+            {
+                // If JSON is corrupt → return defaults silently
+            }
+
             return settings;
         }
     }

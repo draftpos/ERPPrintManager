@@ -885,5 +885,11 @@ namespace ERPPrintManager
             frm_invoice_customization frm = new frm_invoice_customization();
             frm.ShowDialog();
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frm_font_setting frm = new frm_font_setting();
+            frm.ShowDialog();
+        }
     }
 }

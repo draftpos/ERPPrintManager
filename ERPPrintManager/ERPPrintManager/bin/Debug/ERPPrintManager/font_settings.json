@@ -1,0 +1,14 @@
+{
+  "ContentFontName": "Berlin Sans FB",
+  "ContentFontSize": 16,
+  "ContentFontStyle": "Regular",
+  "ContentHeaderFontName": "Arial",
+  "ContentHeaderSize": 22,
+  "ContentHeaderStyle": "Bold",
+  "SubheaderFontName": "Times New Roman",
+  "SubheaderSize": 10,
+  "SubheaderStyle": "Regular",
+  "OrderContentFontName": "Impact",
+  "OrderContentFontSize": 11,
+  "OrderContentStyle": "Bold"
+}

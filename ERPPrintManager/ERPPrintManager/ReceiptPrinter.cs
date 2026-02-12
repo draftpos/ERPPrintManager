@@ -75,16 +75,52 @@ namespace ERPPrintManager
 
         private void OnPrintReportPage(object sender, PrintPageEventArgs e)
         {
-            advancedata = advancedata.GetAdvanceData();
+
+
+            advancedata = advancedata.GetAdvanceData(Program.SettingsFilePath);
+
             Graphics graphics = e.Graphics;
-            Font fontRegular = new Font("Arial", advancedata.ContentFontSize, GetFontStyle(advancedata.ContentFontStyle));
-            Font fontBold = new Font("Arial", advancedata.SubheaderSize, GetFontStyle(advancedata.SubheaderStyle));
-            Font contentFont = new Font("Arial", advancedata.ContentFontSize, GetFontStyle(advancedata.ContentFontStyle));
-            Font ordercontentFont = new Font("Arial", advancedata.orderContentFontSize, GetFontStyle(advancedata.orderContentFontStyle));
-            Font contentsubHeaderFont = new Font("Arial", advancedata.SubheaderSize, GetFontStyle(advancedata.SubheaderStyle));
-            Font contentHeaderFont = new Font("Arial", advancedata.ContentHeaderSize, GetFontStyle(advancedata.ContentHeaderStyle));
+
+            Font fontRegular = new Font(
+                advancedata.ContentFontName,
+                advancedata.ContentFontSize,
+                GetFontStyle(advancedata.ContentFontStyle)
+            );
+
+            Font fontBold = new Font(
+                advancedata.SubheaderFontName,
+                advancedata.SubheaderSize,
+                GetFontStyle(advancedata.SubheaderStyle)
+            );
+
+            Font contentFont = new Font(
+                advancedata.ContentFontName,
+                advancedata.ContentFontSize,
+                GetFontStyle(advancedata.ContentFontStyle)
+            );
+
+            Font ordercontentFont = new Font(
+                advancedata.OrderContentFontName,
+                advancedata.OrderContentFontSize,
+                GetFontStyle(advancedata.OrderContentStyle)
+            );
+
+            Font contentsubHeaderFont = new Font(
+                advancedata.SubheaderFontName,
+                advancedata.SubheaderSize,
+                GetFontStyle(advancedata.SubheaderStyle)
+            );
+
+            Font contentHeaderFont = new Font(
+                advancedata.ContentHeaderFontName,
+                advancedata.ContentHeaderSize,
+                GetFontStyle(advancedata.ContentHeaderStyle)
+            );
+
             SolidBrush blackBrush = new SolidBrush(Color.Black);
             SolidBrush brownBrush = new SolidBrush(Color.OrangeRed);
+
+
             Pen grayPen = new Pen(Color.Gray, 1);
             grayPen.DashStyle = DashStyle.Dot;
             SolidBrush blueBrush = new SolidBrush(Color.Blue);
@@ -309,16 +345,50 @@ namespace ERPPrintManager
 
         private void OnPrintKitchenOrder(object sender, PrintPageEventArgs e)
         {
-            advancedata = advancedata.GetAdvanceData();
+
+
+            advancedata = advancedata.GetAdvanceData(Program.SettingsFilePath);
+
             Graphics graphics = e.Graphics;
-            Font fontRegular = new Font("Arial", advancedata.ContentFontSize, GetFontStyle(advancedata.ContentFontStyle));
-            Font fontBold = new Font("Arial", advancedata.SubheaderSize, GetFontStyle(advancedata.SubheaderStyle));
-            Font contentFont = new Font("Arial", advancedata.ContentFontSize, GetFontStyle(advancedata.ContentFontStyle));
-            Font ordercontentFont = new Font("Arial", advancedata.orderContentFontSize, GetFontStyle(advancedata.orderContentFontStyle));
-            Font contentsubHeaderFont = new Font("Arial", advancedata.SubheaderSize, GetFontStyle(advancedata.SubheaderStyle));
-            Font contentHeaderFont = new Font("Arial", advancedata.ContentHeaderSize, GetFontStyle(advancedata.ContentHeaderStyle));
+
+            // Content Font
+            Font contentFont = new Font(
+                advancedata.ContentFontName,
+                advancedata.ContentFontSize,
+                GetFontStyle(advancedata.ContentFontStyle)
+            );
+
+            // Subheader Font
+            Font contentsubHeaderFont = new Font(
+                advancedata.SubheaderFontName,
+                advancedata.SubheaderSize,
+                GetFontStyle(advancedata.SubheaderStyle)
+            );
+
+            // Header Font
+            Font contentHeaderFont = new Font(
+                advancedata.ContentHeaderFontName,
+                advancedata.ContentHeaderSize,
+                GetFontStyle(advancedata.ContentHeaderStyle)
+            );
+
+            // Order Content Font
+            Font ordercontentFont = new Font(
+                advancedata.OrderContentFontName,
+                advancedata.OrderContentFontSize,
+                GetFontStyle(advancedata.OrderContentStyle)
+            );
+
+            // If you still need a bold alias
+            Font fontBold = contentsubHeaderFont;
+
+            // If you still need regular alias
+            Font fontRegular = contentFont;
+
             SolidBrush blackBrush = new SolidBrush(Color.Black);
             SolidBrush brownBrush = new SolidBrush(Color.OrangeRed);
+
+
             Pen grayPen = new Pen(Color.Gray, 1);
             grayPen.DashStyle = DashStyle.Dot;
             Pen blackPen = new Pen(Color.Black, 1);
@@ -1093,16 +1163,48 @@ namespace ERPPrintManager
         private void OnPrintPage(object sender, PrintPageEventArgs e)
         {
             InvoiceCustomization config = InvoiceCustomizationService.GetCustomization();
-            advancedata = advancedata.GetAdvanceData();
+            advancedata = advancedata.GetAdvanceData(Program.SettingsFilePath);
+
             Graphics graphics = e.Graphics;
-            Font fontRegular = new Font("Arial", advancedata.ContentFontSize, GetFontStyle(advancedata.ContentFontStyle));
-            Font fontBold = new Font("Arial", advancedata.SubheaderSize, GetFontStyle(advancedata.SubheaderStyle));
-            Font contentFont = new Font("Arial", advancedata.ContentFontSize, GetFontStyle(advancedata.ContentFontStyle));
-            Font ordercontentFont = new Font("Arial", advancedata.orderContentFontSize, GetFontStyle(advancedata.orderContentFontStyle));
-            Font contentsubHeaderFont = new Font("Arial", advancedata.SubheaderSize, GetFontStyle(advancedata.SubheaderStyle));
-            Font contentHeaderFont = new Font("Arial", advancedata.ContentHeaderSize, GetFontStyle(advancedata.ContentHeaderStyle));
+
+            // Content Font
+            Font contentFont = new Font(
+                advancedata.ContentFontName,
+                advancedata.ContentFontSize,
+                GetFontStyle(advancedata.ContentFontStyle)
+            );
+
+            // Subheader Font
+            Font contentsubHeaderFont = new Font(
+                advancedata.SubheaderFontName,
+                advancedata.SubheaderSize,
+                GetFontStyle(advancedata.SubheaderStyle)
+            );
+
+            // Header Font
+            Font contentHeaderFont = new Font(
+                advancedata.ContentHeaderFontName,
+                advancedata.ContentHeaderSize,
+                GetFontStyle(advancedata.ContentHeaderStyle)
+            );
+
+            // Order Content Font
+            Font ordercontentFont = new Font(
+                advancedata.OrderContentFontName,
+                advancedata.OrderContentFontSize,
+                GetFontStyle(advancedata.OrderContentStyle)
+            );
+
+            // If you still need a bold alias
+            Font fontBold = contentsubHeaderFont;
+
+            // If you still need regular alias
+            Font fontRegular = contentFont;
+
             SolidBrush blackBrush = new SolidBrush(Color.Black);
             SolidBrush brownBrush = new SolidBrush(Color.OrangeRed);
+
+
             Pen grayPen = new Pen(Color.Gray, 1);
             grayPen.DashStyle = DashStyle.Dot;
             SolidBrush blueBrush = new SolidBrush(Color.Blue);
@@ -1145,7 +1247,7 @@ namespace ERPPrintManager
                 {
                     //MessageBox.Show("Found");
                     Image logo = Image.FromFile(logo_path);
-                    int logoWidth = 140;
+                    int logoWidth = 280;//140
                     int logoHeight = 100;
                     int logoX = startX + (effectiveWidth - logoWidth) / 2; // Center within content area
                     graphics.DrawImage(logo, logoX, currentY, logoWidth, logoHeight);
@@ -1507,7 +1609,19 @@ namespace ERPPrintManager
                         offset += 20;
                     }
                     string footer = config.Footer;// $"Havano Point of Sale v11{Environment.NewLine} Thanks....Visit Again!";
-                    graphics.DrawString(footer, fontRegular, blackBrush, startX + 40, startY + offset + 5);
+                                                  //  graphics.DrawString(footer, fontRegular, blackBrush, startX + 40, startY + offset + 5);
+
+
+
+                    SizeF textsize;
+                    textsize = graphics.MeasureString(footer, fontRegular, effectiveWidth); // Change to effectiveWidth
+                    RectangleF layoutRectangle = new RectangleF(startX, startY + offset, effectiveWidth, textsize.Height); // Start at startX, width effectiveWidth
+                    StringFormat stringFormat = new StringFormat();
+                    stringFormat.Alignment = StringAlignment.Center; // Change to Center
+                    stringFormat.FormatFlags = StringFormatFlags.LineLimit;
+                    graphics.DrawString(footer, fontRegular, blackBrush, layoutRectangle, stringFormat);
+                    //offset += (int)textsize.Height + 5;
+
                     vcodeprinted = true;
                 }
             }

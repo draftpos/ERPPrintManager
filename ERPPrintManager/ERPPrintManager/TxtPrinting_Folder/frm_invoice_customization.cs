@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using Newtonsoft.Json; // Assuming Json.NET for serialization/deserialization
+using Newtonsoft.Json;
+using System.Drawing.Imaging; // Assuming Json.NET for serialization/deserialization
 
 namespace ERPPrintManager.TxtPrinting_Folder
 {
@@ -178,6 +179,121 @@ namespace ERPPrintManager.TxtPrinting_Folder
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (pictureBoxLogo.Image == null)
+            {
+                MessageBox.Show("Please load a logo image first.", "No Image", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            // Store the original format for saving later (preserves PNG/JPEG/etc.)
+            ImageFormat originalFormat = pictureBoxLogo.Image.RawFormat;
+
+            // Work on a copy of the current image
+            Bitmap bmp = new Bitmap(pictureBoxLogo.Image);
+
+            // Detect background color from top-left corner (common for padded logos)
+            Color bgColor = bmp.GetPixel(0, 0);
+
+            // Decide if the background appears transparent
+            bool transparentBg = bgColor.A < 50;
+
+            // Threshold for considering a pixel "blank" when background is transparent
+            int alphaThreshold = 20;
+
+            // Find the bounding box of non-blank pixels
+            int left = bmp.Width;
+            int top = bmp.Height;
+            int right = -1;
+            int bottom = -1;
+
+            for (int x = 0; x < bmp.Width; x++)
+            {
+                for (int y = 0; y < bmp.Height; y++)
+                {
+                    Color pixel = bmp.GetPixel(x, y);
+
+                    bool isBlank = false;
+
+                    if (transparentBg)
+                    {
+                        // Transparent background: blank if low alpha
+                        if (pixel.A <= alphaThreshold)
+                            isBlank = true;
+                    }
+                    else
+                    {
+                        // Opaque background (e.g., white): blank if exact match to corner color
+                        if (pixel == bgColor)
+                            isBlank = true;
+                    }
+
+                    if (!isBlank)
+                    {
+                        if (x < left) left = x;
+                        if (x > right) right = x;
+                        if (y < top) top = y;
+                        if (y > bottom) bottom = y;
+                    }
+                }
+            }
+
+            bmp.Dispose();
+
+            // No content found
+            if (right < left)
+            {
+                MessageBox.Show("No content detected in the image.", "Blank Image", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int croppedWidth = right - left + 1;
+            int croppedHeight = bottom - top + 1;
+
+            // No blank borders detected
+            if (croppedWidth >= pictureBoxLogo.Image.Width && croppedHeight >= pictureBoxLogo.Image.Height)
+            {
+                MessageBox.Show("No blank space detected to remove. The image is already tightly cropped or has non-uniform borders.", "No Change", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Create the cropped bitmap
+            Rectangle cropRect = new Rectangle(left, top, croppedWidth, croppedHeight);
+            Bitmap croppedBitmap = new Bitmap(pictureBoxLogo.Image); // full copy first
+            croppedBitmap = croppedBitmap.Clone(cropRect, croppedBitmap.PixelFormat);
+
+            // Preview: replace the image in the PictureBox
+            if (pictureBoxLogo.Image != null)
+            {
+                pictureBoxLogo.Image.Dispose();
+                pictureBoxLogo.Image = null;
+            }
+            pictureBoxLogo.Image = croppedBitmap;
+            pictureBoxLogo.SizeMode = PictureBoxSizeMode.Zoom; // adjust if you use a different mode
+
+            // Ask user to confirm
+            DialogResult result = MessageBox.Show(
+                "Preview: Blank space (transparent or uniform background) has been removed.\n\nDo you want to save this cropped version as the new logo?",
+                "Confirm Edit",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Save the cropped version over the original file
+                croppedBitmap.Save(LogoPath, originalFormat);
+                MessageBox.Show("Logo successfully cropped and saved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // Cancel: discard cropped image and reload original
+                croppedBitmap.Dispose();
+                LoadLogo();
+                MessageBox.Show("Edit cancelled. Original logo restored.", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 

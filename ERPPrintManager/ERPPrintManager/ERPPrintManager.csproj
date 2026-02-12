@@ -58,6 +58,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppConfig.cs" />
     <Compile Include="CloseDayData.cs" />
     <Compile Include="ERPPrintSettings.cs" />
     <Compile Include="frmClosedayreport.cs">
@@ -90,6 +91,12 @@
     <Compile Include="TxtPrinting_Folder\frmLabelPrinterSettings.Designer.cs">
       <DependentUpon>frmLabelPrinterSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="TxtPrinting_Folder\frm_font_setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TxtPrinting_Folder\frm_font_setting.Designer.cs">
+      <DependentUpon>frm_font_setting.cs</DependentUpon>
+    </Compile>
     <Compile Include="TxtPrinting_Folder\frm_invoice_customization.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +125,9 @@
     </Compile>
     <EmbeddedResource Include="TxtPrinting_Folder\frmLabelPrinterSettings.resx">
       <DependentUpon>frmLabelPrinterSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TxtPrinting_Folder\frm_font_setting.resx">
+      <DependentUpon>frm_font_setting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TxtPrinting_Folder\frm_invoice_customization.resx">
       <DependentUpon>frm_invoice_customization.cs</DependentUpon>

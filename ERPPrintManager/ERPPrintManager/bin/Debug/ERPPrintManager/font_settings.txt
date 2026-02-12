@@ -1,0 +1,12 @@
+ContentFontName=Blackadder ITC
+ContentFontSize=1
+ContentFontStyle=Italic
+ContentHeaderFontName=Algerian
+ContentHeaderSize=15
+ContentHeaderStyle=Bold
+SubheaderFontName=Bahnschrift
+SubheaderSize=12
+SubheaderStyle=Italic
+OrderContentFontName=Arial Black
+OrderContentFontSize=11
+OrderContentFontStyle=Bold

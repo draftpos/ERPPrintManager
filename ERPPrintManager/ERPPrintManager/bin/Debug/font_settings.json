@@ -1,0 +1,14 @@
+{
+  "ContentFontName": "Times New Roman",
+  "ContentFontSize": 9,
+  "ContentFontStyle": "Bold",
+  "ContentHeaderFontName": "Bahnschrift SemiBold Condensed",
+  "ContentHeaderSize": 12,
+  "ContentHeaderStyle": "Bold Italic",
+  "SubheaderFontName": "Times New Roman",
+  "SubheaderSize": 9,
+  "SubheaderStyle": "Italic",
+  "OrderContentFontName": "Arial Black",
+  "OrderContentFontSize": 16,
+  "OrderContentStyle": "Bold"
+}
