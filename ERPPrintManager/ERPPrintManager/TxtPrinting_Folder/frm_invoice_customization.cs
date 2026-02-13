@@ -144,9 +144,7 @@ namespace ERPPrintManager.TxtPrinting_Folder
                 }
 
                 File.Copy(selectedFile, LogoPath, true);
-
                 LoadLogo();
-
                 MessageBox.Show("Logo uploaded successfully.",
                     "Success",
                     MessageBoxButtons.OK,

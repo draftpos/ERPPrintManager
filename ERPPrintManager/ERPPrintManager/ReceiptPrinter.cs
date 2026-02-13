@@ -157,7 +157,7 @@ namespace ERPPrintManager
                 if (File.Exists(logo_path))
                 {
                     Image logo = Image.FromFile(logo_path);
-                    int logoWidth = 140;
+                    int logoWidth = 110;
                     int logoHeight = 100;
                     int logoX = (paperWidth - logoWidth) / 2;
                     graphics.DrawImage(logo, logoX, currentY, logoWidth, logoHeight);
@@ -239,8 +239,7 @@ namespace ERPPrintManager
             string subHeaderString = subHeader.ToString();
             graphics.DrawString(subHeaderString, fontRegular, blackBrush, startX, startY + offset);
             offset += 55;
-
-            graphics.DrawLine(grayPen, startX, startY + offset, startX + 250, startY + offset);
+                        graphics.DrawLine(grayPen, startX, startY + offset, startX + 250, startY + offset);
             offset += 10;
 
             //==========DAILY TOTAL =====
@@ -1247,9 +1246,9 @@ namespace ERPPrintManager
                 {
                     //MessageBox.Show("Found");
                     Image logo = Image.FromFile(logo_path);
-                    int logoWidth = 280;//140
+                    int logoWidth = 260;//140//280
                     int logoHeight = 100;
-                    int logoX = startX + (effectiveWidth - logoWidth) / 2; // Center within content area
+                    int logoX = startX + (effectiveWidth - logoWidth) / 2   +15; // Center within content area
                     graphics.DrawImage(logo, logoX, currentY, logoWidth, logoHeight);
                     currentY += logoHeight;
                 }
@@ -1469,9 +1468,9 @@ namespace ERPPrintManager
             }
             int box_to = offset;
             // Boxed In Item
-            graphics.DrawLine(grayPen, startX, box_from + 3, startX, box_to);
-            graphics.DrawLine(grayPen, startX + 250, box_from + 3, startX + 250, box_to);
-            //======END =====
+            //graphics.DrawLine(grayPen, startX, box_from + 3, startX, box_to);
+            //graphics.DrawLine(grayPen, startX + 250, box_from + 3, startX + 250, box_to);
+            ////======END =====
             decimal sumvat = 0;
             sumvat = receiptData.itemlist.Sum(d => d.tax_amount);
             int spaceNeededForTotals = (int)(fontRegular.GetHeight(graphics) * 6);
