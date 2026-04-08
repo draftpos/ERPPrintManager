@@ -60,6 +60,7 @@ namespace ERPPrintManager.TxtPrinting_Folder
             chkShowDescriptionLabel.Checked = config.ShowDescriptionLabel;
             chkShowProductNameLabel.Checked = config.ShowProductNameLabel;
             chkShowPaymentsLabel.Checked = config.ShowPaymentsLabel;
+            txtkicthenheader.Text = config.kitchenheader;
         }
 
         private InvoiceCustomization GetConfigFromForm()
@@ -73,7 +74,8 @@ namespace ERPPrintManager.TxtPrinting_Folder
                 Inclusive = chkInclusive.Checked,
                 ShowDescriptionLabel = chkShowDescriptionLabel.Checked,
                 ShowProductNameLabel = chkShowProductNameLabel.Checked,
-                ShowPaymentsLabel = chkShowPaymentsLabel.Checked
+                ShowPaymentsLabel = chkShowPaymentsLabel.Checked,
+                kitchenheader=txtkicthenheader.Text
             };
         }
 
@@ -97,7 +99,8 @@ namespace ERPPrintManager.TxtPrinting_Folder
                 Inclusive = false,
                 ShowDescriptionLabel = false,
                 ShowProductNameLabel = false,
-                ShowPaymentsLabel = false
+                ShowPaymentsLabel = false,
+                kitchenheader="Kitchen Order"
             };
             PopulateFormFromConfig(currentConfig);
         }
@@ -293,6 +296,21 @@ namespace ERPPrintManager.TxtPrinting_Folder
                 MessageBox.Show("Edit cancelled. Original logo restored.", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void groupBoxSettings_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblType_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     // Assuming this class based on the JSON structure
@@ -301,6 +319,7 @@ namespace ERPPrintManager.TxtPrinting_Folder
         public string Type { get; set; }
         public bool Vat { get; set; }
         public string Footer { get; set; }
+        public string kitchenheader { get; set; }
         public bool SubtotalExcl { get; set; }
         public bool Inclusive { get; set; }
         public bool ShowDescriptionLabel { get; set; }
