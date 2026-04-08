@@ -41,6 +41,7 @@
             this.txtType = new System.Windows.Forms.TextBox();
             this.lblType = new System.Windows.Forms.Label();
             this.groupBoxLogo = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnBrowseLogo = new System.Windows.Forms.Button();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.btnSave = new System.Windows.Forms.Button();
@@ -50,7 +51,8 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.openFileDialogLogo = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.txtkicthenheader = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBoxSettings.SuspendLayout();
             this.groupBoxLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
@@ -58,6 +60,8 @@
             // 
             // groupBoxSettings
             // 
+            this.groupBoxSettings.Controls.Add(this.label1);
+            this.groupBoxSettings.Controls.Add(this.txtkicthenheader);
             this.groupBoxSettings.Controls.Add(this.chkShowPaymentsLabel);
             this.groupBoxSettings.Controls.Add(this.chkShowProductNameLabel);
             this.groupBoxSettings.Controls.Add(this.chkShowDescriptionLabel);
@@ -74,11 +78,12 @@
             this.groupBoxSettings.TabIndex = 0;
             this.groupBoxSettings.TabStop = false;
             this.groupBoxSettings.Text = "Invoice Customization Settings";
+            this.groupBoxSettings.Enter += new System.EventHandler(this.groupBoxSettings_Enter);
             // 
             // chkShowPaymentsLabel
             // 
             this.chkShowPaymentsLabel.AutoSize = true;
-            this.chkShowPaymentsLabel.Location = new System.Drawing.Point(19, 320);
+            this.chkShowPaymentsLabel.Location = new System.Drawing.Point(19, 358);
             this.chkShowPaymentsLabel.Name = "chkShowPaymentsLabel";
             this.chkShowPaymentsLabel.Size = new System.Drawing.Size(131, 17);
             this.chkShowPaymentsLabel.TabIndex = 9;
@@ -88,7 +93,7 @@
             // chkShowProductNameLabel
             // 
             this.chkShowProductNameLabel.AutoSize = true;
-            this.chkShowProductNameLabel.Location = new System.Drawing.Point(19, 290);
+            this.chkShowProductNameLabel.Location = new System.Drawing.Point(19, 328);
             this.chkShowProductNameLabel.Name = "chkShowProductNameLabel";
             this.chkShowProductNameLabel.Size = new System.Drawing.Size(153, 17);
             this.chkShowProductNameLabel.TabIndex = 8;
@@ -98,7 +103,7 @@
             // chkShowDescriptionLabel
             // 
             this.chkShowDescriptionLabel.AutoSize = true;
-            this.chkShowDescriptionLabel.Location = new System.Drawing.Point(19, 260);
+            this.chkShowDescriptionLabel.Location = new System.Drawing.Point(19, 298);
             this.chkShowDescriptionLabel.Name = "chkShowDescriptionLabel";
             this.chkShowDescriptionLabel.Size = new System.Drawing.Size(138, 17);
             this.chkShowDescriptionLabel.TabIndex = 7;
@@ -108,7 +113,7 @@
             // chkInclusive
             // 
             this.chkInclusive.AutoSize = true;
-            this.chkInclusive.Location = new System.Drawing.Point(19, 230);
+            this.chkInclusive.Location = new System.Drawing.Point(19, 268);
             this.chkInclusive.Name = "chkInclusive";
             this.chkInclusive.Size = new System.Drawing.Size(98, 17);
             this.chkInclusive.TabIndex = 6;
@@ -118,7 +123,7 @@
             // chkSubtotalExcl
             // 
             this.chkSubtotalExcl.AutoSize = true;
-            this.chkSubtotalExcl.Location = new System.Drawing.Point(19, 200);
+            this.chkSubtotalExcl.Location = new System.Drawing.Point(19, 238);
             this.chkSubtotalExcl.Name = "chkSubtotalExcl";
             this.chkSubtotalExcl.Size = new System.Drawing.Size(143, 17);
             this.chkSubtotalExcl.TabIndex = 5;
@@ -127,7 +132,7 @@
             // 
             // txtFooter
             // 
-            this.txtFooter.Location = new System.Drawing.Point(100, 100);
+            this.txtFooter.Location = new System.Drawing.Point(100, 138);
             this.txtFooter.Multiline = true;
             this.txtFooter.Name = "txtFooter";
             this.txtFooter.Size = new System.Drawing.Size(260, 80);
@@ -136,7 +141,7 @@
             // lblFooter
             // 
             this.lblFooter.AutoSize = true;
-            this.lblFooter.Location = new System.Drawing.Point(16, 103);
+            this.lblFooter.Location = new System.Drawing.Point(16, 141);
             this.lblFooter.Name = "lblFooter";
             this.lblFooter.Size = new System.Drawing.Size(40, 13);
             this.lblFooter.TabIndex = 3;
@@ -145,7 +150,7 @@
             // chkVat
             // 
             this.chkVat.AutoSize = true;
-            this.chkVat.Location = new System.Drawing.Point(19, 70);
+            this.chkVat.Location = new System.Drawing.Point(19, 108);
             this.chkVat.Name = "chkVat";
             this.chkVat.Size = new System.Drawing.Size(77, 17);
             this.chkVat.TabIndex = 2;
@@ -154,7 +159,7 @@
             // 
             // txtType
             // 
-            this.txtType.Location = new System.Drawing.Point(100, 40);
+            this.txtType.Location = new System.Drawing.Point(100, 28);
             this.txtType.Name = "txtType";
             this.txtType.Size = new System.Drawing.Size(260, 20);
             this.txtType.TabIndex = 1;
@@ -164,9 +169,10 @@
             this.lblType.AutoSize = true;
             this.lblType.Location = new System.Drawing.Point(6, 31);
             this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(34, 13);
+            this.lblType.Size = new System.Drawing.Size(80, 13);
             this.lblType.TabIndex = 0;
-            this.lblType.Text = "Type:";
+            this.lblType.Text = "Invoice Header";
+            this.lblType.Click += new System.EventHandler(this.lblType_Click);
             // 
             // groupBoxLogo
             // 
@@ -179,6 +185,16 @@
             this.groupBoxLogo.TabIndex = 1;
             this.groupBoxLogo.TabStop = false;
             this.groupBoxLogo.Text = "Logo";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(134, 218);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(158, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Filter Blank Space";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnBrowseLogo
             // 
@@ -202,29 +218,33 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(12, 400);
+            this.btnSave.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.btnSave.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Location = new System.Drawing.Point(258, 435);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(145, 52);
             this.btnSave.TabIndex = 2;
             this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(93, 400);
+            this.btnUpdate.Location = new System.Drawing.Point(544, 330);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.Size = new System.Drawing.Size(75, 35);
             this.btnUpdate.TabIndex = 3;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Visible = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnResetToDefault
             // 
-            this.btnResetToDefault.Location = new System.Drawing.Point(174, 400);
+            this.btnResetToDefault.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResetToDefault.Location = new System.Drawing.Point(409, 435);
             this.btnResetToDefault.Name = "btnResetToDefault";
-            this.btnResetToDefault.Size = new System.Drawing.Size(100, 23);
+            this.btnResetToDefault.Size = new System.Drawing.Size(142, 52);
             this.btnResetToDefault.TabIndex = 4;
             this.btnResetToDefault.Text = "Reset to Default";
             this.btnResetToDefault.UseVisualStyleBackColor = true;
@@ -232,22 +252,24 @@
             // 
             // btnFetchCurrent
             // 
-            this.btnFetchCurrent.Location = new System.Drawing.Point(280, 400);
+            this.btnFetchCurrent.Location = new System.Drawing.Point(438, 330);
             this.btnFetchCurrent.Name = "btnFetchCurrent";
-            this.btnFetchCurrent.Size = new System.Drawing.Size(100, 23);
+            this.btnFetchCurrent.Size = new System.Drawing.Size(100, 35);
             this.btnFetchCurrent.TabIndex = 5;
             this.btnFetchCurrent.Text = "Fetch Current";
             this.btnFetchCurrent.UseVisualStyleBackColor = true;
+            this.btnFetchCurrent.Visible = false;
             this.btnFetchCurrent.Click += new System.EventHandler(this.btnFetchCurrent_Click);
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(703, 400);
+            this.btnClose.Location = new System.Drawing.Point(642, 340);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 6;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Visible = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // openFileDialogLogo
@@ -257,28 +279,35 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Purple;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.panel1.Location = new System.Drawing.Point(395, 281);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(383, 3);
             this.panel1.TabIndex = 7;
             // 
-            // button1
+            // txtkicthenheader
             // 
-            this.button1.Location = new System.Drawing.Point(134, 218);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(158, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Filter Blank Space";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.txtkicthenheader.Location = new System.Drawing.Point(100, 64);
+            this.txtkicthenheader.Name = "txtkicthenheader";
+            this.txtkicthenheader.Size = new System.Drawing.Size(260, 20);
+            this.txtkicthenheader.TabIndex = 10;
+            this.txtkicthenheader.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 64);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Order Header";
             // 
             // frm_invoice_customization
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(790, 435);
+            this.ClientSize = new System.Drawing.Size(790, 495);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnFetchCurrent);
@@ -325,5 +354,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogLogo;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtkicthenheader;
+        private System.Windows.Forms.Label label1;
     }
 }
