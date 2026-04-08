@@ -75,8 +75,10 @@ namespace ERPPrintManager
         public string Type { get; set; }
         public bool Vat { get; set; }
         public string Footer { get; set; }
+        public string kitchenheader { get; set; }
         public bool SubtotalExcl { get; set; }
         public bool Inclusive { get; set; }
+        //public bool Inclusive { get; set; }
 
         public bool ShowDescriptionLabel { get; set; }
         public bool ShowProductNameLabel { get; set; }

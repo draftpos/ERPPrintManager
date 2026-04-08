@@ -347,7 +347,7 @@ namespace ERPPrintManager
 
 
             advancedata = advancedata.GetAdvanceData(Program.SettingsFilePath);
-
+            InvoiceCustomization config = InvoiceCustomizationService.GetCustomization();
             Graphics graphics = e.Graphics;
 
             // Content Font
@@ -408,22 +408,22 @@ namespace ERPPrintManager
                 SizeF textsize;
                 int currentY = startY;
 
-                // Draw logo below "COPIED"
-                string logo_path = @"C:\InvoiceFolder\logo.png";
-                if (File.Exists(logo_path))
-                {
-                    Image logo = Image.FromFile(logo_path);
-                    int logoWidth = 140;
-                    int logoHeight = 100;
-                    int logoX = (paperWidth - logoWidth) / 2;
-                    graphics.DrawImage(logo, logoX, currentY, logoWidth, logoHeight);
-                    currentY += logoHeight;
-                }
+                //// Draw logo below "COPIED"
+                //string logo_path = @"C:\InvoiceFolder\logo.png";
+                //if (File.Exists(logo_path))
+                //{
+                //    Image logo = Image.FromFile(logo_path);
+                //    int logoWidth = 140;
+                //    int logoHeight = 100;
+                //    int logoX = (paperWidth - logoWidth) / 2;
+                //    graphics.DrawImage(logo, logoX, currentY, logoWidth, logoHeight);
+                //    currentY += logoHeight;
+                //}
 
-                offset = currentY;
+                //offset = currentY;
                 // Invoice Header
                 Company companyinfo = new Company();
-                companyinfo.InvoiceHeader ="KITCHEN ORDER";// kitchen_data.ReceiptType; //
+                companyinfo.InvoiceHeader = config.kitchenheader; //"KITCHEN ORDER";// kitchen_data.ReceiptType; //
 
 
                 if (!string.IsNullOrEmpty(companyinfo.InvoiceHeader))
@@ -575,10 +575,10 @@ namespace ERPPrintManager
                 graphics.DrawLine(blackPen, startX, startY + offset, startX + 250, startY + offset);
                 offset += 10;
             }
-            int box_to = offset;
+            //int box_to = offset;
             // Boxed In Item
-            graphics.DrawLine(blackPen, startX, box_from - 37, startX, box_to);
-            graphics.DrawLine(blackPen, startX + 250, box_from - 37, startX + 250, box_to);
+            //graphics.DrawLine(blackPen, startX, box_from - 37, startX, box_to);
+            //graphics.DrawLine(blackPen, startX + 250, box_from - 37, startX + 250, box_to);
             //======END =====
            
             int spaceNeededForTotals = (int)(fontRegular.GetHeight(graphics) * 6);
@@ -1415,10 +1415,11 @@ namespace ERPPrintManager
                         graphics.DrawLine(Pens.Black, startX, startY + offset, startX + 250, startY + offset);
                         offset += 10;
                     }
-                string vattext = "\nVAT";
+                string vattext = "\tVAT";
                 if (!config.Vat) vattext = "";
-                string itemHeader = "Item Description" + "\t Payments" + Environment.NewLine + "ProductName" + Environment.NewLine + "\t" + "Price(Inc) " + $"{vattext}" + "\t" + " Total(Inc)";
-                if (!config.ShowPaymentsLabel || !config.ShowDescriptionLabel) itemHeader = "Qty" + "\t" + "Price(Inc) " + $"{vattext}" + "\t" + " Total(Inc)";
+                string itemHeader = "Item Description / ProductName" + 
+                    "\n\t" + "Price(Inc) " + $"{vattext}" + "\t" + " Total(Inc)";
+                if (!config.ShowPaymentsLabel || !config.ShowDescriptionLabel) itemHeader = "Qty" + "\t" + "Price(Inc) " + $"if !null(vattext) \t{vattext}" + "\t" + " Total(Inc)";
                 graphics.DrawString(itemHeader, fontBold, blueBrush, startX, startY + offset);
                 if (!config.ShowPaymentsLabel || !config.ShowDescriptionLabel) offset += (int)(fontBold.GetHeight(graphics) * 1);
                 if (config.ShowPaymentsLabel && config.ShowDescriptionLabel) offset += (int)(fontBold.GetHeight(graphics) * 3);
